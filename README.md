@@ -1,0 +1,43 @@
+# Wever Labs MCP Registry Publishing Pack
+
+Wever Labs provides MCP-callable workflow rails for agents that need bounded work execution, movement-fee quotes, payment authority references, paid rail runs, structured return packages, signed receipts, callback evidence, ledger entries, and verification proof.
+
+This pack is prepared for the Official MCP Registry publishing flow. The hosted MCP endpoint is:
+
+https://weverlabs.com/api/mcp
+
+Primary descriptors and proof pages:
+
+- MCP endpoint: https://weverlabs.com/api/mcp
+- MCP descriptor: https://weverlabs.com/.well-known/mcp.json
+- Agent self-serve: https://weverlabs.com/agent-self-serve/
+- Live demo: https://weverlabs.com/investor-demo/
+- Proof page: https://weverlabs.com/proof/
+- Provider callback receiver examples: https://weverlabs.com/provider-callback-receiver-examples/
+- Public GitHub client: https://github.com/CodeWever/wever-labs-agent-client
+
+## Current capabilities
+
+- List MCP tools
+- Quote paid rail movement fees
+- Create or reference payment authority
+- Complete paid PacketOps rail runs
+- Verify receipts
+- Return signed proof objects
+- Create callback-ready proof
+- Demonstrate credential allow/deny boundaries
+- Provide receiver-side callback examples
+
+## Registry naming
+
+Default GitHub-auth server name:
+
+`io.github.CodeWever/wever-labs`
+
+If the registry requires lowercase GitHub namespace matching, change it to:
+
+`io.github.codewever/wever-labs`
+
+If DNS authentication is used later, use the example file:
+
+`server.dns-auth.example.json`

@@ -1,0 +1,20 @@
+{
+  "name": "@codewever/wever-labs-mcp",
+  "version": "1.0.0",
+  "private": false,
+  "description": "Registry metadata package for the Wever Labs hosted MCP server.",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CodeWever/wever-labs-agent-client.git"
+  },
+  "mcpName": "io.github.CodeWever/wever-labs",
+  "files": [
+    "server.json",
+    "README.md"
+  ],
+  "scripts": {
+    "registry:publish": "mcp-publisher publish",
+    "registry:login": "mcp-publisher login github"
+  }
+}
