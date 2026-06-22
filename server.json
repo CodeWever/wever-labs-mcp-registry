@@ -1,16 +1,17 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "io.github.CodeWever/wever-labs",
-  "description": "MCP workflow rails for paid agent runs, receipts, callbacks, and proof.",
+  "name": "com.weverlabs/agentic-rails",
+  "description": "Agentic rails for complex workflows with receipts, fees, and MCP tool access.",
   "repository": {
     "url": "https://github.com/CodeWever/wever-labs-agent-client",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "1.8.0",
   "remotes": [
     {
       "type": "streamable-http",
       "url": "https://weverlabs.com/api/mcp"
     }
-  ]
+  ],
+  "title": "Wever Labs Agentic Rails"
 }
