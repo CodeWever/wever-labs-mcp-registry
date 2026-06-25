@@ -16,6 +16,21 @@ Wever Labs exposes MCP-accessible workflow rails for proof-backed agent runs, re
 | All agent tools | https://weverlabs.com/all-agent-tools/ |
 | OpenAPI | https://weverlabs.com/openapi.json |
 | LLM instructions | https://weverlabs.com/llms.txt |
+| Smithery listing | https://smithery.ai/servers/davidwever/wever-labs-agentic-rails |
+
+## Smithery integration
+
+Wever Labs Agentic Rails is available through Smithery for agent builders who want to connect through the Smithery CLI, MCP SDK, or AI SDK.
+
+Smithery listing: https://smithery.ai/servers/davidwever/wever-labs-agentic-rails
+
+Install Smithery CLI: npm install -g smithery
+
+Add the Wever Labs MCP server: smithery mcp add davidwever/wever-labs-agentic-rails
+
+List available tools: smithery tool list {connection}
+
+Call a tool: smithery tool call {connection} {tool_name} '{"key":"value"}'
 
 ## Current capabilities
 
