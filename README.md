@@ -17,20 +17,6 @@ Wever Labs exposes MCP-accessible workflow rails for proof-backed agent runs, re
 | OpenAPI | https://weverlabs.com/openapi.json |
 | LLM instructions | https://weverlabs.com/llms.txt |
 
-This pack is prepared for the Official MCP Registry publishing flow. The hosted MCP endpoint is:
-
-https://weverlabs.com/api/mcp
-
-Primary descriptors and proof pages:
-
-- MCP endpoint: https://weverlabs.com/api/mcp
-- MCP descriptor: https://weverlabs.com/.well-known/mcp.json
-- Agent self-serve: https://weverlabs.com/agent-self-serve/
-- Live demo: https://weverlabs.com/investor-demo/
-- Proof page: https://weverlabs.com/proof/
-- Provider callback receiver examples: https://weverlabs.com/provider-callback-receiver-examples/
-- Public GitHub client: https://github.com/CodeWever/wever-labs-agent-client
-
 ## Current capabilities
 
 - List MCP tools
