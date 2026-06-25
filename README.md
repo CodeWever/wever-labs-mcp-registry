@@ -1,6 +1,21 @@
 # Wever Labs MCP Registry Publishing Pack
 
-Wever Labs provides MCP-callable workflow rails for agents that need bounded work execution, movement-fee quotes, payment authority references, paid rail runs, structured return packages, signed receipts, callback evidence, ledger entries, and verification proof.
+Wever Labs provides MCP-callable workflow rails for agents that need bounded work execution, movement-fee quotes, payment authority references, paid rail runs, structured return packages, signed receipts, callback evidence, ledger entries, and verification proof. 
+
+## Wever Labs agent discovery links
+
+Wever Labs exposes MCP-accessible workflow rails for proof-backed agent runs, receipts, callbacks, and handoff packages.
+
+| Surface | URL |
+|---|---|
+| Website | https://weverlabs.com |
+| MCP endpoint | https://weverlabs.com/api/mcp |
+| MCP descriptor | https://weverlabs.com/.well-known/mcp.json |
+| Free proof run | https://weverlabs.com/free-proof-run/ |
+| Agent tools manifest | https://weverlabs.com/agent-tools.json |
+| All agent tools | https://weverlabs.com/all-agent-tools/ |
+| OpenAPI | https://weverlabs.com/openapi.json |
+| LLM instructions | https://weverlabs.com/llms.txt |
 
 This pack is prepared for the Official MCP Registry publishing flow. The hosted MCP endpoint is:
 
