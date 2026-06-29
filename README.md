@@ -1,5 +1,7 @@
 # Wever Labs MCP Registry Publishing Pack
 
+[![smithery badge](https://smithery.ai/badge/davidwever/wever-labs-agentic-rails)](https://smithery.ai/server/davidwever/wever-labs-agentic-rails)
+
 Wever Labs provides MCP-callable workflow rails for agents that need bounded work execution, movement-fee quotes, payment authority references, paid rail runs, structured return packages, signed receipts, callback evidence, ledger entries, and verification proof. 
 
 ## Wever Labs agent discovery links
