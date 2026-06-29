@@ -1,30 +1,47 @@
-# Wever Labs MCP Registry Publishing Pack
+# Wever Labs Agentic Rails
 
 [![smithery badge](https://smithery.ai/badge/davidwever/wever-labs-agentic-rails)](https://smithery.ai/server/davidwever/wever-labs-agentic-rails)
 
-Wever Labs provides MCP-callable workflow rails for agents that need bounded work execution, movement-fee quotes, payment authority references, paid rail runs, structured return packages, signed receipts, callback evidence, ledger entries, and verification proof. 
+Wever Labs Agentic Rails provides MCP-accessible commercial trust rails for agent work.
 
-## Wever Labs agent discovery links
+Agents and developers can inspect rails, create scoped work orders, execute bounded workflows, verify receipts, and review Trust Ledger / Agent Work History evidence.
 
-Wever Labs exposes MCP-accessible workflow rails for proof-backed agent runs, receipts, callbacks, and handoff packages.
+## Primary endpoints
 
 | Surface | URL |
 |---|---|
-| Website | https://weverlabs.com |
 | MCP endpoint | https://weverlabs.com/api/mcp |
 | MCP descriptor | https://weverlabs.com/.well-known/mcp.json |
-| Free proof run | https://weverlabs.com/free-proof-run/ |
-| Agent tools manifest | https://weverlabs.com/agent-tools.json |
-| All agent tools | https://weverlabs.com/all-agent-tools/ |
+| Agent descriptor | https://weverlabs.com/.well-known/agent.json |
+| Work-order API | https://weverlabs.com/api/work-orders |
+| Trust Ledger summary | https://weverlabs.com/api/work-history/summary |
+| Agent Work History | https://weverlabs.com/api/agent-work-history?agent_id=weverlabs-first-live-agent-001 |
+| Proof pack | https://weverlabs.com/investor-proof-pack/ |
 | OpenAPI | https://weverlabs.com/openapi.json |
-| LLM instructions | https://weverlabs.com/llms.txt |
-| Smithery listing | https://smithery.ai/servers/davidwever/wever-labs-agentic-rails |
+| Pricing | https://weverlabs.com/pricing/ |
+| Smithery listing | https://smithery.ai/server/davidwever/wever-labs-agentic-rails |
+| Glama listing | https://glama.ai/mcp/servers/io.github.CodeWever/wever-labs |
+
+## What the server exposes
+
+The MCP server exposes tools for scoped work orders, rail discovery, movement-fee quotes, rail execution, receipt verification, callback evidence, and work-history inspection.
+
+The observed proof records show a non-sample requester moving through:
+
+Work order -> Rail run -> Receipt -> Verification -> Trust Ledger -> Agent Work History
+
+The current proof pack defines these records as technical de-risking evidence. They show that the loop executes, verifies, and persists end-to-end. External developer invocation is the next adoption milestone.
 
 ## Smithery integration
 
 Wever Labs Agentic Rails is available through Smithery for agent builders who want to connect through the Smithery CLI, MCP SDK, or AI SDK.
 
-Smithery listing: https://smithery.ai/servers/davidwever/wever-labs-agentic-rails
+Smithery listing: https://smithery.ai/server/davidwever/wever-labs-agentic-rails
+
+Install Smithery CLI:
+
+```bash
+npm install -g smithery
 
 Install Smithery CLI: npm install -g smithery
 
