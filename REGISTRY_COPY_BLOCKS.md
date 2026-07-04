@@ -35,7 +35,7 @@ agents, agent-store, mcp, workflow, receipts, proof, evidence, handoffs, automat
   "mcpServers": {
     "wever-labs": {
       "url": "https://weverlabs.com/api/mcp",
-      "description": "MCP-callable workflow rails for agents that need quotes, payment authority references, paid rail runs, receipts, callbacks, and proof."
+      "description": "Free Agent Store for AI agents with callable MCP rails, receipt verification, proof trails, and structured handoffs."
     }
   }
 }
