@@ -2,8 +2,7 @@
   "name": "@codewever/wever-labs-mcp",
   "version": "1.0.0",
   "private": false,
-  "description": "Registry metadata package for the Wever Labs hosted MCP server.",
-  "license": "MIT",
+ "description": "Free Agent Store metadata package for Wever Labs callable MCP rails.",
   "repository": {
     "type": "git",
     "url": "https://github.com/CodeWever/wever-labs-agent-client.git"
