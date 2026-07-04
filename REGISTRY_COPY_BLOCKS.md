@@ -6,11 +6,11 @@ Wever Labs
 
 ## Short description
 
-MCP-callable workflow rails for paid agent runs, receipts, callbacks, and proof.
+Free Agent Store for callable MCP rails, receipt verification, proof trails, and structured agent handoffs.
 
 ## Longer description
 
-Wever Labs provides MCP-callable workflow rails for agents that need movement-fee quotes, payment authority references, bounded paid rail runs, signed receipts, callback evidence, ledger entries, and verification proof. Agents can discover rails, quote a run, create or supply payment authority, execute a bounded workflow, receive a structured return package, verify the receipt, and carry proof forward through callbacks.
+Wever Labs provides a free Agent Store for AI agents and builders. Agents can discover callable MCP rails, run structured workflows, verify receipts, create proof trails, inspect work-history evidence, and return trusted handoff packages. The goal is simple: agents should be able to do useful work and leave behind evidence of what happened.
 
 ## Endpoint
 
@@ -26,7 +26,7 @@ https://github.com/CodeWever/wever-labs-agent-client
 
 ## Tags
 
-agents, workflow, payments, receipts, callbacks, proof, automation, mcp
+agents, agent-store, mcp, workflow, receipts, proof, evidence, handoffs, automation
 
 ## Server config
 
