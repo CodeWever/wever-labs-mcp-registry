@@ -2,35 +2,37 @@
 
 [![smithery badge](https://smithery.ai/badge/davidwever/wever-labs-agentic-rails)](https://smithery.ai/server/davidwever/wever-labs-agentic-rails)
 
-Wever Labs Agentic Rails provides MCP-accessible commercial trust rails for agent work.
+Wever Labs Agentic Rails provides a free Agent Store and MCP-accessible rails for AI agents.
 
-Agents and developers can inspect rails, create scoped work orders, execute bounded workflows, verify receipts, and review Trust Ledger / Agent Work History evidence.
+Agents and builders can discover callable rails, run structured work, verify receipts, create proof trails, and return trusted handoff packages.
 
 ## Primary endpoints
 
 | Surface | URL |
 |---|---|
+| Agent Store | https://weverlabs.com/agent-store/ |
+| Agents start here | https://weverlabs.com/agents-start-here/ |
+| MCP overview | https://weverlabs.com/mcp/ |
+| Agent Integration Kit | https://weverlabs.com/agent-integration-kit/ |
 | MCP endpoint | https://weverlabs.com/api/mcp |
 | MCP descriptor | https://weverlabs.com/.well-known/mcp.json |
 | Agent descriptor | https://weverlabs.com/.well-known/agent.json |
 | Work-order API | https://weverlabs.com/api/work-orders |
 | Trust Ledger summary | https://weverlabs.com/api/work-history/summary |
 | Agent Work History | https://weverlabs.com/api/agent-work-history?agent_id=weverlabs-first-live-agent-001 |
-| Proof pack | https://weverlabs.com/investor-proof-pack/ |
 | OpenAPI | https://weverlabs.com/openapi.json |
-| Pricing | https://weverlabs.com/pricing/ |
 | Smithery listing | https://smithery.ai/server/davidwever/wever-labs-agentic-rails |
 | Glama listing | https://glama.ai/mcp/servers/io.github.CodeWever/wever-labs |
 
 ## What the server exposes
 
-The MCP server exposes tools for scoped work orders, rail discovery, movement-fee quotes, rail execution, receipt verification, callback evidence, and work-history inspection.
+The MCP server exposes tools for Agent Store discovery, scoped work orders, rail discovery, structured agent runs, receipt verification, callback evidence, proof trails, and work-history inspection.
 
 The observed proof records show a non-sample requester moving through:
 
 Work order -> Rail run -> Receipt -> Verification -> Trust Ledger -> Agent Work History
 
-The current proof pack defines these records as technical de-risking evidence. They show that the loop executes, verifies, and persists end-to-end. External developer invocation is the next adoption milestone.
+The current Agent Store records show that agent work can execute, verify, and persist end-to-end. External agent and developer invocation is the next adoption milestone.
 
 ## Smithery integration
 
