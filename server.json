@@ -1,17 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
-  "name": "com.weverlabs/agentic-rails",
- "description": "Free Agent Store for AI agents with callable MCP rails, receipt verification, proof trails, and structured handoffs.",
+  "name": "io.github.CodeWever/wever-labs-products",
+  "title": "Wever Labs Agent Products",
+  "description": "Agent commerce: 27 tools, 10 production services, signed authority, planning, Base USDC x402.",
+  "version": "0.4.0",
+  "websiteUrl": "https://weverlabs.com",
   "repository": {
-    "url": "https://github.com/CodeWever/wever-labs-agent-client",
+    "url": "https://github.com/CodeWever/wever-labs-mcp-registry",
     "source": "github"
   },
-  "version": "1.8.0",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://weverlabs.com/api/mcp"
+      "url": "https://weverlabs.com/mcp"
     }
-  ],
-  "title": "Wever Labs Agentic Rails"
+  ]
 }

@@ -6,19 +6,17 @@ This runbook prepares Wever Labs for the Official MCP Registry. PulseMCP ingests
 
 ## Before terminal work
 
-Confirm these resolve in a browser:
+The current server is `io.github.CodeWever/wever-labs-products` at
+`https://weverlabs.com/mcp`. Use the MCP POST initialize check in
+[VERIFY_CHECKLIST.md](VERIFY_CHECKLIST.md) to confirm the live version matches
+`server.json` and `package.json`. A bare GET is not the MCP connectivity test.
 
-- https://weverlabs.com/api/mcp
-- https://weverlabs.com/.well-known/mcp.json
-- https://weverlabs.com/agent-self-serve/
-- https://weverlabs.com/provider-callback-receiver-examples/
+`server.json` uses the official 2025-12-11 schema and a description of at most
+100 characters. The longer public description is in README.md. Validate against
+that schema before committing any descriptor change.
 
-Confirm directory state:
-
-- AI Agents Directory: approved
-- MCP.directory: submitted or ready from GitHub repo form
-- MCP.so: submitted or in progress
-- PulseMCP: waits on Official MCP Registry ingestion
+This is a remote-only publication with no `packages` array. `package.json` is
+fallback metadata only, not a requirement to publish an npm package.
 
 ## Recommended repo strategy
 
@@ -53,7 +51,7 @@ mcp-publisher --help
 
 ## Publish flow
 
-From the local folder that contains `server.json`:
+David runs these commands himself from the local folder that contains `server.json`:
 
 ```bash
 mcp-publisher login github
@@ -64,25 +62,18 @@ The login command should give you a GitHub device code. Complete that authorizat
 
 ## Verification
 
-After publish:
-
-```bash
-curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.CodeWever/wever-labs" | python3 -m json.tool
-```
-
-If the search returns no result, try lowercase namespace:
-
-```bash
-curl "https://registry.modelcontextprotocol.io/v0.1/servers?search=io.github.codewever/wever-labs" | python3 -m json.tool
-```
+After publication, follow [VERIFY_CHECKLIST.md](VERIFY_CHECKLIST.md). It includes
+the exact registry search, the expected descriptor and a live MCP initialize
+check. The required name is `io.github.CodeWever/wever-labs-products`; keep its
+case and suffix intact.
 
 ## If publish fails
 
 Common errors:
 
-- Permission error: GitHub auth namespace may need lowercase or must match the GitHub owner exactly.
+- Permission error: verify that David authenticated as the GitHub owner authorized for `io.github.CodeWever/wever-labs-products`. Do not change the namespace without reviewing the actual error.
 - Validation error: run `mcp-publisher init` in a clean folder, compare its generated schema to `server.json`, then copy the Wever Labs values into the generated file.
-- Package verification error: use `package.json` and publish a small public npm metadata package, then try again.
+- Package verification error: first confirm the descriptor has no `packages` array and the publisher supports remote-only servers. Only consider the fallback package metadata if a genuine package requirement is established; package publication is a separate action, not part of this preparation.
 
 ## Safe boundary
 
