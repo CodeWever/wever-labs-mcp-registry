@@ -1,6 +1,6 @@
 # Official MCP Registry verification checklist
 
-Run these checks from the repository root after David publishes. A Git push alone does not establish registry publication.
+Run the live MCP checks from the repository root before committing metadata changes. Run the Official MCP Registry checks separately after David publishes there. A Git push alone does not establish Official MCP Registry publication or downstream directory ingestion. The expected descriptor below is the current repository target, not a claim that a registry refresh has completed.
 
 ## Check the exact registry entry
 
@@ -22,17 +22,14 @@ Search matches substrings. Inspect `servers[].server` and require an exact name 
 {
   "name": "io.github.CodeWever/wever-labs-products",
   "title": "Wever Labs Agent Products",
-  "description": "Agent commerce: 27 tools, 10 production services, signed authority, planning, Base USDC x402.",
-  "version": "0.4.0",
+  "description": "29 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
+  "version": "0.8.0",
   "websiteUrl": "https://weverlabs.com",
   "repository": {
- \
    "url": "https://github.com/CodeWever/wever-labs-mcp-registry",
- \
    "source": "github"
   },
   "remotes": [
- \
    { "type": "streamable-http", "url": "https://weverlabs.com/mcp" }
   ]
 }
@@ -48,7 +45,7 @@ For the exact version, independently query:
 
 ```bash
 curl --fail-with-body --silent --show-error \
-  'https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CodeWever%2Fwever-labs-products/versions/0.4.0' \
+  'https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CodeWever%2Fwever-labs-products/versions/0.8.0' \
   | python3 -m json.tool
 ```
 
@@ -56,7 +53,7 @@ An empty search or a 404 is not a successful publication. Check David's publishe
 
 ## Check the advertised remote with MCP
 
-Send a real Streamable HTTP initialize request. This checks the URL advertised by `server.json`, not the separate `/api/mcp` Labs API.
+Send a real Streamable HTTP initialize request. This checks the URL advertised by `server.json`, using the production entrance.
 
 ```bash
 curl --fail-with-body --silent --show-error \
@@ -69,7 +66,7 @@ curl --fail-with-body --silent --show-error \
 
 - [ ] HTTP 200 and a JSON-RPC `result`, without `error`.
 - [ ] `result.serverInfo.name` equals `io.github.CodeWever/wever-labs-products`.
-- [ ] `result.serverInfo.version` equals the version in local and published `server.json` (currently `0.4.0`).
+- [ ] `result.serverInfo.version` equals the version in local and published `server.json` (currently `0.8.0`).
 - [ ] `result.capabilities.tools` is present.
 
 A bare GET can return 405 on this POST-based endpoint. Use successful MCP initialization as the connectivity check. The current endpoint is stateless and returns JSON; if it later negotiates sessions or SSE responses, use an MCP client that handles the advertised transport.
@@ -92,8 +89,11 @@ curl --fail-with-body --silent --show-error \
   | python3 -m json.tool
 ```
 
-- [ ] `result.tools` lists 27 tools, retaining 17 unavailable historical demo disclosures. Listing is not proof that every backend executes.
-- [ ] Record the publication version, time, registry response and live initialize result without credentials.
+- [ ] `result.tools` lists 29 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
+- [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 6 tools without authentication, wallet, or payment.
+- [ ] Record the metadata verification date and live initialize/list results without credentials. Record Official MCP Registry publication evidence separately if publication is performed.
+
+Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name/version against `server.json` and the 29/6 tool counts without calling tools or submitting payments.
 
 ## Publication boundaries
 

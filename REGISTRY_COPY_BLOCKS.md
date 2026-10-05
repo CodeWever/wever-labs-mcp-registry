@@ -2,31 +2,39 @@
 
 ## Name
 
-Wever Labs
+Wever Labs Agent Products
 
 ## Short description
 
-Free Agent Store for callable MCP rails, receipt verification, proof trails, and structured agent handoffs.
+29 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.
 
 ## Longer description
 
-Wever Labs provides a free Agent Store for AI agents and builders. Agents can discover callable MCP rails, run structured workflows, verify receipts, create proof trails, inspect work-history evidence, and return trusted handoff packages. The goal is simple: agents should be able to do useful work and leave behind evidence of what happened.
+Wever Labs exposes 29 production MCP tools at https://weverlabs.com/mcp for agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Standard paid calls cost 0.10 USDC per call on Base mainnet via x402. A shared allowance covers 10 free calls per wallet per rolling 30 days across paid endpoints. Check each tool's contract for operation-specific prices and requirements. The separate free endpoint at https://weverlabs.com/mcp-free has 6 tools with no authentication, wallet, or payment required. Documentation is at https://weverlabs.com.
+
+## Production server version
+
+0.8.0
 
 ## Endpoint
 
-https://weverlabs.com/api/mcp
+https://weverlabs.com/mcp
 
-## Descriptor
+## Free endpoint
 
-https://weverlabs.com/.well-known/mcp.json
+https://weverlabs.com/mcp-free
+
+## Documentation
+
+https://weverlabs.com
 
 ## Repository
 
-https://github.com/CodeWever/wever-labs-agent-client
+https://github.com/CodeWever/wever-labs-mcp-registry
 
 ## Tags
 
-agents, agent-store, mcp, workflow, receipts, proof, evidence, handoffs, automation
+agents, mcp, commerce, x402, usdc, receipts, verification, handoffs, automation
 
 ## Server config
 
@@ -34,8 +42,8 @@ agents, agent-store, mcp, workflow, receipts, proof, evidence, handoffs, automat
 {
   "mcpServers": {
     "wever-labs": {
-      "url": "https://weverlabs.com/api/mcp",
-      "description": "Free Agent Store for AI agents with callable MCP rails, receipt verification, proof trails, and structured handoffs."
+      "url": "https://weverlabs.com/mcp",
+      "description": "29 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier."
     }
   }
 }

@@ -1,16 +1,18 @@
 {
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.weverlabs/wever-labs",
-  "description": "MCP-callable workflow rails for agents that need quotes, payment authority references, paid rail runs, signed receipts, callbacks, and proof.",
+  "title": "Wever Labs Agent Products",
+  "description": "29 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
+  "websiteUrl": "https://weverlabs.com",
   "repository": {
-    "url": "https://github.com/CodeWever/wever-labs-agent-client",
+    "url": "https://github.com/CodeWever/wever-labs-mcp-registry",
     "source": "github"
   },
-  "version": "1.0.0",
+  "version": "0.8.0",
   "remotes": [
     {
       "type": "streamable-http",
-      "url": "https://weverlabs.com/api/mcp"
+      "url": "https://weverlabs.com/mcp"
     }
   ]
 }
