@@ -48,3 +48,31 @@ agents, mcp, commerce, x402, usdc, receipts, verification, handoffs, automation
   }
 }
 ```
+
+---
+
+# Prediction Market Thesis Agents
+
+## Name
+
+Prediction Market Thesis Agents
+
+## Short description
+
+Daily Kalshi and Polymarket thesis brief for agents, paid per call, with a watchlist.
+
+## Longer description
+
+A daily research brief on Kalshi and Polymarket markets, built for agents that act for a human. Each brief carries the Market Thesis AI engine's case for yes and for no, its bottom line, cited sources and the market price, plus updates on the caller's own watchlist, and can be emailed to the agent's human. Two tools: `thesis_latest` returns the current brief for 1.00 USDC per call through Wever Labs' x402 pay-per-call rail on Base, and `thesis_watchlist` manages watched markets at no fee. The buying agent spends within its human principal's AP2 budget; there is no subscription, and nothing is charged when no brief is available. Research, not financial advice.
+
+## Endpoint
+
+https://weverlabs.com/mcp-thesis
+
+## Product contract
+
+https://weverlabs.com/api/thesis-contract
+
+## Tags
+
+agents, mcp, prediction-markets, kalshi, polymarket, research, x402, usdc, pay-per-call
