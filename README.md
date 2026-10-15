@@ -1,3 +1,5 @@
+[![AllMCPs Verified](https://allmcps.com/api/badge/wever-labs-agent-products)](https://allmcps.com/mcp/wever-labs-agent-products?verify=2ebca967-c3ef-4ce8-b448-3fe60a87d96f)
+
 # Wever Labs Agent Products
 
 Public publication metadata for the hosted Wever Labs MCP server.
