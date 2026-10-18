@@ -53,3 +53,40 @@ This server is remote-only. `server.json` has no `packages` array. `package.json
 David performs Official MCP Registry login and publication using [PUBLISHING_RUNBOOK.md](PUBLISHING_RUNBOOK.md). After publication, follow [VERIFY_CHECKLIST.md](VERIFY_CHECKLIST.md). A GitHub push updates this repository's public metadata for downstream scanners; it does not publish an Official MCP Registry listing or confirm a directory refresh.
 
 No secrets, keys, credentials or private implementation code belong in this repository.
+
+## Prediction Market Thesis Agents
+
+A second, separate server descriptor lives in [`thesis-agents/server.json`](thesis-agents/server.json). It is not part of the 39-tool production server above.
+
+| Publication field | Value |
+| --- | --- |
+| Registry name | `io.github.CodeWever/thesis-agents` |
+| Title | Prediction Market Thesis Agents |
+| Version | `0.1.0` |
+| Transport | Streamable HTTP |
+| Remote endpoint | https://weverlabs.com/mcp-thesis |
+| Tools | 2: `thesis_latest` (paid per call), `thesis_watchlist` (no fee) |
+| Product contract | https://weverlabs.com/api/thesis-contract |
+
+One product: a daily research brief on Kalshi and Polymarket markets from the Market Thesis AI engine, with a per-caller watchlist, returned in the response and optionally emailed to the agent's human. `thesis_latest` costs 1.00 USDC per call by default (the live price is in the contract), paid through the existing Wever x402 pay-per-call rail on Base mainnet, the same path as `wever_diligenceops-paid-run`. The buying agent spends within its human principal's AP2 budget. No subscription, no free calls, and nothing is charged when no brief is available. Research, not financial advice.
+
+Publish it from its own folder after the endpoint is deployed and its live `initialize` reports `io.github.CodeWever/thesis-agents` at version `0.1.0`:
+
+```bash
+cd thesis-agents
+mcp-publisher login github
+mcp-publisher publish
+```
+
+Live checks, read-only and without payment (`thesis_latest` without a Payment-Signature returns its 402 terms and charges nothing):
+
+```bash
+curl --fail-with-body --silent --show-error 'https://weverlabs.com/mcp-thesis' \
+  -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+  --data '{"jsonrpc":"2.0","id":1,"method":"initialize","params":{"protocolVersion":"2025-03-26","capabilities":{},"clientInfo":{"name":"wever-registry-check","version":"1.0.0"}}}' | python3 -m json.tool
+curl --fail-with-body --silent --show-error 'https://weverlabs.com/mcp-thesis' \
+  -H 'Content-Type: application/json' -H 'Accept: application/json, text/event-stream' \
+  --data '{"jsonrpc":"2.0","id":2,"method":"tools/list","params":{}}' | python3 -c 'import json,sys; print([t["name"] for t in json.load(sys.stdin)["result"]["tools"]])'
+curl --silent --show-error 'https://weverlabs.com/api/thesis-contract' | python3 -c 'import json,sys; print(json.load(sys.stdin)["pricing"]["price_atomic"])'
+curl --silent --show-error -X POST 'https://weverlabs.com/api/thesis-agents/latest' -H 'Content-Type: application/json' --data '{}' | python3 -c 'import json,sys; print(json.load(sys.stdin)["accepts"][0]["amount"])'
+```
