@@ -26,7 +26,9 @@ Cursor's single-plugin format fits this existing repository. A dedicated reposit
 
 ## Submit to the Cursor Marketplace
 
-David performs the Marketplace submission:
+Submitted on October 21, 2026 under the Wever Labs publisher handle `wever-labs`, using this repository and the successful desktop test below. Cursor displayed **Thanks for applying** and confirmed receipt. The application is awaiting Cursor's review.
+
+Submission steps used:
 
 1. Sign in to the Cursor account that will own the publisher application.
 2. Open [Publish a Cursor Marketplace Plugin](https://cursor.com/marketplace/publish).
@@ -34,7 +36,7 @@ David performs the Marketplace submission:
 4. Complete the publisher application shown after sign-in. Use the prepared metadata below wherever the application requests it, and review the detected plugin and remote MCP configuration.
 5. Submit the application for Cursor's review. Cursor reviews plugins before listing them.
 
-The public publish page currently requires sign-in and calls this a plugin publisher application. The authenticated field labels were not visible during preparation. The documented submission target is the public repository link.
+The authenticated application requested organization name, organization handle, contact email, logotype URL, description, GitHub repository, owner, and website URL. Submitted Wever Labs, `wever-labs`, `hello@weverlabs.com`, `https://weverlabs.com/icon-512.png`, this repository, and `https://weverlabs.com`, with the description including the desktop test result and hosted operation pricing disclosure. The signed-in owner is the individual `hello@weverlabs.com`. David explicitly approved accepting Cursor's Publisher Terms before submission.
 
 | Submission metadata | Value |
 | --- | --- |
@@ -72,7 +74,7 @@ Passed on October 21, 2026 with the official Cursor desktop app 3.24.18 on macOS
 - All 57 names in the desktop interface and Cursor-generated tool descriptors match the endpoint inventory. Each generated descriptor is attributed to `wever-labs`.
 - The installed manifest and MCP configuration match commit `843d56010cc4502ab404047bb209f2d616befe39`. The test workspace and user profile have no direct MCP configuration supplying this server.
 
-This verifies local plugin loading, connection, and tool discovery. No tool execution or model prompt was needed. Marketplace submission and approval remain David's next steps.
+This verifies local plugin loading, connection, and tool discovery. No tool execution or model prompt was needed. The Marketplace application was submitted on October 21, 2026 and is awaiting Cursor's review.
 
 The hosted tools retain their operation-specific input and payment requirements. The [README](README.md) describes pricing, and the [live product catalog](https://weverlabs.com/api/agent-operating-products) provides current contracts.
 
@@ -84,4 +86,4 @@ Checked on October 21, 2026 before creating the files:
 - [Cursor Plugins overview](https://cursor.com/docs/plugins): installation and Marketplace review.
 - [Cursor Marketplace publish page](https://cursor.com/marketplace/publish): publisher sign-in and submission entry point.
 
-Status: local desktop plugin test passed. Files are ready for David's Marketplace submission and Cursor's review.
+Status: local desktop plugin test passed; Marketplace application submitted on October 21, 2026; awaiting Cursor's review.
