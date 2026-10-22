@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "io.github.CodeWever/wever-labs-products": {
+      "type": "http",
+      "url": "https://weverlabs.com/mcp"
+    }
+  }
+}
