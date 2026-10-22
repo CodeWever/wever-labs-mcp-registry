@@ -1,0 +1,20 @@
+{
+  "name": "wever-labs",
+  "displayName": "Wever Labs",
+  "version": "1.0.0",
+  "description": "Connect Cursor agents to Wever Labs tools for delegated work, commerce, receipts, verification, and handoffs through the hosted MCP server.",
+  "author": {
+    "name": "Wever Labs"
+  },
+  "homepage": "https://weverlabs.com",
+  "repository": "https://github.com/CodeWever/wever-labs-mcp-registry",
+  "license": "MIT",
+  "keywords": [
+    "mcp",
+    "agents",
+    "automation",
+    "commerce",
+    "verification"
+  ],
+  "mcpServers": "./mcp.json"
+}

@@ -24,6 +24,14 @@ The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools w
 
 The version and production tool count were verified against the live endpoint's MCP `initialize` and `tools/list` responses on October 6, 2026. Recheck them before a later publication.
 
+## Cursor Marketplace plugin
+
+This repository includes the `wever-labs` Cursor plugin. Its manifest is [`.cursor-plugin/plugin.json`](.cursor-plugin/plugin.json), and [`mcp.json`](mcp.json) connects Cursor to the hosted Wever Labs server at `https://weverlabs.com/mcp`.
+
+After installation, enable the Wever Labs MCP server and ask Cursor to show its available tools. The plugin uses a remote Streamable HTTP connection configured by URL. Hosted tools follow their documented input and payment contracts.
+
+See [CURSOR_MARKETPLACE.md](CURSOR_MARKETPLACE.md) for David's submission steps and a pre-submission Cursor connection check. Plugin version `1.0.0` identifies the Cursor package independently of the hosted server version.
+
 ## Connect
 
 Use the production endpoint in a client that supports remote Streamable HTTP MCP servers:
