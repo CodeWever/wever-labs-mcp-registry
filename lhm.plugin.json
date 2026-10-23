@@ -21,9 +21,12 @@
     {
       "name": "wever_delegated-authority",
       "title": "Wever Labs Delegated Authority",
-      "description": "Paid URL: 2.00 USDC per mandate on Base; 10 signed-wallet free calls shared over rolling 30 days. Only issue_mandate is billed; GET, contract reads, drafts and all other modes have no x402 fee. Credentials and grants remain required for their existing operations. Read the backend 402 body for x402 terms. Issue signed mandates and operator-approved action grants, then let credentialed agents consume them to create immutable work-order records. Records do not perform work, deliver results or authorize payment.\nOperating boundary: Operators issue mandates and approve each exact action grant with an issuance idempotency key. Only the bound credentialed agent may consume a grant; each action grant atomically reserves one nonfinancial work_order unit. Usage and attribution are credential-bound. Signed authority permits only immutable record creation, never work execution, delivery or payment. Public drafts remain unsigned_dev and cannot execute. The access fee applies only to issue_mandate and never authorizes downstream spending. GET, contract reads, drafts and all other authority modes have no x402 fee; their existing credential checks remain.\nPOST /api/delegated-authority. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a credentialed authority control plane for immutable work-order record creation. It does not execute the recorded work, deliver results, or authorize payment. Operator issuance and grant approval require X-Wever-Operator-Key and Idempotency-Key; consumption requires the target agent's X-Wever-Agent-Key. Usage and attribution come from validated credentials and durable authority records. AP2 issuance also accepts issue_mandate with mandate.profile com.weverlabs.ap2.direct-checkout.1, the holder public key, signed checkout challenge, consent digest and bounded expiry. It requires a dedicated AP2 issuer credential in X-Wever-Operator-Key, Idempotency-Key and a fresh holder wallet proof. Issuance costs 2.00 USDC per issued mandate; verification at /api/ap2-mandate-gateway costs 0.10 USDC per call, subject to the same shared free allowance. The AP2 mandate records checkout intent and grants no tool access, execution authority or spending authority.",
+      "description": "Paid URL: 2.00 USDC per mandate on Base; 10 signed-wallet free calls shared over rolling 30 days. Only issue_mandate is billed; GET, contract reads, drafts and all other modes have no x402 fee. Credentials and grants remain required for their existing operations. Read the backend 402 body for x402 terms. Issue signed mandates and approve an exact action. The named agent uses its grant to create an immutable work-order record.\nOperating boundary: The operator issues a mandate, then approves an action grant lasting up to 300 seconds. The credentialed agent consumes the grant once to create one work-order record. Inspect the same grant until its result is final. Mandate issuance costs 2 USDC after the free calls are used; reads, drafts and other authority modes use their existing credentials at no access fee. Work execution, delivery and payment each use their own service.\nPOST /api/delegated-authority. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a credentialed authority control plane for immutable work-order record creation. It does not execute the recorded work, deliver results, or authorize payment. Operator issuance and grant approval require X-Wever-Operator-Key and Idempotency-Key; consumption requires the target agent's X-Wever-Agent-Key. Usage and attribution come from validated credentials and durable authority records. AP2 issuance also accepts issue_mandate with mandate.profile com.weverlabs.ap2.direct-checkout.1, the holder public key, signed checkout challenge, consent digest and bounded expiry. It requires a dedicated AP2 issuer credential in X-Wever-Operator-Key, Idempotency-Key and a fresh holder wallet proof. Issuance costs 2.00 USDC per issued mandate; verification at /api/ap2-mandate-gateway costs 0.10 USDC per call, subject to the same shared free allowance. The AP2 mandate records checkout intent and grants no tool access, execution authority or spending authority.",
       "inputSchema": {
         "type": "object",
+        "required": [
+          "mode"
+        ],
         "properties": {
           "mode": {
             "enum": [
@@ -38,9 +41,6 @@
             ]
           }
         },
-        "required": [
-          "mode"
-        ],
         "description": "Exact delegated-authority v2 request shapes. Credentials and issuance idempotency keys are HTTP headers, never tool arguments. The backend additionally enforces signed cross-field bindings, active time windows, credential-bound usage, exact approved action digests and durable allowance state.",
         "oneOf": [
           {
@@ -109,7 +109,7 @@
                 "$ref": "#/$defs/grantRequest"
               }
             },
-            "description": "Requires the issuing operator X-Wever-Operator-Key and Idempotency-Key. Reserve one work_order unit and approve this exact action for at most 300 seconds. An agent cannot issue its own grant."
+            "description": "Requires the issuing operator X-Wever-Operator-Key and Idempotency-Key. Reserve one work_order unit and approve this exact action for at most 300 seconds. The issuing operator approves the grant."
           },
           {
             "type": "object",
@@ -130,7 +130,7 @@
                 "$ref": "#/$defs/workOrderAction"
               }
             },
-            "description": "Requires the target agent X-Wever-Agent-Key. Consume the signed grant once to create its immutable work-order record. This does not execute the recorded work, deliver results or authorize payment. A pending or unknown result is not success; retry the same grant or inspect it, never substitute new authority."
+            "description": "Requires the target agent X-Wever-Agent-Key. Consume the signed grant once to create its immutable work-order record. Inspect or retry the same grant until record creation is final. Work execution, delivery and payment follow through their own services."
           },
           {
             "type": "object",
@@ -166,7 +166,7 @@
                 "pattern": "^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}(?![\\s\\S])"
               }
             },
-            "description": "Requires the issuing operator X-Wever-Operator-Key. Revoke future authority. Revocation does not undo a committed work-order record or release an uncertain in-flight effect."
+            "description": "Requires the issuing operator X-Wever-Operator-Key. Revoke future authority. Committed records remain in history; in-flight effects keep their existing recovery process."
           },
           {
             "type": "object",
@@ -336,7 +336,7 @@
                   "synthetic",
                   "operational"
                 ],
-                "description": "Must match the target agent usage configured on the server. Caller input cannot change credential-bound usage or attribution."
+                "description": "Must match the target agent usage configured on the server. Usage and attribution come from the agent credential."
               }
             },
             "description": "Only create_delegated_work_order is enabled. max_units counts work-order records, not currency. The server enforces time relationships and configured agent scope/usage. consent_digest records operator-attested consent, not independent verification."
@@ -377,7 +377,7 @@
                   "agent-work-order-rail",
                   null
                 ],
-                "description": "A maintained computation reference or null. Recording it does not execute or assign that computation."
+                "description": "A maintained computation reference or null. Use its service endpoint to run the computation."
               }
             },
             "description": "The exact approved immutable work-order content. No caller-supplied attribution, identifiers, prices, callback URLs or execution claims are accepted."
@@ -451,7 +451,7 @@
                   "synthetic",
                   "operational"
                 ],
-                "description": "Must match the target agent usage configured on the server. Caller input cannot change credential-bound usage or attribution."
+                "description": "Must match the target agent usage configured on the server. Usage and attribution come from the agent credential."
               },
               "scopes": {
                 "type": "array",
@@ -558,7 +558,7 @@
                   "synthetic",
                   "operational"
                 ],
-                "description": "Must match the target agent usage configured on the server. Caller input cannot change credential-bound usage or attribution."
+                "description": "Must match the target agent usage configured on the server. Usage and attribution come from the agent credential."
               },
               "grant_id": {
                 "type": "string",
@@ -624,7 +624,7 @@
                 "pattern": "^[A-Za-z0-9_-]{86}(?![\\s\\S])"
               }
             },
-            "description": "Use the unmodified envelope returned by the authority API. The backend verifies its signature, active time window, durable record, credentials and claim bindings. Passing this schema does not establish authority."
+            "description": "Use the unmodified envelope returned by the authority API. The backend verifies its signature, active time window, durable record, credentials and claim bindings. Successful runtime verification establishes the accepted authority."
           },
           "signedActionGrant": {
             "type": "object",
@@ -657,7 +657,7 @@
                 "pattern": "^[A-Za-z0-9_-]{86}(?![\\s\\S])"
               }
             },
-            "description": "Use the unmodified envelope returned by the authority API. The backend verifies its signature, active time window, durable record, credentials and claim bindings. Passing this schema does not establish authority."
+            "description": "Use the unmodified envelope returned by the authority API. The backend verifies its signature, active time window, durable record, credentials and claim bindings. Successful runtime verification establishes the accepted authority."
           },
           "grantRequest": {
             "type": "object",
@@ -692,10 +692,10 @@
                   "synthetic",
                   "operational"
                 ],
-                "description": "Must match the target agent usage configured on the server. Caller input cannot change credential-bound usage or attribution."
+                "description": "Must match the target agent usage configured on the server. Usage and attribution come from the agent credential."
               }
             },
-            "description": "The server sets amount_units to 1 and unit to work_order. approval_reference is operator-attested and bound into the grant; it does not independently verify consent."
+            "description": "The server sets amount_units to 1 and unit to work_order. approval_reference is operator-attested and bound into the grant; the operator supplies this consent record."
           }
         }
       },
@@ -709,9 +709,16 @@
     {
       "name": "wever_agent-paid-workflow",
       "title": "Agent Workflow",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare an ordered sequence of supported planning and computation steps with explicit required fields. No step is executed, no quote obtained, and no payment, authority or delivery is performed.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. The prepared computation uses caller-supplied data and creates no execution authority, proof verification, delivery or provider action. Payment access records are durable; existing credentials and signed grants remain required for separate consequential actions.\nPOST /api/agent-paid-workflow. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Turn a task into an ordered plan of supported computations, with the fields needed for each step.\nOperating boundary: Supply the task and supported steps. Read the ordered plan and required fields. An agent submits each prepared step through its listed service; a human reviews the sequence and budget first.\nPOST /api/agent-paid-workflow. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "agent_id",
+          "product_key",
+          "constraints"
+        ],
         "properties": {
           "mode": {
             "const": "prepare_workflow"
@@ -756,14 +763,7 @@
               }
             }
           }
-        },
-        "required": [
-          "mode",
-          "agent_id",
-          "product_key",
-          "constraints"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -775,9 +775,18 @@
     {
       "name": "wever_unified-agent-checkout",
       "title": "Unified Agent Checkout",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Itemize and total caller-supplied USD estimates for supported computations. This is not a provider quote, checkout session, payment request or authority grant.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. The prepared computation uses caller-supplied data and creates no execution authority, proof verification, delivery or provider action. Payment access records are durable; existing credentials and signed grants remain required for separate consequential actions.\nPOST /api/unified-agent-checkout. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Itemize caller-supplied USD estimates and calculate a total for supported computations.\nOperating boundary: Supply computation items and your USD estimates. Read the itemized total. An agent carries the estimate into its work plan; a human compares the items before requesting a provider checkout.\nPOST /api/unified-agent-checkout. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "agent_id",
+          "currency",
+          "items",
+          "payment_reference",
+          "allowance_reference"
+        ],
         "properties": {
           "mode": {
             "const": "prepare_checkout"
@@ -851,16 +860,7 @@
               }
             ]
           }
-        },
-        "required": [
-          "mode",
-          "agent_id",
-          "currency",
-          "items",
-          "payment_reference",
-          "allowance_reference"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -872,9 +872,14 @@
     {
       "name": "wever_diligenceops-paid-run",
       "title": "DiligenceOps Run",
-      "description": "Paid URL: 1.00 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Compare explicit submitted evidence labels and return exact matched and missing items. This does not read or verify document contents.\nOperating boundary: The computation uses supplied data only and performs no provider work, callbacks, document retrieval or signed attestations. Direct access uses x402 Base USDC settlement or the verified-wallet free tier; the Labs MCP and resolver computation paths remain free.\nPOST /api/diligenceops-paid-run. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 1.00 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Compare submitted evidence labels with the required list and return matched and missing items.\nOperating boundary: Supply required and available evidence labels. Read matched and missing labels. An agent uses the result to request the missing items; a human reviews the list and checks the documents. Direct runs cost 1 USDC after the shared free allowance; the Labs MCP and resolver computation paths are free.\nPOST /api/diligenceops-paid-run. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "available_evidence",
+          "expected_evidence"
+        ],
         "properties": {
           "available_evidence": {
             "type": "array",
@@ -885,7 +890,7 @@
               "minLength": 1,
               "maxLength": 96,
               "pattern": "^[A-Za-z0-9_.:/ -]+(?![\\s\\S])",
-              "description": "ASCII only, at most 96 bytes before trimming; cannot be blank. Normalized duplicates are rejected."
+              "description": "Use a nonempty ASCII label up to 96 bytes before trimming. Each normalized label must be unique."
             }
           },
           "expected_evidence": {
@@ -897,15 +902,10 @@
               "minLength": 1,
               "maxLength": 96,
               "pattern": "^[A-Za-z0-9_.:/ -]+(?![\\s\\S])",
-              "description": "ASCII only, at most 96 bytes before trimming; cannot be blank. Normalized duplicates are rejected."
+              "description": "Use a nonempty ASCII label up to 96 bytes before trimming. Each normalized label must be unique."
             }
           }
-        },
-        "required": [
-          "available_evidence",
-          "expected_evidence"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -917,7 +917,7 @@
     {
       "name": "wever_receipt-passport",
       "title": "Receipt Passport",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Issue and verify signed receipt passports backed by completed, wallet-owned Wever computation records.\nOperating boundary: Issue and verify signed receipt passports backed by completed, wallet-owned Wever computation records. Fresh signed wallet proof is required even for paid calls. Handoff permissions require recipient enforcement. Stored evidence is not automatically verified. Scores are bounded evidence summaries, not global reputation.\nPOST /api/receipt-passport. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Issue and verify signed receipt passports backed by completed, wallet-owned Wever computation records.\nOperating boundary: Issue and verify signed receipt passports backed by completed, wallet-owned Wever computation records. Agents issue or verify a passport after a completed run; humans inspect its receipt and linked artifacts. Sign wallet ownership proof for each request.\nPOST /api/receipt-passport. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1079,9 +1079,14 @@
     {
       "name": "wever_return-package-viewer",
       "title": "Return Package Viewer",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Retrieve a wallet-owned completed Wever computation from durable billing records, including its exact result and verified digest.\nOperating boundary: Retained owned Wever computation records only. Missing, expired or unsupported records are unavailable. Completion does not verify caller-supplied facts.\nPOST /api/return-package-viewer. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Retrieve a wallet-owned completed Wever computation from durable billing records, including its exact result and verified digest.\nOperating boundary: Provide the completed computation ID from your wallet to retrieve its retained result and content digest. The response includes the record status and available evidence.\nPOST /api/return-package-viewer. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "work"
+        ],
         "properties": {
           "mode": {
             "const": "retrieve"
@@ -1124,12 +1129,7 @@
               }
             ]
           }
-        },
-        "required": [
-          "mode",
-          "work"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1141,9 +1141,25 @@
     {
       "name": "wever_agent-allowance-console",
       "title": "Agent Allowance Console",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Evaluate explicit caller-reported scope, budget, usage, expiry and per-action fee limits. Returns a would-allow or would-deny preview; creates no authority and verifies no account balance.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. The prepared computation uses caller-supplied data and creates no execution authority, proof verification, delivery or provider action. Payment access records are durable; existing credentials and signed grants remain required for separate consequential actions.\nPOST /api/agent-allowance-console. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Preview whether an action fits the supplied scope, budget, usage, expiry and fee limits.\nOperating boundary: Supply the policy, usage and proposed action. Read the preview and reasons. An agent uses them to prepare the next request; a human adjusts the policy or approves the action through its service.\nPOST /api/agent-allowance-console. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "agent_id",
+          "allowed_product_keys",
+          "requested_product_key",
+          "currency",
+          "budget_minor",
+          "spent_minor",
+          "requested_fee_minor",
+          "max_fee_minor",
+          "max_runs",
+          "used_runs",
+          "expires_at",
+          "as_of"
+        ],
         "properties": {
           "mode": {
             "const": "evaluate_allowance"
@@ -1213,23 +1229,7 @@
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}Z(?![\\s\\S])"
           }
-        },
-        "required": [
-          "mode",
-          "agent_id",
-          "allowed_product_keys",
-          "requested_product_key",
-          "currency",
-          "budget_minor",
-          "spent_minor",
-          "requested_fee_minor",
-          "max_fee_minor",
-          "max_runs",
-          "used_runs",
-          "expires_at",
-          "as_of"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1241,7 +1241,7 @@
     {
       "name": "wever_callback-health-monitor",
       "title": "Callback Health Monitor",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Send a bounded HTTPS callback probe and persist the actual response, timing and exact acknowledgment check. Retrieve prior observations without resending.\nOperating boundary: One point-in-time HTTPS observation with public-address validation, no redirects and no credentials. Acknowledgment is not proof of downstream work. Continuous monitoring and automatic retries are unavailable.\nPOST /api/callback-health-monitor. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Send a bounded HTTPS callback probe and persist the actual response, timing and exact acknowledgment check. Retrieve prior observations without resending.\nOperating boundary: Supply one public HTTPS callback URL and the acknowledgment you expect. The service makes one request, saves its timing and response, and lets you retrieve that observation later. Each new probe is an explicit call.\nPOST /api/callback-health-monitor. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1335,9 +1335,17 @@
     {
       "name": "wever_agent-work-order-exchange",
       "title": "Agent Work Order Exchange",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Validate a task against a supported computation and prepare its fixed POST request. Semantic validation uses a local deterministic dry run. No request is submitted, worker assigned or result delivered.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. The prepared computation uses caller-supplied data and creates no execution authority, proof verification, delivery or provider action. Payment access records are durable; existing credentials and signed grants remain required for separate consequential actions.\nPOST /api/agent-work-order-exchange. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Validate a task with a local dry run, then prepare the POST request for its supported computation.\nOperating boundary: Choose a supported computation and supply its task fields. Review validation and the prepared POST request. The agent submits that request to the named endpoint; the human reviews the task and result.\nPOST /api/agent-work-order-exchange. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "requesting_agent_id",
+          "product_key",
+          "requested_outcome",
+          "task"
+        ],
         "properties": {
           "mode": {
             "const": "prepare_work_order_exchange"
@@ -1366,15 +1374,7 @@
             "type": "object",
             "maxProperties": 16
           }
-        },
-        "required": [
-          "mode",
-          "requesting_agent_id",
-          "product_key",
-          "requested_outcome",
-          "task"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1386,9 +1386,17 @@
     {
       "name": "wever_agent-budget-guard",
       "title": "Agent Budget Guard",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Evaluates caller-supplied policy, usage and request values only. No live allowance or balance is read, no destination is contacted, no budget or run is reserved, and no permission or execution authority is granted.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. Evaluates caller-supplied policy, usage and request values only. No live allowance or balance is read, no destination is contacted, no budget or run is reserved, and no permission or execution authority is granted. The API access fee is separate from any inspected payment or recorded invoice amount.\nPOST /api/agent-budget-guard. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Compare a proposed request with the policy, usage and budget values you supply and return an allow-or-deny preview.\nOperating boundary: Supply policy, usage and request values. Read the preview and reasons. An agent checks the preview before the payment flow; a human sets the budget and approves any exception.\nPOST /api/agent-budget-guard. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "agent_id",
+          "policy",
+          "usage",
+          "request"
+        ],
         "properties": {
           "mode": {
             "const": "evaluate_action"
@@ -1550,15 +1558,7 @@
               }
             }
           }
-        },
-        "required": [
-          "mode",
-          "agent_id",
-          "policy",
-          "usage",
-          "request"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1570,7 +1570,7 @@
     {
       "name": "wever_agent-sla-rail",
       "title": "Agent SLA Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Wallet-declared terms and evaluation at call time. No counterparty consent, background scheduling, retry execution, contractual enforcement or compensation is implied.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Save your wallet’s service terms and deadlines, then evaluate them against retained work and callback observations. Read the result to identify completed and overdue commitments.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -1841,9 +1841,15 @@
     {
       "name": "wever_agent-trust-scorecard",
       "title": "Agent Trust Scorecard",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Compute a bounded trust score from verified completed work, Base payment receipts and Wever escrow refunds, disclosing all inputs and unavailable dispute coverage.\nOperating boundary: Compute a bounded trust score from verified completed work, Base payment receipts and Wever escrow refunds, disclosing all inputs and unavailable dispute coverage. Fresh signed wallet proof is required even for paid calls. Handoff permissions require recipient enforcement. Stored evidence is not automatically verified. Scores are bounded evidence summaries, not global reputation.\nPOST /api/agent-trust-scorecard. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Compute a bounded trust score from verified completed work, Base payment receipts and Wever escrow refunds, disclosing all inputs and unavailable dispute coverage.\nOperating boundary: Compute a bounded trust score from verified completed work, Base payment receipts and Wever escrow refunds, disclosing all inputs and unavailable dispute coverage. Agents compare the disclosed inputs; humans review the completed-work, payment and refund evidence. Scores summarize the records covered by this service. Sign wallet ownership proof for each request.\nPOST /api/agent-trust-scorecard. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "completed_work",
+          "payments"
+        ],
         "properties": {
           "mode": {
             "const": "compute"
@@ -1924,13 +1930,7 @@
             "maxItems": 5,
             "uniqueItems": true
           }
-        },
-        "required": [
-          "mode",
-          "completed_work",
-          "payments"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1942,9 +1942,19 @@
     {
       "name": "wever_payment-authority-inspector",
       "title": "Payment Authority Inspector",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Read-only canonical Base USDC receipt inspection for the configured Wever recipient. Settlement evidence grants no mandate, resource permission or execution authority.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. Read-only canonical Base USDC receipt inspection for the configured Wever recipient. Settlement evidence grants no mandate, resource permission or execution authority. The API access fee is separate from any inspected payment or recorded invoice amount.\nPOST /api/payment-authority-inspector. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Inspect a canonical Base USDC transaction receipt for the configured Wever recipient and return the observed payment details.\nOperating boundary: Supply the receipt reference. Read the chain, recipient, amount and verification result. An agent links the receipt to its work record; a human inspects the same transaction details.\nPOST /api/payment-authority-inspector. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "transaction_hash",
+          "payer",
+          "payee",
+          "amount_atomic",
+          "authorization_nonce",
+          "min_confirmations"
+        ],
         "properties": {
           "mode": {
             "const": "inspect_base_usdc_settlement"
@@ -1974,17 +1984,7 @@
             "minimum": 2,
             "maximum": 100
           }
-        },
-        "required": [
-          "mode",
-          "transaction_hash",
-          "payer",
-          "payee",
-          "amount_atomic",
-          "authorization_nonce",
-          "min_confirmations"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -1996,9 +1996,15 @@
     {
       "name": "wever_x402-payment-gateway",
       "title": "x402 Payment Gateway",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Verifies an EOA payment signature and observes Base USDC nonce, balance and chain time. Does not simulate, submit, settle, reserve or authorize resource access.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. Verifies an EOA payment signature and observes Base USDC nonce, balance and chain time. Does not simulate, submit, settle, reserve or authorize resource access. The API access fee is separate from any inspected payment or recorded invoice amount.\nPOST /api/x402-payment-gateway. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Check an EOA payment signature and read its Base USDC nonce, balance and chain time.\nOperating boundary: Supply the payment signature and its terms. Read the signature check, nonce, balance and chain time. An agent uses these observations before settlement; a human reviews the payment terms in the wallet.\nPOST /api/x402-payment-gateway. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "target_product",
+          "payment"
+        ],
         "properties": {
           "mode": {
             "const": "inspect_x402_authorization"
@@ -2165,13 +2171,7 @@
               }
             }
           }
-        },
-        "required": [
-          "mode",
-          "target_product",
-          "payment"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -2183,9 +2183,15 @@
     {
       "name": "wever_ap2-mandate-gateway",
       "title": "AP2 Mandate Gateway",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Verifies allowlisted AP2 direct closed-checkout mandates, binds the presenter to the holder wallet, rejects expiry and replay, and durably consumes each mandate once.\nOperating boundary: Wever trusted-provider direct closed-checkout profile only. No open mandates, delegation chains, checkout execution, payment execution or fund transfers. Signed wallet proof is required even for paid calls.\nPOST /api/ap2-mandate-gateway. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This gateway verifies only its published AP2 direct closed-checkout profile, requires a trusted issuer and holder wallet proof, and consumes the mandate once. It does not execute the checkout or transfer funds. Start at /api/ap2-contract and /api/ap2-challenge.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Verifies allowlisted AP2 direct closed-checkout mandates, binds the presenter to the holder wallet, rejects expiry and replay, and durably consumes each mandate once.\nOperating boundary: Submit a signed AP2 direct checkout mandate from a trusted provider. Sign wallet ownership proof as its holder. The gateway checks expiry and replay, binds the holder and records one-time consumption. Agents call the gateway; humans review the exact checkout intent and sign in their wallet.\nPOST /api/ap2-mandate-gateway. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This gateway verifies only its published AP2 direct closed-checkout profile, requires a trusted issuer and holder wallet proof, and consumes the mandate once. It does not execute the checkout or transfer funds. Start at /api/ap2-contract and /api/ap2-challenge.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "presentation",
+          "challenge_token"
+        ],
         "properties": {
           "mode": {
             "const": "verify_mandate"
@@ -2200,13 +2206,7 @@
             "minLength": 1,
             "maxLength": 16384
           }
-        },
-        "required": [
-          "mode",
-          "presentation",
-          "challenge_token"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -2218,7 +2218,7 @@
     {
       "name": "wever_agent-to-agent-handoff-pack",
       "title": "Agent-to-Agent Handoff Pack",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Build and verify durable signed task handoff packs with authenticated sender, recipient, context, declared permissions and checkpoint state.\nOperating boundary: Build and verify durable signed task handoff packs with authenticated sender, recipient, context, declared permissions and checkpoint state. Fresh signed wallet proof is required even for paid calls. Handoff permissions require recipient enforcement. Stored evidence is not automatically verified. Scores are bounded evidence summaries, not global reputation.\nPOST /api/agent-to-agent-handoff-pack. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Build and verify durable signed task handoff packs with authenticated sender, recipient, context, declared permissions and checkpoint state.\nOperating boundary: Build and verify durable signed task handoff packs with authenticated sender, recipient, context, declared permissions and checkpoint state. The sender builds a pack, the recipient verifies it and applies the declared permissions, and a human reviews the context and next step. Sign wallet ownership proof for each request.\nPOST /api/agent-to-agent-handoff-pack. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2511,7 +2511,7 @@
     {
       "name": "wever_proof-inbox",
       "title": "Proof Inbox",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Store, list and retrieve durable verification proofs in a private authenticated wallet inbox.\nOperating boundary: Store, list and retrieve durable verification proofs in a private authenticated wallet inbox. Fresh signed wallet proof is required even for paid calls. Handoff permissions require recipient enforcement. Stored evidence is not automatically verified. Scores are bounded evidence summaries, not global reputation.\nPOST /api/proof-inbox. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Store, list and retrieve durable verification proofs in a private authenticated wallet inbox.\nOperating boundary: Store, list and retrieve durable verification proofs in a private authenticated wallet inbox. Agents store and retrieve proofs by reference; humans inspect those records through their wallet-connected agent. Each proof keeps its verification status. Sign wallet ownership proof for each request.\nPOST /api/proof-inbox. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated durable trust service. Signed records attest only to the stated evidence and permission scope. See /api/trust-contract for the public verification key and bounded contract.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -2673,9 +2673,17 @@
     {
       "name": "wever_rail-playground",
       "title": "Rail Playground",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Execute supported bounded Wever computations, measure their runs and compare actual outputs and caller-specified expectations.\nOperating boundary: Supported local production computations only. External agent execution and money movement are unavailable. Acceptance inputs remain labeled synthetic.\nPOST /api/rail-playground. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Execute supported bounded Wever computations, measure their runs and compare actual outputs and caller-specified expectations.\nOperating boundary: Choose a supported Wever computation, supply input and expected results, then compare the actual output and timing. Sample acceptance inputs stay labeled as tests.\nPOST /api/rail-playground. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "idempotency_key",
+          "usage",
+          "mode",
+          "repeats",
+          "cases"
+        ],
         "properties": {
           "idempotency_key": {
             "type": "string",
@@ -3195,15 +3203,7 @@
             "minItems": 1,
             "maxItems": 6
           }
-        },
-        "required": [
-          "idempotency_key",
-          "usage",
-          "mode",
-          "repeats",
-          "cases"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -3215,9 +3215,13 @@
     {
       "name": "wever_agent-escrow-lite",
       "title": "Agent Escrow Lite",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Escrow principal and API-fee wallet: 0x69255FeaC86268C0D0bD0CBd128da7B9aB44b1c4. Principal funding is separate, and every call requires a signed wallet ownership proof. Managed Base USDC custody with verified funding, immutable parties, EIP-712 release policies, expiry refunds to the payer and a durable public release log.\nOperating boundary: The separate custody wallet accepts bounded USDC principal. A verified release pays only the immutable payee; an expiry refund pays only the immutable payer. API fees are separate, manual sweeps are required, and work-order grants are not payment authority.\nPOST /api/agent-escrow-lite. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This managed custody service uses immutable escrow parties and EIP-712 release policies. Releases pay only the payee; expiry refunds pay only the payer. Public logs report durable state and transaction evidence. Work-order grants do not authorize payment.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Escrow principal and API-fee wallet: 0x69255FeaC86268C0D0bD0CBd128da7B9aB44b1c4. Principal funding is separate, and every call requires a signed wallet ownership proof. Managed Base USDC custody with verified funding, immutable parties, EIP-712 release policies, expiry refunds to the payer and a durable public release log.\nOperating boundary: Create an escrow with a fixed payer, payee, amount and expiry. Fund it with Base USDC, then use the signed release policy to pay the payee or receive an expiry refund as the payer. Agents call the escrow tools; humans review and sign the funding and release terms. API fees and escrow principal are separate amounts.\nPOST /api/agent-escrow-lite. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This managed custody service uses immutable escrow parties and EIP-712 release policies. Releases pay only the payee; expiry refunds pay only the payer. Public logs report durable state and transaction evidence. Work-order grants do not authorize payment.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode"
+        ],
         "properties": {
           "mode": {
             "enum": [
@@ -3733,10 +3737,6 @@
             }
           }
         },
-        "required": [
-          "mode"
-        ],
-        "additionalProperties": false,
         "oneOf": [
           {
             "type": "object",
@@ -4350,9 +4350,14 @@
     {
       "name": "wever_agent-invoice-rail",
       "title": "Agent Invoice Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Private issuer-wallet invoice ledger, immutable face amount and parties, run-reference binding and recorded issuer review. References are not independently verified. No bill delivery, payment collection or spending authority.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. Private issuer-wallet invoice ledger, immutable face amount and parties, run-reference binding and recorded issuer review. References are not independently verified. No bill delivery, payment collection or spending authority. Every invoice operation also requires a signed issuer-wallet ownership proof. The API access fee is separate from any inspected payment or recorded invoice amount.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Keep a private issuer-wallet ledger of invoice amounts, parties, run references and the issuer’s review.\nOperating boundary: Sign issuer-wallet ownership proof, create the invoice record and attach run references. The issuer reviews those references and records the result. Agents manage the ledger through the API; humans inspect it through their agent. Payment collection uses the separate Invoices product.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "schema_version",
+          "mode"
+        ],
         "properties": {
           "schema_version": {
             "const": "1.0.0"
@@ -4470,11 +4475,6 @@
             "pattern": "^[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
           }
         },
-        "required": [
-          "schema_version",
-          "mode"
-        ],
-        "additionalProperties": false,
         "oneOf": [
           {
             "type": "object",
@@ -4698,7 +4698,7 @@
     {
       "name": "wever_agent-permission-ledger",
       "title": "Agent Permission Ledger",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Persist wallet-scoped permission grants and revocations and evaluate an exact subject, action and resource against those records.\nOperating boundary: Authenticated owner declarations within this ledger. Target systems must enforce resource access. No spending authority or external permission verification.\nPOST /api/agent-permission-ledger. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Persist wallet-scoped permission grants and revocations and evaluate an exact subject, action and resource against those records.\nOperating boundary: Record a permission grant or revocation for a subject, action and resource. Query those records to make an access decision in the target system.\nPOST /api/agent-permission-ledger. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -4945,7 +4945,7 @@
     {
       "name": "wever_agent-work-order-rail",
       "title": "Agent Work Order Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: The computation uses supplied data only and performs no provider work, callbacks, document retrieval or signed attestations. Direct access uses x402 Base USDC settlement or the verified-wallet free tier; the Labs MCP and resolver computation paths remain free.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: Supply the DiligenceOps task and Connect recipient. Read the validated task package. The agent submits it through Connect with the recipient’s permission; the human reviews the requested work and returned result.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -4967,7 +4967,7 @@
               "minLength": 1,
               "maxLength": 96,
               "pattern": "^[A-Za-z0-9_.:/ -]+(?![\\s\\S])",
-              "description": "ASCII only, at most 96 bytes before trimming; cannot be blank. Normalized duplicates are rejected."
+              "description": "Use a nonempty ASCII label up to 96 bytes before trimming. Each normalized label must be unique."
             }
           },
           "expected_evidence": {
@@ -4979,7 +4979,7 @@
               "minLength": 1,
               "maxLength": 96,
               "pattern": "^[A-Za-z0-9_.:/ -]+(?![\\s\\S])",
-              "description": "ASCII only, at most 96 bytes before trimming; cannot be blank. Normalized duplicates are rejected."
+              "description": "Use a nonempty ASCII label up to 96 bytes before trimming. Each normalized label must be unique."
             }
           }
         },
@@ -5001,9 +5001,19 @@
     {
       "name": "wever_agent-decision-packet-rail",
       "title": "Agent Decision Packet Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Evaluate supplied alternatives against explicit weighted numeric criteria and constraints, with transparent scores, evidence gaps and ties.\nOperating boundary: Scores use supplied evidence and measurements only. Missing evidence, failed constraints and ties are disclosed. No independent truth or optimality claim.\nPOST /api/agent-decision-packet-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Evaluate supplied alternatives against explicit weighted numeric criteria and constraints, with transparent scores, evidence gaps and ties.\nOperating boundary: Submit alternatives, numeric criteria, weights and constraints. Read the resulting scores alongside missing evidence, failed constraints and tied alternatives.\nPOST /api/agent-decision-packet-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "idempotency_key",
+          "usage",
+          "mode",
+          "objective",
+          "criteria",
+          "constraints",
+          "options"
+        ],
         "properties": {
           "idempotency_key": {
             "type": "string",
@@ -5185,17 +5195,7 @@
             "minItems": 2,
             "maxItems": 16
           }
-        },
-        "required": [
-          "idempotency_key",
-          "usage",
-          "mode",
-          "objective",
-          "criteria",
-          "constraints",
-          "options"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -5207,9 +5207,16 @@
     {
       "name": "wever_agent-file-desk-rail",
       "title": "Agent File Desk Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Inspect supplied file bytes, compute content hashes, identify exact duplicates and report bounded content metadata.\nOperating boundary: Inline bytes only, with strict size and supported-format limits. No remote drive access, malware certification or file move/delete operations.\nPOST /api/agent-file-desk-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Inspect supplied file bytes, compute content hashes, identify exact duplicates and report bounded content metadata.\nOperating boundary: Send inline file bytes in a supported format. The response includes content hashes, exact duplicates and metadata. The input schema lists size and format limits.\nPOST /api/agent-file-desk-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "idempotency_key",
+          "usage",
+          "mode",
+          "files"
+        ],
         "properties": {
           "idempotency_key": {
             "type": "string",
@@ -5267,14 +5274,7 @@
             "minItems": 1,
             "maxItems": 16
           }
-        },
-        "required": [
-          "idempotency_key",
-          "usage",
-          "mode",
-          "files"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -5286,9 +5286,13 @@
     {
       "name": "wever_mcp-diligence-rail",
       "title": "MCP Diligence Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Inventory submitted MCP tool declarations and flag missing or consequential annotations. This does not connect to a server or grant authority.\nOperating boundary: The computation uses supplied data only and performs no provider work, callbacks, document retrieval or signed attestations. Direct access uses x402 Base USDC settlement or the verified-wallet free tier; the Labs MCP and resolver computation paths remain free.\nPOST /api/mcp-diligence-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Review submitted MCP tool declarations and list missing annotations and actions that change data or spend money.\nOperating boundary: Supply MCP tool declarations. Read the annotation inventory and review items. Agents compare the declared interfaces; humans review the actions and choose which tools to connect.\nPOST /api/mcp-diligence-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tools"
+        ],
         "properties": {
           "tools": {
             "type": "array",
@@ -5331,11 +5335,7 @@
               }
             }
           }
-        },
-        "required": [
-          "tools"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -5347,7 +5347,7 @@
     {
       "name": "wever_agent-daily-operator-brief",
       "title": "Agent Daily Operator Brief",
-      "description": "Paid URL: 0.25 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Summarize supplied service health and queue observations into deterministic priorities. No private records are fetched and no activity is invented.\nOperating boundary: The computation uses supplied data only and performs no provider work, callbacks, document retrieval or signed attestations. Direct access uses x402 Base USDC settlement or the verified-wallet free tier; the Labs MCP and resolver computation paths remain free.\nPOST /api/agent-daily-operator-brief. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.25 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Turn supplied service health and queue observations into a prioritized operator brief.\nOperating boundary: Supply service health and queue observations. Read the ordered priorities and their source observations. Agents prepare the brief; humans use it to choose the next operational task.\nPOST /api/agent-daily-operator-brief. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -5448,9 +5448,16 @@
     {
       "name": "wever_proof-relay",
       "title": "Proof Relay",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and deterministic source/destination binding digest. References and supplied hashes remain unverified. No destination is contacted, no acknowledgment is obtained, and nothing is delivered or persisted.\nOperating boundary: Direct access uses x402 Base USDC settlement or the verified-wallet free tier. The prepared computation uses caller-supplied data and creates no execution authority, proof verification, delivery or provider action. Payment access records are durable; existing credentials and signed grants remain required for separate consequential actions.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and a digest binding the supplied source and destination, ready for the sender’s delivery step.\nOperating boundary: Supply source, destination and artifact references. Read the prepared envelope and binding digest. The sending agent delivers it through its chosen transport; the human reviews the references and resulting acknowledgment.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "mode",
+          "source_agent_id",
+          "destination",
+          "proof_references"
+        ],
         "properties": {
           "mode": {
             "const": "prepare_proof_relay"
@@ -5542,14 +5549,7 @@
             "minItems": 1,
             "maxItems": 16
           }
-        },
-        "required": [
-          "mode",
-          "source_agent_id",
-          "destination",
-          "proof_references"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -5561,7 +5561,7 @@
     {
       "name": "wever_referral-rail",
       "title": "Referral rail",
-      "description": "Create a rail-signed WL-R-XXXXXX referral code, permanently attribute your own wallet with a signed code_token, inspect earnings, claim USDC, or verify a signed referral receipt. POST /api/referral-rail. Every call requires X-Wever-Wallet-Proof signed by the caller wallet and bound to the exact request body. Attribution requires the referee wallet proof, rejects self-referrals and permits only the first code. Earnings accrue from verified real payment and settlement records: 20 percent of eligible USDC paid for 12 months from the first attributed paid call. Claims pay only the authenticated referrer wallet from a separate operator-funded payout wallet, require a stable claim_id for retries, and allow 1.00 to 25.00 USDC per claim. Total outstanding accruals are capped at 200.00 USDC and fail closed beyond that cap. Attributions and confirmed payouts return record-backed, verifiable signed receipts. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. The payout wallet does not receive API fees or escrow principal. Read the backend 402 body and /api/referral-contract for the exact contract and public verification key. This adapter forwards only caller-supplied credentials and grants no spending authority.",
+      "description": "Create a rail-signed WL-R-XXXXXX referral code, permanently attribute your own wallet with a signed code_token, inspect earnings, claim USDC, or verify a signed referral receipt. POST /api/referral-rail. Every call requires X-Wever-Wallet-Proof signed by the caller wallet and bound to the exact request body. Attribution requires the referee wallet proof, rejects self-referrals and permits only the first code. Earnings accrue from verified real payment and settlement records: 20 percent of eligible USDC paid for 12 months from the first attributed paid call. Claims reserve earnings and create a linked payout instruction for the authenticated referrer wallet, require a stable claim_id for retries, and allow 1.00 to 25.00 USDC per claim. Optional amount_usdc requests an exact amount within the available balance; omit it to claim the available balance up to 25 USDC. The treasury holder uses wever_payout-authorize and wever_payout-execute with AP2 holder binding v2 and separate EIP-712 spending consent. The dedicated payout wallet requires manual funding; the shared payout cap is 100 USDC per UTC day. Retry the original claim after execution to reconcile the confirmed transfer and obtain its receipt. Total outstanding accruals are capped at 200.00 USDC and fail closed beyond that cap. Attributions and confirmed payouts return record-backed, verifiable signed receipts. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. The payout wallet does not receive API fees or escrow principal. Read the backend 402 body and /api/referral-contract for the exact contract and public verification key. This adapter forwards only caller-supplied credentials and grants no spending authority.",
       "inputSchema": {
         "type": "object",
         "oneOf": [
@@ -5630,6 +5630,10 @@
               "claim_id": {
                 "type": "string",
                 "pattern": "^[A-Za-z0-9:_-]{1,64}$"
+              },
+              "amount_usdc": {
+                "type": "string",
+                "pattern": "^(0|[1-9][0-9]{0,2})(\\.[0-9]{1,6})?$"
               }
             }
           },
@@ -5791,9 +5795,13 @@
     {
       "name": "wever_atlas-asset-passport",
       "title": "Atlas asset passport",
-      "description": "Look up a covered tokenized asset by its id or ticker and return its full sourced Asset Passport, including claim, backing, access, liquidity, risks and source trail. Reads the versioned Atlas reference dataset, not live market quotes. Each result preserves source dates and labels for provisional or unverified historical display data. POST /api/atlas-asset-passport. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The adapter forwards only caller-supplied proof and payment headers. Authority is read-only: no dataset or external writes, asset trading, autonomous source fetches, spending authority or publication. API access billing is separate: it records free usage or settles an explicit caller-supplied payment authorization. Read /api/atlas-contract and the backend 402 body for exact schemas and billing terms.",
+      "description": "Look up a covered tokenized asset by its id or ticker and return its full sourced Asset Passport, including taxonomy stage, six-field rights matrix, claim, backing, access, liquidity, risks and source trail. Reads the versioned Atlas reference dataset, not live market quotes. Each result preserves source dates and labels for provisional or unverified historical display data. POST /api/atlas-asset-passport. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The adapter forwards only caller-supplied proof and payment headers. Authority is read-only: no dataset or external writes, asset trading, autonomous source fetches, spending authority or publication. API access billing is separate: it records free usage or settles an explicit caller-supplied payment authorization. Read /api/atlas-contract and the backend 402 body for exact schemas and billing terms.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "asset"
+        ],
         "properties": {
           "asset": {
             "type": "string",
@@ -5802,11 +5810,7 @@
             "pattern": "^[a-zA-Z0-9][a-zA-Z0-9._-]*$",
             "description": "A covered Atlas asset id or ticker, case-insensitive. Example: paxg or PAXG."
           }
-        },
-        "required": [
-          "asset"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": true,
@@ -5818,9 +5822,10 @@
     {
       "name": "wever_atlas-asset-search",
       "title": "Atlas asset search",
-      "description": "Search covered tokenized assets by literal text or category and return paginated summaries. Empty arguments list all covered assets within the result limit. Reads the versioned Atlas reference dataset, not live market quotes. Each result preserves source dates and labels for provisional or unverified historical display data. POST /api/atlas-asset-search. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The adapter forwards only caller-supplied proof and payment headers. Authority is read-only: no dataset or external writes, asset trading, autonomous source fetches, spending authority or publication. API access billing is separate: it records free usage or settles an explicit caller-supplied payment authorization. Read /api/atlas-contract and the backend 402 body for exact schemas and billing terms.",
+      "description": "Search covered tokenized assets by literal text, category, stage or six rights filters and return paginated summaries with stage and rights. Empty arguments list all covered assets within the result limit. Reads the versioned Atlas reference dataset, not live market quotes. Each result preserves source dates and labels for provisional or unverified historical display data. POST /api/atlas-asset-search. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The adapter forwards only caller-supplied proof and payment headers. Authority is read-only: no dataset or external writes, asset trading, autonomous source fetches, spending authority or publication. API access billing is separate: it records free usage or settles an explicit caller-supplied payment authorization. Read /api/atlas-contract and the backend 402 body for exact schemas and billing terms.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
           "category": {
             "type": "string",
@@ -5834,6 +5839,71 @@
             "maxLength": 256,
             "description": "Case-insensitive literal text search over sourced asset fields. Combined with category when both are supplied."
           },
+          "stage": {
+            "type": "integer",
+            "enum": [
+              1,
+              2,
+              3
+            ],
+            "description": "Exact taxonomy stage: 1 wrapper, 2 issuer-sponsored, 3 native issuance. All supplied filters are combined."
+          },
+          "rights": {
+            "type": "object",
+            "additionalProperties": false,
+            "minProperties": 1,
+            "description": "Combine disclosed rights filters. Enumerated values match exactly. not disclosed matches missing public disclosure, not a negative right.",
+            "properties": {
+              "issuer_involvement": {
+                "type": "string",
+                "enum": [
+                  "sponsored by the issuer",
+                  "not sponsored",
+                  "not disclosed"
+                ]
+              },
+              "custody_backing": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 256,
+                "pattern": "\\S",
+                "description": "Case-insensitive literal substring in the disclosed backing and custodian description. Use not disclosed for an undisclosed value."
+              },
+              "distributions": {
+                "type": "string",
+                "enum": [
+                  "passed through",
+                  "not passed through",
+                  "not disclosed"
+                ]
+              },
+              "voting": {
+                "type": "string",
+                "enum": [
+                  "holder votes",
+                  "votes with management",
+                  "none",
+                  "not disclosed"
+                ]
+              },
+              "legal_status": {
+                "type": "string",
+                "enum": [
+                  "owner of record",
+                  "economic exposure only",
+                  "not disclosed"
+                ]
+              },
+              "redemption": {
+                "type": "string",
+                "enum": [
+                  "redeemable for the underlying",
+                  "not redeemable for the underlying",
+                  "not disclosed"
+                ]
+              }
+            }
+          },
           "limit": {
             "type": "integer",
             "minimum": 1,
@@ -5846,8 +5916,7 @@
             "maximum": 10000,
             "default": 0
           }
-        },
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": true,
@@ -5862,6 +5931,10 @@
       "description": "Read a wallet's native USDC balance and ETH balance for gas visibility on Base mainnet. wallet_address must use the exact EIP-55 checksum. Reads public chain data only. Treasury arguments never accept private keys, signatures or transaction instructions; these tools cannot sign, submit transactions, transfer funds or spend. POST /api/treasury-balance. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. API access billing is separate from wallet visibility: the existing access layer processes caller-supplied payment and wallet-proof headers only. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The inspected wallet need not be the access payer. Read /api/treasury-contract and the backend 402 body for schemas, coverage and billing terms.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "wallet_address"
+        ],
         "properties": {
           "wallet_address": {
             "type": "string",
@@ -5870,11 +5943,7 @@
             "pattern": "^0x[0-9a-fA-F]{40}$",
             "description": "Public Base wallet address in its exact EIP-55 checksum spelling. No ownership proof or secrets belong in tool arguments."
           }
-        },
-        "required": [
-          "wallet_address"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": true,
@@ -5889,6 +5958,10 @@
       "description": "Read recent native USDC transfers into and out of a wallet on Base mainnet, including amounts, timestamps and transaction hashes. Optional limit and UTC time window bound the returned history. wallet_address must use the exact EIP-55 checksum. Reads public chain data only. Treasury arguments never accept private keys, signatures or transaction instructions; these tools cannot sign, submit transactions, transfer funds or spend. POST /api/treasury-flows. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. API access billing is separate from wallet visibility: the existing access layer processes caller-supplied payment and wallet-proof headers only. X-Wever-Wallet-Proof must bind to the exact JSON arguments and this API path, not /mcp. The inspected wallet need not be the access payer. Read /api/treasury-contract and the backend 402 body for schemas, coverage and billing terms.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "wallet_address"
+        ],
         "properties": {
           "wallet_address": {
             "type": "string",
@@ -5915,11 +5988,7 @@
             "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d{3})?Z$",
             "description": "UTC ISO 8601 timestamp, for example 2026-10-01T00:00:00Z. Start is inclusive and end is exclusive; maximum window 366 days. Defaults to the current time."
           }
-        },
-        "required": [
-          "wallet_address"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": true,
@@ -5934,6 +6003,16 @@
       "description": "The hirer names one worker wallet and defines the title, description, acceptance criteria, USDC price and deadline. Creates immutable work terms for an order capped at 25.00 USDC. POST /api/workorder-create. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "idempotency_key",
+          "title",
+          "description",
+          "acceptance_criteria",
+          "price_usdc",
+          "deadline",
+          "worker_wallet"
+        ],
         "properties": {
           "idempotency_key": {
             "type": "string",
@@ -5987,17 +6066,7 @@
               "operational"
             ]
           }
-        },
-        "required": [
-          "idempotency_key",
-          "title",
-          "description",
-          "acceptance_criteria",
-          "price_usdc",
-          "deadline",
-          "worker_wallet"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -6012,6 +6081,13 @@
       "description": "The hirer funds the order through escrow-lite using caller-signed principal authorization. Only confirmed principal funding moves an open order to funded. Escrow principal is the hirer's order value, separate from the API access fee. POST /api/workorder-fund. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "idempotency_key",
+          "payer_terms_signature",
+          "funding_payment"
+        ],
         "properties": {
           "order_id": {
             "type": "string",
@@ -6177,14 +6253,7 @@
               }
             ]
           }
-        },
-        "required": [
-          "order_id",
-          "idempotency_key",
-          "payer_terms_signature",
-          "funding_payment"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -6199,6 +6268,11 @@
       "description": "Only the named worker wallet may accept a funded order before its deadline. POST /api/workorder-accept. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "idempotency_key"
+        ],
         "properties": {
           "order_id": {
             "type": "string",
@@ -6210,12 +6284,7 @@
             "maxLength": 128,
             "pattern": "^[A-Za-z0-9._:-]+(?![\\s\\S])"
           }
-        },
-        "required": [
-          "order_id",
-          "idempotency_key"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -6230,6 +6299,13 @@
       "description": "Only the named worker wallet may submit a deliverable reference and proof hash for an accepted order. Delivery evidence is recorded in the proof inbox; submission is not automatic acceptance or payment. POST /api/workorder-deliver. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "idempotency_key",
+          "deliverable_reference",
+          "proof_hash"
+        ],
         "properties": {
           "order_id": {
             "type": "string",
@@ -6252,14 +6328,7 @@
             "type": "string",
             "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           }
-        },
-        "required": [
-          "order_id",
-          "idempotency_key",
-          "deliverable_reference",
-          "proof_hash"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -6274,6 +6343,14 @@
       "description": "Only the hirer may approve a delivered order. The AP2 gateway verifies a trusted holder-bound, unexpired, unused mandate for the exact order intent. A separate payer-signed EIP-712 escrow release mandate authorizes payment only to the immutable worker. Confirmed settlement produces signed record-backed receipts for both parties. POST /api/workorder-release. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "idempotency_key",
+          "mandate",
+          "presentation",
+          "challenge_token"
+        ],
         "properties": {
           "order_id": {
             "type": "string",
@@ -6538,15 +6615,7 @@
             "pattern": "^[^\\u0000-\\u001f\\u007f-\\u009f]+(?![\\s\\S])",
             "description": "At most 16384 UTF-8 bytes. Control characters are not allowed."
           }
-        },
-        "required": [
-          "order_id",
-          "idempotency_key",
-          "mandate",
-          "presentation",
-          "challenge_token"
-        ],
-        "additionalProperties": false
+        }
       },
       "annotations": {
         "readOnlyHint": false,
@@ -6558,9 +6627,16 @@
     {
       "name": "wever_workorder-dispute",
       "title": "Dispute work order",
-      "description": "Either authenticated party may freeze the order before release and record bounded evidence in the proof inbox. Dispute blocks further release; expiry refund to the original hirer remains available. Arbitration UI is outside v1. POST /api/workorder-dispute. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
+      "description": "Either authenticated party may pause release of the order and record bounded evidence in the proof inbox. Dispute blocks further release; expiry refund to the original hirer remains available. Arbitration UI is outside v1. POST /api/workorder-dispute. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. Order value is capped at 25.00 USDC under the existing escrow-lite rail; API access fees and escrow principal are separate. Normal states are open, funded, accepted, delivered and released. Disputed orders freeze release and retain an expiry refund path; expired funded orders refund only the hirer. No private keys are accepted, no arbitrary payee or payer substitution is allowed, and the adapter grants no authority. Read /api/workorder-contract for schemas, recovery and evidence bounds. Live funded acceptance remains a manual operator step.",
       "inputSchema": {
         "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "order_id",
+          "idempotency_key",
+          "evidence_reference",
+          "proof_hash"
+        ],
         "properties": {
           "order_id": {
             "type": "string",
@@ -6583,19 +6659,1275 @@
             "type": "string",
             "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
           }
+        }
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_payout-create",
+      "title": "Create payout",
+      "description": "Create an immutable payout instruction with recipient, amount_usdc, idempotency_key, memo and rail_reference. Enforces the configured 25.00 USDC per-payout cap and 100.00 USDC daily cap before accepting. Returns created with a signed receipt. No money moves. POST /api/payout-create. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. The tool fee is separate from the payout amount and grants no disbursement authority. The operator manually funds the dedicated hot payout wallet; Ledger keys never reach the server, and sweep and reclaim remain manual. No private keys are accepted. A disbursement primitive, not a bank: no yield, conversion or fiat. External custody and security audit required before large-value use. Company-authored; usage remains explicitly labeled. Read /api/payout-contract for exact schemas and authorization flow.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "recipient": {
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]{40}(?![\\s\\S])"
+          },
+          "amount_usdc": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,8})(\\.[0-9]{1,6})?(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,128}(?![\\s\\S])"
+          },
+          "memo": {
+            "type": "string",
+            "maxLength": 1024
+          },
+          "rail_reference": {
+            "type": "string",
+            "maxLength": 256
+          },
+          "usage": {
+            "enum": [
+              "synthetic",
+              "operational",
+              "unspecified"
+            ]
+          }
+        },
+        "required": [
+          "recipient",
+          "amount_usdc",
+          "idempotency_key",
+          "memo",
+          "rail_reference"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_payout-authorize",
+      "title": "Authorize payout",
+      "description": "Bind a trusted-issuer AP2 signed presentation and a separate EIP-712 principal_signature from a configured treasury holder to the exact payout recipient, amount and expiry. AP2 retains its API-fee scope; only the separate treasury signature authorizes principal. Uses the wever_ap2-mandate-gateway verifier, trust anchors and replay ledger with holder binding v2. Returns authorized with a signed receipt. No money moves. POST /api/payout-authorize. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. The tool fee is separate from the payout amount and grants no disbursement authority. The operator manually funds the dedicated hot payout wallet; Ledger keys never reach the server, and sweep and reclaim remain manual. No private keys are accepted. A disbursement primitive, not a bank: no yield, conversion or fiat. External custody and security audit required before large-value use. Company-authored; usage remains explicitly labeled. Read /api/payout-contract for exact schemas and authorization flow.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "payout_id": {
+            "type": "string",
+            "pattern": "^po_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,128}(?![\\s\\S])"
+          },
+          "presentation": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 24576
+          },
+          "challenge_token": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          },
+          "expires_at": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4102444800
+          },
+          "principal_signature": {
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]{130}(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "payout_id",
+          "idempotency_key",
+          "presentation",
+          "challenge_token",
+          "expires_at",
+          "principal_signature"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_payout-execute",
+      "title": "Execute payout",
+      "description": "Disburse native USDC on Base from the dedicated service-operated payout wallet only for an authorized payout with a valid unexpired holder-bound mandate. The persisted transfer nonce prevents duplicate payment on retries. Returns executed with the independently confirmed transaction hash and signed receipt. POST /api/payout-execute. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. The tool fee is separate from the payout amount and grants no disbursement authority. The operator manually funds the dedicated hot payout wallet; Ledger keys never reach the server, and sweep and reclaim remain manual. No private keys are accepted. A disbursement primitive, not a bank: no yield, conversion or fiat. External custody and security audit required before large-value use. Company-authored; usage remains explicitly labeled. Read /api/payout-contract for exact schemas and authorization flow.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "payout_id": {
+            "type": "string",
+            "pattern": "^po_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,128}(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "payout_id",
+          "idempotency_key"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_payout-status",
+      "title": "Payout status",
+      "description": "Read a payout and its signed transition receipts by payout_id or the original create idempotency_key. Read-only: no payout state change, signing, reconciliation or transaction submission. POST /api/payout-status. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path, including paid calls. The tool fee is separate from the payout amount and grants no disbursement authority. The operator manually funds the dedicated hot payout wallet; Ledger keys never reach the server, and sweep and reclaim remain manual. No private keys are accepted. A disbursement primitive, not a bank: no yield, conversion or fiat. External custody and security audit required before large-value use. Company-authored; usage remains explicitly labeled. Read /api/payout-contract for exact schemas and authorization flow.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "payout_id": {
+            "type": "string",
+            "pattern": "^po_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{1,128}(?![\\s\\S])"
+          }
+        },
+        "required": [],
+        "oneOf": [
+          {
+            "required": [
+              "payout_id"
+            ]
+          },
+          {
+            "required": [
+              "idempotency_key"
+            ]
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_dispute-open",
+      "title": "Open dispute",
+      "description": "Either escrow party opens a dispute against already funded escrow or a funded work order. Records the claim reference, immutable parties and locked amount, and an operator-signed receipt. Atomically pauses release and refund. Rejects locked value above 25.00 USDC, unfunded or already disposed funds, and unrelated wallets. No new principal enters. POST /api/dispute-open. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path. Fees are separate from the locked principal and grant no resolution authority. Disputes expire after 14 days; unresolved expiry refunds the payer with a signed timeout receipt, subject to settlement confirmation and the UTC daily cap. External custody and security audit remains pending. Company-authored. Read /api/dispute-contract for schemas, operator authorization and recovery limits.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "escrow_id": {
+            "type": "string",
+            "pattern": "^esc_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "order_id": {
+            "type": "string",
+            "pattern": "^wo_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}(?![\\s\\S])"
+          },
+          "claim": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "reason_code": {
+                "enum": [
+                  "non_delivery",
+                  "quality",
+                  "scope",
+                  "payment",
+                  "other"
+                ]
+              },
+              "statement_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "uri": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512,
+                "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+              }
+            },
+            "required": [
+              "reason_code",
+              "statement_sha256"
+            ]
+          }
+        },
+        "required": [
+          "idempotency_key",
+          "claim"
+        ],
+        "oneOf": [
+          {
+            "required": [
+              "escrow_id"
+            ]
+          },
+          {
+            "required": [
+              "order_id"
+            ]
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_dispute-submit-evidence",
+      "title": "Submit dispute evidence",
+      "description": "Either party submits bounded evidence hashes and URIs. Raw personal information is not accepted. Both parties can read the evidence and its operator-signed receipt. Closed or expired disputes reject evidence. POST /api/dispute-submit-evidence. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path. Fees are separate from the locked principal and grant no resolution authority. Disputes expire after 14 days; unresolved expiry refunds the payer with a signed timeout receipt, subject to settlement confirmation and the UTC daily cap. External custody and security audit remains pending. Company-authored. Read /api/dispute-contract for schemas, operator authorization and recovery limits.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dispute_id": {
+            "type": "string",
+            "pattern": "^dp_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}(?![\\s\\S])"
+          },
+          "references": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                },
+                "uri": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512,
+                  "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+                }
+              },
+              "required": [
+                "sha256",
+                "uri"
+              ]
+            }
+          }
+        },
+        "required": [
+          "dispute_id",
+          "idempotency_key",
+          "references"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_dispute-resolve",
+      "title": "Resolve dispute",
+      "description": "Requires a domain-bound operator signature for the exact dispute and outcome. Release to the payee, refund to the payer, or split explicit atomic amounts summing to the locked total. Durable transfer nonces prevent duplicate movement on concurrent retries. Total resolved value is limited to 100.00 USDC per UTC day. action=extend permits one operator-authorized 14-day extension before expiry. POST /api/dispute-resolve. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path. Fees are separate from the locked principal and grant no resolution authority. Disputes expire after 14 days; unresolved expiry refunds the payer with a signed timeout receipt, subject to settlement confirmation and the UTC daily cap. External custody and security audit remains pending. Company-authored. Read /api/dispute-contract for schemas, operator authorization and recovery limits.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dispute_id": {
+            "type": "string",
+            "pattern": "^dp_[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}(?![\\s\\S])"
+          },
+          "action": {
+            "enum": [
+              "resolve",
+              "extend"
+            ]
+          },
+          "outcome": {
+            "enum": [
+              "release",
+              "refund",
+              "split"
+            ]
+          },
+          "payee_amount_atomic": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,8})(?![\\s\\S])"
+          },
+          "payer_amount_atomic": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,8})(?![\\s\\S])"
+          },
+          "reason_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+          },
+          "reason_uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512,
+            "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+          },
+          "operator_authorization": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 8192
+          }
+        },
+        "required": [
+          "dispute_id",
+          "idempotency_key",
+          "action",
+          "reason_sha256",
+          "operator_authorization"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "resolve"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "outcome",
+                "payee_amount_atomic",
+                "payer_amount_atomic"
+              ]
+            },
+            "else": {
+              "not": {
+                "anyOf": [
+                  {
+                    "required": [
+                      "outcome"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "payee_amount_atomic"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "payer_amount_atomic"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_dispute-status",
+      "title": "Dispute status",
+      "description": "Read the dispute and full operator-signed receipt chain, including opening, each evidence submission, extension and resolution or timeout. Read-only: no settlement, signing or reconciliation. Requires a party wallet proof. POST /api/dispute-status. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls over rolling 30 days. Every call requires X-Wever-Wallet-Proof bound to the exact JSON arguments and this API path. Fees are separate from the locked principal and grant no resolution authority. Disputes expire after 14 days; unresolved expiry refunds the payer with a signed timeout receipt, subject to settlement confirmation and the UTC daily cap. External custody and security audit remains pending. Company-authored. Read /api/dispute-contract for schemas, operator authorization and recovery limits.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "dispute_id": {
+            "type": "string",
+            "pattern": "^dp_[a-f0-9]{64}(?![\\s\\S])"
+          }
+        },
+        "required": [
+          "dispute_id"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_boutique-list-products",
+      "title": "Rebecca Belle Boutique products",
+      "description": "Browse Rebecca Belle Boutique products with stable IDs, names, prices, photos, availability and descriptive details. Supply store=women, men, kids, or home to browse a live collection with query, size, brand, category, min_price, max_price, nwt, sort, page, and page_size. Home offers home goods. Product IDs use rb-#####, mm-#####, lc-#####, and rh-##### respectively. The collections share a cart with $8 shipping per whole order and card payment through the boutique checkout. Collection and product records expose agent_purchase_enabled. Omit store and filters to read the legacy nine-piece seasonal snapshot. Catalog prices use 1 USD = 1 USDC; checkout calculates shipping and tax. Anonymous catalog reads are free.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "store": {
+            "type": "string",
+            "enum": [
+              "women",
+              "men",
+              "kids",
+              "home"
+            ]
+          },
+          "query": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "size": {
+            "type": "string",
+            "maxLength": 80
+          },
+          "brand": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "category": {
+            "type": "string",
+            "maxLength": 120
+          },
+          "min_price": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "max_price": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 100000
+          },
+          "nwt": {
+            "type": "boolean"
+          },
+          "sort": {
+            "type": "string",
+            "enum": [
+              "newest",
+              "price_low",
+              "price_high",
+              "most_liked"
+            ]
+          },
+          "page": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000
+          },
+          "page_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 60
+          },
+          "availability": {
+            "type": "string",
+            "enum": [
+              "all",
+              "available",
+              "sold_out",
+              "unverified"
+            ],
+            "default": "all"
+          }
+        },
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_boutique-product-detail",
+      "title": "Rebecca Belle Boutique product detail",
+      "description": "Read one Rebecca Belle Boutique product by its exact catalog ID. Supply store=women, men, kids, or home to browse a live collection with query, size, brand, category, min_price, max_price, nwt, sort, page, and page_size. Home offers home goods. Product IDs use rb-#####, mm-#####, lc-#####, and rh-##### respectively. The collections share a cart with $8 shipping per whole order and card payment through the boutique checkout. Collection and product records expose agent_purchase_enabled. Omit store and filters to read the legacy nine-piece seasonal snapshot. Catalog prices use 1 USD = 1 USDC; checkout calculates shipping and tax. Anonymous catalog reads are free.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 128,
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          }
+        },
+        "required": [
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_boutique-create-order",
+      "title": "Rebecca Belle Boutique simulation checkout",
+      "description": "Simulation only. Create a boutique order with product_id and buyer_wallet. USD catalog amount maps exactly 1:1 to virtual USDC on the Base x402 pattern. Optional idempotency_key permits exact create retries; retain the returned bearer order_token. Repeat the same product_id and buyer_wallet with action=initiate_payment, simulate_payment, status, or confirm_fulfillment and order_token. Fulfillment confirmation also requires fulfillment_reference. Reuses existing x402 middleware and escrow-lite state machine with isolated synthetic settlement, no network signer or real funds. Simulation ceiling is 120 virtual USDC; real escrow remains capped at 25 USDC and real checkout is disabled. No merchant inventory reservation, shipping, tax, wallet ownership assertion, real payment authorization or actual fulfillment. All payment headers and simulation=false are rejected. Catalog tools remain read-only snapshots. No API fees or allowance consumption. Orders expire after 24 hours; bounded to 64 active simulations.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "product_id": {
+            "type": "string",
+            "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$",
+            "maxLength": 128
+          },
+          "buyer_wallet": {
+            "type": "string",
+            "pattern": "^0x[0-9a-fA-F]{40}$"
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "create",
+              "initiate_payment",
+              "simulate_payment",
+              "status",
+              "confirm_fulfillment"
+            ],
+            "default": "create"
+          },
+          "simulation": {
+            "type": "boolean",
+            "const": true,
+            "default": true
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[a-zA-Z0-9_-]{16,64}$"
+          },
+          "order_token": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "fulfillment_reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256
+          }
+        },
+        "required": [
+          "product_id",
+          "buyer_wallet"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "enum": [
+                    "initiate_payment",
+                    "simulate_payment",
+                    "status",
+                    "confirm_fulfillment"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "order_token"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "const": "confirm_fulfillment"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "fulfillment_reference"
+              ]
+            }
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_boutique-record-shipment",
+      "title": "Record boutique shipment simulation",
+      "description": "Record a simulated shipment against a funded boutique order using order_id, bearer order_token and tracking {carrier, tracking_number}. Marks shipped while keeping all virtual USDC in escrow. Exact retries are safe; conflicting tracking is rejected. Simulation only, no real funds, shipping verification, wallet ownership assertion or real treasury configuration. The existing order token is a simulation capability, not merchant or buyer authentication. Rejects payment headers and simulation=false. 120 virtual USDC ceiling, 64 orders, 2 MiB, 24-hour expiry. Synthetic test records are isolated from production custody and dispute records. Real escrow/dispute caps and all other tools are unchanged.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "pattern": "^bo_[a-f0-9]{64}$",
+            "maxLength": 67
+          },
+          "order_token": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "maxLength": 64
+          },
+          "simulation": {
+            "type": "boolean",
+            "const": true,
+            "default": true
+          },
+          "tracking": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "carrier": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "tracking_number": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              }
+            },
+            "required": [
+              "carrier",
+              "tracking_number"
+            ]
+          }
         },
         "required": [
           "order_id",
-          "idempotency_key",
-          "evidence_reference",
-          "proof_hash"
+          "order_token",
+          "tracking"
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_boutique-confirm-delivery",
+      "title": "Confirm boutique delivery simulation",
+      "description": "Confirm simulated delivery of a shipped order with order_id, bearer order_token and delivery_reference. Reuses escrow-lite signed release and atomically credits the order-scoped simulated boutique treasury once. action=dispute invokes existing dispute-open service and native escrow freeze with claim {reason_code, statement_sha256}; action=dispute-submit-evidence and dispute-status use the existing dispute services in the same simulation store. action=status reads operator state. Disputed orders cannot release. Resolution remains operator-authorized through the existing dispute rail and is not exposed by this bridge. Simulation only, no real funds, shipping verification, wallet ownership assertion or real treasury configuration. The existing order token is a simulation capability, not merchant or buyer authentication. Rejects payment headers and simulation=false. 120 virtual USDC ceiling, 64 orders, 2 MiB, 24-hour expiry. Synthetic test records are isolated from production custody and dispute records. Real escrow/dispute caps and all other tools are unchanged.",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "order_id": {
+            "type": "string",
+            "pattern": "^bo_[a-f0-9]{64}$",
+            "maxLength": 67
+          },
+          "order_token": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$",
+            "maxLength": 64
+          },
+          "simulation": {
+            "type": "boolean",
+            "const": true,
+            "default": true
+          },
+          "action": {
+            "type": "string",
+            "enum": [
+              "confirm",
+              "dispute",
+              "dispute-status",
+              "dispute-submit-evidence",
+              "status"
+            ],
+            "default": "confirm"
+          },
+          "delivery_reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 256,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+          },
+          "claim": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "reason_code": {
+                "enum": [
+                  "non_delivery",
+                  "quality",
+                  "scope",
+                  "payment",
+                  "other"
+                ]
+              },
+              "statement_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+              },
+              "uri": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 512,
+                "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+              }
+            },
+            "required": [
+              "reason_code",
+              "statement_sha256"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}(?![\\s\\S])"
+          },
+          "references": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 4,
+            "uniqueItems": true,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "sha256": {
+                  "type": "string",
+                  "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                },
+                "uri": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 512,
+                  "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+                }
+              },
+              "required": [
+                "sha256",
+                "uri"
+              ]
+            }
+          }
+        },
+        "required": [
+          "order_id",
+          "order_token"
+        ],
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "action": {
+                  "const": "confirm"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "delivery_reference"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "const": "dispute"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "claim"
+              ]
+            }
+          },
+          {
+            "if": {
+              "required": [
+                "action"
+              ],
+              "properties": {
+                "action": {
+                  "const": "dispute-submit-evidence"
+                }
+              }
+            },
+            "then": {
+              "required": [
+                "references",
+                "idempotency_key"
+              ]
+            }
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_boutique-real-money-acceptance",
+      "title": "Boutique 1 USDC acceptance",
+      "description": "One owner-operated Rebecca Belle Boutique acceptance order for a dedicated 1.00 USDC test product on Base mainnet. No catalog items. Creates a bounded order, observes the existing managed escrow, records test shipment and delivery, and independently checks native USDC receipts. This tool never signs, submits or initiates transfers and rejects payment headers. quote is public; other actions require a request-bound X-Wever-Wallet-Proof for /api/boutique-real-money-acceptance and configured buyer/operator. The human executes separately approved funding and release through the unchanged wever_agent-escrow-lite tool. That rail has separate 0.10 USDC API fees after its free allowance and automatic expiry refunds. Test evidence is not customer revenue or actual merchandise fulfillment.",
+      "inputSchema": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "quote"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "idempotency_key"
+            ],
+            "properties": {
+              "action": {
+                "const": "create_order"
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[a-zA-Z0-9_-]{16,64}$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "status"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "verify_payment"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "carrier",
+              "tracking_number"
+            ],
+            "properties": {
+              "action": {
+                "const": "record_shipment"
+              },
+              "carrier": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "tracking_number": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action",
+              "delivery_reference"
+            ],
+            "properties": {
+              "action": {
+                "const": "confirm_delivery"
+              },
+              "delivery_reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 128,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              }
+            }
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "action"
+            ],
+            "properties": {
+              "action": {
+                "const": "verify_release"
+              }
+            }
+          }
+        ]
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_purchase-create-intent",
+      "title": "purchase create intent",
+      "description": "Create an immutable purchase intent and exact plain-language quote. Item price plus flat $8 shipping and $0 tax; no additional buyer API fees. Requires a configured X-Wever-Agent-Key. Boutique supports quantity 1 per unique catalog listing. Creates no payment or approval. If approval_mode is customer_agent, obtain your customer human's approval of the exact quote and delivery address, then call purchase-execute with customer_approval. Otherwise use the returned human review URL.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]{0,63}$"
+          },
+          "item_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{1,100}$"
+          },
+          "quantity": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100
+          },
+          "delivery_address": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "line1": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "line2": {
+                "type": "string",
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]*$"
+              },
+              "city": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "state": {
+                "enum": [
+                  "AL",
+                  "AK",
+                  "AZ",
+                  "AR",
+                  "CA",
+                  "CO",
+                  "CT",
+                  "DE",
+                  "DC",
+                  "FL",
+                  "GA",
+                  "HI",
+                  "ID",
+                  "IL",
+                  "IN",
+                  "IA",
+                  "KS",
+                  "KY",
+                  "LA",
+                  "ME",
+                  "MD",
+                  "MA",
+                  "MI",
+                  "MN",
+                  "MS",
+                  "MO",
+                  "MT",
+                  "NE",
+                  "NV",
+                  "NH",
+                  "NJ",
+                  "NM",
+                  "NY",
+                  "NC",
+                  "ND",
+                  "OH",
+                  "OK",
+                  "OR",
+                  "PA",
+                  "RI",
+                  "SC",
+                  "SD",
+                  "TN",
+                  "TX",
+                  "UT",
+                  "VT",
+                  "VA",
+                  "WA",
+                  "WV",
+                  "WI",
+                  "WY"
+                ]
+              },
+              "postal_code": {
+                "type": "string",
+                "pattern": "^[0-9]{5}(-[0-9]{4})?$"
+              },
+              "country": {
+                "const": "US"
+              }
+            },
+            "required": [
+              "name",
+              "line1",
+              "line2",
+              "city",
+              "state",
+              "postal_code",
+              "country"
+            ],
+            "additionalProperties": false
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,64}$"
+          }
+        },
+        "required": [
+          "business_id",
+          "item_id",
+          "quantity",
+          "delivery_address",
+          "idempotency_key"
         ],
         "additionalProperties": false
       },
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": true,
-        "idempotentHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_purchase-status",
+      "title": "purchase status",
+      "description": "Read your own purchase quote, recorded human approval, fulfillment and completion state. Requires the same configured X-Wever-Agent-Key. No wallet or signing instructions are returned.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "intent_id": {
+            "type": "string",
+            "pattern": "^pi_[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "intent_id"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_purchase-execute",
+      "title": "purchase execute",
+      "description": "Execute a purchase after customer approval, without merchant review. Explicitly delegated customer agents may supply customer_approval attesting their human approved the exact saved quote and address: quote_sha256, exact amount_atomic in six-decimal USDC, currency USD, approval_text from the quote, approved_at Unix seconds and a stable approval_id. Never supply consent before the human approves. Other agents require the human review page. Approval is recorded before AP2 and escrow funding; no immediate treasury release. Omit customer_approval to retry an already approved intent. Exact retries reuse saved requests and cannot replace consent or create a second payment. Requires X-Wever-Agent-Key.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "intent_id": {
+            "type": "string",
+            "pattern": "^pi_[a-f0-9]{64}$"
+          },
+          "customer_approval": {
+            "type": "object",
+            "properties": {
+              "quote_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "amount_atomic": {
+                "type": "string",
+                "pattern": "^[1-9][0-9]{0,8}$"
+              },
+              "currency": {
+                "const": "USD"
+              },
+              "approval_text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "approved_at": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 9007199254740991
+              },
+              "approval_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9_-]{16,64}(?![\\s\\S])"
+              }
+            },
+            "required": [
+              "quote_sha256",
+              "amount_atomic",
+              "currency",
+              "approval_text",
+              "approved_at",
+              "approval_id"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "intent_id"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_purchase-dispute",
+      "title": "purchase dispute",
+      "description": "Open a dispute for your funded purchase through wever_dispute-open. The private statement is retained with the purchase and its digest goes to the existing dispute rail. Existing operator resolution and 300 USDC per-dispute and 350 USDC daily boutique limits apply. Requires X-Wever-Agent-Key.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "intent_id": {
+            "type": "string",
+            "pattern": "^pi_[a-f0-9]{64}$"
+          },
+          "reason_code": {
+            "enum": [
+              "non_delivery",
+              "quality",
+              "scope",
+              "payment",
+              "other"
+            ]
+          },
+          "statement": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2000
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,64}$"
+          }
+        },
+        "required": [
+          "intent_id",
+          "reason_code",
+          "statement",
+          "idempotency_key"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
         "openWorldHint": true
       }
     }
