@@ -47,5 +47,7 @@ print(f"Verified {len(tools)} advertised tools")
 ' "$expected_count"
 done
 
+python3 scripts/check_catalog_drift.py
+
 echo "Read-only MCP discovery passed. No tool execution or payment was performed."
 echo "Official MCP Registry publication and directory ingestion require separate verification."

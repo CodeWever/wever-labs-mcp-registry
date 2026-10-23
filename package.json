@@ -1,5 +1,11 @@
 {
   "name": "wever-labs-mcp-registry",
   "version": "0.8.0",
-  "mcpName": "io.github.CodeWever/wever-labs-products"
+  "mcpName": "io.github.CodeWever/wever-labs-products",
+  "scripts": {
+    "test:unit": "python3 -B -m unittest discover -s tests -p 'test_*.py' -v",
+    "check:catalog": "python3 scripts/check_catalog_drift.py",
+    "check:catalog:published": "python3 scripts/check_catalog_drift.py --published",
+    "test": "npm run test:unit && npm run check:catalog"
+  }
 }
