@@ -4,7 +4,7 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **57 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. The production tools now include the Atlas tools `wever_atlas-asset-passport` and `wever_atlas-asset-search`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **59 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
@@ -17,12 +17,18 @@ The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools w
 | Version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Production tools | 57 |
+| Production tools | 59 |
 | Free endpoint | https://weverlabs.com/mcp-free (6 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
-The version and production tool count were verified against the live endpoint's MCP `initialize` and `tools/list` responses on October 21, 2026. Recheck them before a later publication.
+The hosted server's MCP `initialize` and `tools/list` responses supply the version and tool catalog. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
+
+## Atlas rights research
+
+Use `wever_atlas-compare` with two asset ids or tickers to compare tokenization stage, issuer involvement, custody and backing, distributions, voting, legal status and redemption. Each side retains the exact value, explanation and source references.
+
+Use `wever_atlas-rights-gap` to list rights marked `not disclosed`, with the sources checked for each field. Filter by asset or field and page through results. Both tools read the current [Atlas asset dataset](https://atlas.weverlabs.com/api/assets) at request time and return its version, source timestamp and content digest, so updated issuer disclosures appear on the next fresh call.
 
 ## Cursor Marketplace plugin
 
@@ -50,7 +56,7 @@ To use the six anonymous free tools, use `https://weverlabs.com/mcp-free` as the
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 57-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 59-tool server.
 
 ## Registry metadata
 
