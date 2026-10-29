@@ -8062,7 +8062,7 @@
     },
     {
       "name": "wever_sports-plan-trip",
-      "title": "Plan an NFL trip",
+      "title": "Plan a sports trip",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -8072,19 +8072,28 @@
             "additionalProperties": false,
             "properties": {
               "league": {
-                "const": "NFL"
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "event_name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160,
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
               },
               "home_team": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 80,
-                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
               },
               "away_team": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 80,
-                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
               },
               "date": {
                 "type": "string",
@@ -8094,23 +8103,42 @@
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 160,
-                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
               },
               "city": {
                 "type": "string",
                 "minLength": 1,
                 "maxLength": 120,
-                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                "pattern": "^(?!\\s)(?![\\s\\S]*\\s$)[^\\u0000-\\u001f\\u007f]+$"
               }
             },
             "required": [
               "league",
-              "home_team",
-              "away_team",
               "date",
               "venue",
               "city"
-            ]
+            ],
+            "anyOf": [
+              {
+                "required": [
+                  "event_name"
+                ]
+              },
+              {
+                "required": [
+                  "home_team",
+                  "away_team"
+                ]
+              }
+            ],
+            "dependencies": {
+              "home_team": [
+                "away_team"
+              ],
+              "away_team": [
+                "home_team"
+              ]
+            }
           },
           "home_city": {
             "type": "string",
@@ -8222,7 +8250,7 @@
           "idempotency_key"
         ]
       },
-      "description": "Assemble round-trip flights, hotel nights, game tickets and a dinner table for one specific NFL game, home city, party size and budget cap. Retains agent-supplied provider quotes with prices, sources and expiry, and marks remaining legs as quote needed. Returns an itemized itinerary, quoted subtotal, budget targets and a principal review link. POST /api/sports-plan-trip. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
+      "description": "Assemble round-trip flights, hotel nights, event tickets and a dinner table for a specific game or event in any sport, using the home city, party size and budget cap. Retains agent-supplied provider quotes with prices, sources and expiry, and marks remaining legs as quote needed. Returns an itemized itinerary, quoted subtotal, budget targets and a principal review link. POST /api/sports-plan-trip. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
