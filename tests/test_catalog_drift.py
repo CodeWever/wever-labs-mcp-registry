@@ -17,9 +17,9 @@ drift = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(drift)
 
 
-def fixture(total=57, products=29, priced=None, free=6):
+def fixture(total=57, products=29, priced=None, free=6, edge_alert=False):
     """Keep categories distinct while allowing a fully aligned live count change."""
-    priced = total - 10 if priced is None else priced
+    priced = total - 10 - int(edge_alert) if priced is None else priced
     tools = [{
         'name': f'wever_product-{index}', 'description': f'Tool {index}',
         'inputSchema': {'type': 'object', 'properties': {
@@ -33,6 +33,8 @@ def fixture(total=57, products=29, priced=None, free=6):
         'wever_purchase-create-intent', 'wever_purchase-status',
         'wever_purchase-execute', 'wever_purchase-dispute',
     ]
+    if edge_alert:
+        unpriced_names.append('edge-alert')
     for tool, name in zip(tools[priced:], unpriced_names):
         tool['name'] = name
     free_tools = [{**copy.deepcopy(tools[index]), 'name': f'wever_free-{index}'}
@@ -117,6 +119,8 @@ def fixture(total=57, products=29, priced=None, free=6):
             {'url': drift.MAIN, 'tool_count': total},
             {'url': drift.FREE, 'tool_count': free}]},
     }
+    if edge_alert:
+        site['/llms.txt'] = site['/llms.txt'].replace('4 agent purchase tools, 0 demo labels', '4 agent purchase tools, 1 free Edge Alert tool, 0 demo labels')
     return registry, site, tools, free_tools
 
 
@@ -139,6 +143,16 @@ def replace_at(value, path, replacement):
 
 
 class CatalogAuditTests(unittest.TestCase):
+    def test_free_edge_alert_has_its_own_category_and_keeps_priced_count(self):
+        registry, site, tools, free_tools = fixture(71, priced=60, edge_alert=True)
+        result = drift.audit(registry, site, tools, free_tools)
+        self.assertEqual(result['main_tools'], 71)
+        self.assertEqual(result['priced_tools'], 60)
+        self.assertEqual(result['free_tools'], 6)
+        site['/llms.txt'] = site['/llms.txt'].replace('1 free Edge Alert tool', '2 free Edge Alert tool')
+        with self.assertRaises(drift.DriftError):
+            drift.audit(registry, site, tools, free_tools)
+
     def setUp(self):
         self.registry, self.site, self.tools, self.free_tools = fixture()
 
