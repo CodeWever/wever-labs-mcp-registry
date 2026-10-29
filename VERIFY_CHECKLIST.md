@@ -95,10 +95,10 @@ curl --fail-with-body --silent --show-error \
 
 - [ ] `result.tools` lists 77 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
 - [ ] The production catalog includes `wever_atlas-compare` and `wever_atlas-rights-gap`, with their current input schemas and read-only annotations.
-- [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 12 tools without authentication, wallet, or payment, including `wever_agent-trust-check` and `wever_single-credential-check`.
+- [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 13 tools without authentication, wallet, or payment, including `wever_agent-trust-check` and `wever_single-credential-check`.
 - [ ] Record the metadata verification date and live initialize/list results without credentials. Record Official MCP Registry publication evidence separately if publication is performed.
 
-Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name and hosted version against `server.json` and the 77/12 tool counts without calling tools or submitting payments.
+Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name and hosted version against `server.json` and the 77/13 tool counts without calling tools or submitting payments.
 
 ## Publication boundaries
 
