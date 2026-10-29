@@ -4,13 +4,13 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **73 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **74 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
 The free `edge-alert` tool is included on the main endpoint. Call it with `{}` for current pregame NBA full-game winner prediction-market alerts at an estimated edge of 3 percentage points or more. Each call reads public Polymarket and Kalshi data, returns market, side, market price, estimated fair price, estimated edge and timestamp, and explicitly returns `no_alerts` when no eligible market clears the threshold. It requires no wallet, account or x402 payment. Human page: **https://weverlabs.com/edge-alerts/**.
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **9 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **10 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
 
@@ -20,16 +20,16 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | --- | --- |
 | Registry name | `io.github.CodeWever/wever-labs-products` |
 | Title | Wever Labs Agent Products |
-| Registry metadata version | `0.8.1-registry.1` |
+| Registry metadata version | `0.8.2-registry.1` |
 | Hosted server version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Production tools | 73 |
-| Free endpoint | https://weverlabs.com/mcp-free (9 tools, no auth) |
+| Production tools | 74 |
+| Free endpoint | https://weverlabs.com/mcp-free (10 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
-The hosted server's MCP `initialize` and `tools/list` responses supply its runtime version and tool catalog. Registry metadata version `0.8.1-registry.1` refreshes discovery while the hosted server remains `0.8.0`. The descriptors record that runtime version in publisher metadata. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
+The hosted server's MCP `initialize` and `tools/list` responses supply its runtime version and tool catalog. Registry metadata version `0.8.2-registry.1` refreshes discovery while the hosted server remains `0.8.0`. The descriptors record that runtime version in publisher metadata. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
 
 ## Atlas rights research
 
@@ -49,9 +49,18 @@ See [CURSOR_MARKETPLACE.md](CURSOR_MARKETPLACE.md) for David's submission steps 
 
 `wever_datesafe-scan` on **https://weverlabs.com/mcp-free** checks supplied photos and/or conversation text. It is free and anonymous, with no wallet or x402 charge. Findings are evidence-based indicators, never verdicts about a person. Reports include reviewed image-reuse matches, five conversation patterns, detectable image metadata, check limits and human next steps. Photo matches establish neither identity nor intent. See [Date Safe](https://weverlabs.com/date-safe/) for inputs and [the documented seed and review gate](https://github.com/CodeWever/wever-commerce-proof-build-week-2026/blob/main/docs/date-safe-registry.md).
 
+## Verified single
+
+`wever_single-credential-issue` at **https://weverlabs.com/mcp** issues a signed credential after the human signs in with Wever email sign-in, submits a current photo, and writes their single-status attestation in their own words. The agent submits the human’s short-lived issuance authorization. Issuance costs **0.10 USDC**, under the existing shared wallet free allowance. The credential includes its ID, issuance time, 12-month expiry, opaque verified sign-in identity, photo perceptual hash and verbatim attestation.
+
+What this proves: identity was verified via Wever sign-in on the issuance date. Single status is self-attested, not independently investigated by Wever. The photo fingerprint binds the photo submitted by the holder.
+
+`wever_single-credential-check` at **https://weverlabs.com/mcp-free** takes `credential_id` and returns `valid`, `revoked` or `expired` with the scope summary. Unknown IDs return `not_found`. Anyone can check anonymously, with no wallet or charge. Holders can revoke their credential, and a report flow records evidence for Wever operator revocation. See [Verified single](https://weverlabs.com/verified-single/), [Matchmaking](https://weverlabs.com/matchmaking/) and [Date Safe](https://weverlabs.com/date-safe/).
+
 ## Agent trust check
 
 `wever_agent-trust-check` on **https://weverlabs.com/mcp-free** accepts an `agent_identifier`: a Wever agent ID, mailbox or registered name. Its plain-language report covers directory registration, recorded authority, signed receipts and the listed operator using Wever's own records. Every fact names its source, and missing facts say "not on file." Reports contain facts with sources, without scores or verdicts. The tool is free and anonymous, with no wallet or x402 charge. See [Agent trust check](https://weverlabs.com/trust-check/) to run a lookup or read the MCP example.
+
 
 ## Connect
 
@@ -67,11 +76,11 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the nine anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the ten anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 73-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 74-tool server.
 
 ## Registry metadata
 

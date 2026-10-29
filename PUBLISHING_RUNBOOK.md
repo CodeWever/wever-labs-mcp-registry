@@ -18,7 +18,7 @@ that schema before committing any descriptor change.
 
 Published registry metadata is immutable. For the current metadata refresh,
 `server.json`, the DNS example, `lhm.plugin.json` and `package.json` use
-`0.8.1-registry.1`; the hosted server still reports `0.8.0`. The metadata-only
+`0.8.2-registry.1`; the hosted server still reports `0.8.0`. The metadata-only
 revision sorts after the already published `0.8.0` listing and leaves the runtime
 and endpoint unchanged. Run `npm test` and `npm run check:catalog:published` to
 check catalog alignment and both version contracts. Follow the official
