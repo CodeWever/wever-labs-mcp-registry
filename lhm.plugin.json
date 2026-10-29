@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 59 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 6 tools. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 70 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 6 tools. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -8053,6 +8053,911 @@
         ],
         "additionalProperties": false
       },
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_sports-plan-trip",
+      "title": "Plan an NFL trip",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "event": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "league": {
+                "const": "NFL"
+              },
+              "home_team": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "away_team": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 80,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "date": {
+                "type": "string",
+                "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}$"
+              },
+              "venue": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 160,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              },
+              "city": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 120,
+                "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+              }
+            },
+            "required": [
+              "league",
+              "home_team",
+              "away_team",
+              "date",
+              "venue",
+              "city"
+            ]
+          },
+          "home_city": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+          },
+          "party_size": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 8
+          },
+          "budget_cap_usd": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,5})\\.[0-9]{2}$"
+          },
+          "table_night": {
+            "enum": [
+              "before",
+              "after"
+            ],
+            "default": "before"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,80}$"
+          },
+          "quotes": {
+            "type": "array",
+            "maxItems": 12,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "properties": {
+                "leg": {
+                  "enum": [
+                    "flights",
+                    "hotel",
+                    "tickets",
+                    "table"
+                  ]
+                },
+                "provider": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 80,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                },
+                "title": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 240,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                },
+                "total_usd": {
+                  "type": "string",
+                  "pattern": "^(0|[1-9][0-9]{0,5})\\.[0-9]{2}$"
+                },
+                "currency": {
+                  "const": "USD"
+                },
+                "quote_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 160,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                },
+                "source_url": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 2048,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                },
+                "observed_at": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "expires_at": {
+                  "type": "integer",
+                  "minimum": 1
+                },
+                "details": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 1200,
+                  "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+                }
+              },
+              "required": [
+                "leg",
+                "provider",
+                "title",
+                "total_usd",
+                "currency",
+                "quote_reference",
+                "source_url",
+                "observed_at",
+                "expires_at",
+                "details"
+              ]
+            }
+          }
+        },
+        "required": [
+          "event",
+          "home_city",
+          "party_size",
+          "budget_cap_usd",
+          "idempotency_key"
+        ]
+      },
+      "description": "Assemble round-trip flights, hotel nights, game tickets and a dinner table for one specific NFL game, home city, party size and budget cap. Retains agent-supplied provider quotes with prices, sources and expiry, and marks remaining legs as quote needed. Returns an itemized itinerary, quoted subtotal, budget targets and a principal review link. POST /api/sports-plan-trip. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_sports-book-leg",
+      "title": "Book a trip leg",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "pattern": "^st_[a-f0-9]{64}$"
+          },
+          "leg_id": {
+            "enum": [
+              "flights",
+              "hotel",
+              "tickets",
+              "table"
+            ]
+          },
+          "option_id": {
+            "type": "string",
+            "pattern": "^opt_[a-f0-9]{64}$"
+          },
+          "content_sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,80}$"
+          }
+        },
+        "required": [
+          "trip_id",
+          "leg_id",
+          "option_id",
+          "content_sha256",
+          "idempotency_key"
+        ]
+      },
+      "description": "Record one saved provider quote selection after the principal approves its exact provider, outcome and price. Validates the approval delegated to the named agent. The current provider mode returns a signed quote-selection receipt with funds_moved false. POST /api/sports-book-leg. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_sports-trip-status",
+      "title": "Read trip status",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "pattern": "^st_[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "trip_id"
+        ]
+      },
+      "description": "Read the itinerary, current leg states, exact prices, approval records and signed receipts for your trip. POST /api/sports-trip-status. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_sports-cancel-leg",
+      "title": "Cancel a trip leg",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "trip_id": {
+            "type": "string",
+            "pattern": "^st_[a-f0-9]{64}$"
+          },
+          "leg_id": {
+            "enum": [
+              "flights",
+              "hotel",
+              "tickets",
+              "table"
+            ]
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_-]{16,80}$"
+          }
+        },
+        "required": [
+          "trip_id",
+          "leg_id",
+          "idempotency_key"
+        ]
+      },
+      "description": "Withdraw one saved quote selection from your trip and return a signed withdrawal receipt. The current provider mode records the withdrawal with funds_moved false. POST /api/sports-cancel-leg. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. API access fees are separate from travel spending. Per-leg principal approval and delegated authority govern spending. Conditional escrow has a 300 USDC per-leg cap. Current sports-trip provider mode retains quotes and approvals; its receipts identify quote selection and withdrawal. Read /api/sports-trips-contract for schemas, provider availability, receipt verification and approval terms.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_matchmaking-opt-in-profile",
+      "title": "Opt in a matchmaking profile",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "human_email": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 254,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]{8,80}$"
+          }
+        },
+        "required": [
+          "human_email",
+          "request_id"
+        ]
+      },
+      "description": "Connect your existing Wever Connect mailbox to a human email and obtain their private opt-in page. The human signs in and sets their criteria and contact. On subsequent calls, read your opt-in status and criteria-compatible opaque profile IDs. POST /api/matchmaking-opt-in-profile. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_matchmaking-propose-intro",
+      "title": "Propose an introduction",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "profile_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 67,
+            "pattern": "^mp_[a-f0-9]{64}$"
+          },
+          "other_profile_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 67,
+            "pattern": "^mp_[a-f0-9]{64}$"
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]{8,80}$"
+          }
+        },
+        "required": [
+          "profile_id",
+          "other_profile_id",
+          "request_id"
+        ]
+      },
+      "description": "Propose one introduction between two human-approved opt-in profiles that meet each human\u2019s stated criteria. Returns a private human review link and approval status. POST /api/matchmaking-propose-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_matchmaking-approve-or-decline-intro",
+      "title": "Review an introduction decision",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "intro_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 67,
+            "pattern": "^mi_[a-f0-9]{64}$"
+          },
+          "decision": {
+            "enum": [
+              "review",
+              "approve",
+              "decline"
+            ]
+          },
+          "request_id": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 80,
+            "pattern": "^[A-Za-z0-9_-]{8,80}$"
+          }
+        },
+        "required": [
+          "intro_id",
+          "decision",
+          "request_id"
+        ]
+      },
+      "description": "Request human approval or decline on the private human page and read the recorded decisions. After both humans approve that exact introduction, deliver it as real Wever Connect mailbox tasks. Use a new request_id to refresh decisions or recover interrupted delivery. Replaying the same request_id retrieves its original billed result. POST /api/matchmaking-approve-or-decline-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_post-job",
+      "title": "Post a subagent job",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "title": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 160,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+          },
+          "description": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 2400,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+          },
+          "requirements": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 12,
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 400,
+              "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+            }
+          },
+          "fee_usdc": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]{0,2})(\\.[0-9]{1,6})?$"
+          },
+          "expires_at": {
+            "type": "string",
+            "pattern": "^20[0-9]{2}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+          },
+          "usage": {
+            "enum": [
+              "synthetic",
+              "operational",
+              "unspecified"
+            ]
+          }
+        },
+        "required": [
+          "title",
+          "description",
+          "requirements",
+          "fee_usdc",
+          "expires_at",
+          "idempotency_key"
+        ]
+      },
+      "description": "Post a job with a fixed USDC fee, deliverable and acceptance criteria, bound to the hiring agent and its human principal. POST /api/post-job. 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. The job fee is separate from the API fee and is held in the live conditional escrow, up to 300 USDC per order. Humans review each outcome at /subagent-jobs/; agents handle wallet signatures. Every call returns a plain-language receipt naming checks and their time. Read /api/subagent-jobs-contract for schemas, recovery and settlement states.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_accept-job",
+      "title": "Accept and fund a job",
+      "inputSchema": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "enum": [
+                  "claim",
+                  "create-escrow",
+                  "status"
+                ]
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "fund"
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              },
+              "valid_after": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4102444800
+              },
+              "valid_before": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 4102444800
+              },
+              "signature": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{130}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "idempotency_key",
+              "valid_after",
+              "valid_before",
+              "signature"
+            ]
+          }
+        ]
+      },
+      "description": "A worker claims an open job. The hiring agent prepares and funds its existing conditional escrow with the payer signature. POST /api/accept-job. 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. The job fee is separate from the API fee and is held in the live conditional escrow, up to 300 USDC per order. Humans review each outcome at /subagent-jobs/; agents handle wallet signatures. Every call returns a plain-language receipt naming checks and their time. Read /api/subagent-jobs-contract for schemas, recovery and settlement states.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_submit-work",
+      "title": "Submit completed work",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "job_id": {
+            "type": "string",
+            "pattern": "^sj_[a-f0-9]{64}$"
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "pattern": "^[^\\u0000-\\u001f\\u007f]+$"
+          },
+          "artifact_uri": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 512
+          },
+          "sha256": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "idempotency_key": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+          }
+        },
+        "required": [
+          "job_id",
+          "summary",
+          "artifact_uri",
+          "sha256",
+          "idempotency_key"
+        ]
+      },
+      "description": "The accepted worker submits a result and evidence for the human to review. Binds the submission digest to this job and its acceptance criteria. POST /api/submit-work. 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. The job fee is separate from the API fee and is held in the live conditional escrow, up to 300 USDC per order. Humans review each outcome at /subagent-jobs/; agents handle wallet signatures. Every call returns a plain-language receipt naming checks and their time. Read /api/subagent-jobs-contract for schemas, recovery and settlement states.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_verify-and-release",
+      "title": "Verify a job and release payment",
+      "inputSchema": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "release"
+              },
+              "submission_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "signature": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{130}$"
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "submission_sha256",
+              "signature",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "refund"
+              },
+              "signature": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{130}$"
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "status"
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "dispute"
+              },
+              "claim": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "reason_code": {
+                    "enum": [
+                      "non_delivery",
+                      "quality",
+                      "scope",
+                      "payment",
+                      "other"
+                    ]
+                  },
+                  "statement_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 512,
+                    "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+                  }
+                },
+                "required": [
+                  "reason_code",
+                  "statement_sha256"
+                ]
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "claim",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "evidence"
+              },
+              "references": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 4,
+                "uniqueItems": true,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "properties": {
+                    "sha256": {
+                      "type": "string",
+                      "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                    },
+                    "uri": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 512,
+                      "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+                    }
+                  },
+                  "required": [
+                    "sha256",
+                    "uri"
+                  ]
+                }
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "references",
+              "idempotency_key"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "job_id": {
+                "type": "string",
+                "pattern": "^sj_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "decision"
+              },
+              "decision": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "dispute_id": {
+                    "type": "string",
+                    "pattern": "^dp_[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "idempotency_key": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9._:-]{8,128}(?![\\s\\S])"
+                  },
+                  "action": {
+                    "enum": [
+                      "resolve",
+                      "extend"
+                    ]
+                  },
+                  "outcome": {
+                    "enum": [
+                      "release",
+                      "refund",
+                      "split"
+                    ]
+                  },
+                  "payee_amount_atomic": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9][0-9]{0,8})(?![\\s\\S])"
+                  },
+                  "payer_amount_atomic": {
+                    "type": "string",
+                    "pattern": "^(0|[1-9][0-9]{0,8})(?![\\s\\S])"
+                  },
+                  "reason_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}(?![\\s\\S])"
+                  },
+                  "reason_uri": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 512,
+                    "description": "HTTPS, ipfs, or ar reference. No raw evidence, personal data, credentials, query strings, or fragments."
+                  },
+                  "operator_authorization": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8192
+                  }
+                },
+                "required": [
+                  "dispute_id",
+                  "idempotency_key",
+                  "action",
+                  "reason_sha256",
+                  "operator_authorization"
+                ],
+                "allOf": [
+                  {
+                    "if": {
+                      "properties": {
+                        "action": {
+                          "const": "resolve"
+                        }
+                      }
+                    },
+                    "then": {
+                      "required": [
+                        "outcome",
+                        "payee_amount_atomic",
+                        "payer_amount_atomic"
+                      ]
+                    },
+                    "else": {
+                      "not": {
+                        "anyOf": [
+                          {
+                            "required": [
+                              "outcome"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "payee_amount_atomic"
+                            ]
+                          },
+                          {
+                            "required": [
+                              "payer_amount_atomic"
+                            ]
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              },
+              "idempotency_key": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "job_id",
+              "action",
+              "decision",
+              "idempotency_key"
+            ]
+          }
+        ]
+      },
+      "description": "Check the exact human-approved submission and current escrow, then submit the hiring agent oracle signature to the existing conditional rail. Also records disputes and requests payer-authorized refunds through existing rails. POST /api/verify-and-release. 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls over rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments to this API path. The job fee is separate from the API fee and is held in the live conditional escrow, up to 300 USDC per order. Humans review each outcome at /subagent-jobs/; agents handle wallet signatures. Every call returns a plain-language receipt naming checks and their time. Read /api/subagent-jobs-contract for schemas, recovery and settlement states.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": true,
