@@ -12,6 +12,8 @@ The free `edge-alert` tool is included on the main endpoint. Call it with `{}` f
 
 The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools with no authentication, wallet, or payment required**.
 
+The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
+
 | Publication field | Value |
 | --- | --- |
 | Registry name | `io.github.CodeWever/wever-labs-products` |
