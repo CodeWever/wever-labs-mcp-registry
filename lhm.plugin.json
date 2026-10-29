@@ -8968,7 +8968,7 @@
     {
       "name": "edge-alert",
       "title": "Edge Alert",
-      "description": "Free live prediction-market alerts from public Polymarket and Kalshi APIs. Returns market, side, executable market price, estimated fair price, estimated edge and UTC timestamp. Reuses the thesis fair-value comparison and publishes only estimated edges of 3 percentage points or more. Coverage is bounded to exactly matched pregame NBA full-game winner contracts with compatible settlement rules. Returns explicit no_alerts when none qualify, or unavailable when live sources cannot be checked. Call with {}. Free on every call, with no x402 charge, wallet or account. Human page: https://weverlabs.com/edge-alerts/.",
+      "description": "Free live prediction-market alerts from public Polymarket, Kalshi and Novig APIs. Returns market, side, executable market price, estimated fair price, estimated edge and UTC timestamp. Reuses the thesis fair-value comparison and publishes only estimated edges of 3 percentage points or more. Coverage is bounded to matched pregame sports winner contracts with verified event identity and compatible settlement rules. Each scan names its checked sports, leagues, sources and coverage limits. Prices use a common $1 payout basis and identify their sources. Returns explicit no_alerts when none qualify, or unavailable when live sources cannot be checked. Call with {}. Free on every call, with no x402 charge, wallet or account. Human page: https://weverlabs.com/edge-alerts/.",
       "inputSchema": {
         "type": "object",
         "properties": {},
