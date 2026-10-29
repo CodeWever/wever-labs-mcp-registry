@@ -241,6 +241,8 @@ def check_site(site, tools, checks):
     }
     if 'edge-alert' in names:
         groups['free Edge Alert tool'] = {'edge-alert'}
+    if 'boutique-coupon' in names:
+        groups['free boutique coupon tool'] = {'boutique-coupon'}
     require(sum(map(len, groups.values())) == len(set().union(*groups.values())),
             'llms.txt: overlapping tool categories')
     checks.equal(sorted(set().union(*groups.values())), sorted(names), 'llms.txt:category_coverage')

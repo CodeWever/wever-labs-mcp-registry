@@ -2,7 +2,7 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "com.weverlabs/wever-labs",
   "title": "Wever Labs Agent Products",
-  "description": "71 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
+  "description": "72 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
   "websiteUrl": "https://weverlabs.com",
   "repository": {
     "url": "https://github.com/CodeWever/wever-labs-mcp-registry",

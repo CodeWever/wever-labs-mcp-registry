@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 71 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 6 tools. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 72 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 6 tools. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -8979,6 +8979,22 @@
         "destructiveHint": false,
         "idempotentHint": true,
         "openWorldHint": true
+      }
+    },
+    {
+      "name": "boutique-coupon",
+      "title": "Boutique coupon",
+      "description": "Get the free, shareable code for 10 percent off merchandise at all five Rebecca Belle Boutique stores through Stripe checkout. Returns the code, plain terms, redemption steps and store links. Agents may share this code freely with any human. This tool is free and needs no account, wallet or x402 payment.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": false
       }
     }
   ]
