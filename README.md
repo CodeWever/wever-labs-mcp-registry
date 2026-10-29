@@ -20,7 +20,8 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | --- | --- |
 | Registry name | `io.github.CodeWever/wever-labs-products` |
 | Title | Wever Labs Agent Products |
-| Version | `0.8.0` |
+| Registry metadata version | `0.8.1-registry.1` |
+| Hosted server version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
 | Production tools | 73 |
@@ -28,7 +29,7 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
-The hosted server's MCP `initialize` and `tools/list` responses supply the version and tool catalog. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
+The hosted server's MCP `initialize` and `tools/list` responses supply its runtime version and tool catalog. Registry metadata version `0.8.1-registry.1` refreshes discovery while the hosted server remains `0.8.0`. The descriptors record that runtime version in publisher metadata. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
 
 ## Atlas rights research
 

@@ -1,14 +1,14 @@
 {
   "identifier": "codewever-wever-labs-mcp-registry",
   "name": "Wever Labs MCP",
-  "version": "0.8.0",
+  "version": "0.8.1-registry.1",
   "author": "Wever Labs",
   "authorUrl": "https://github.com/CodeWever",
   "category": "developer",
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 72 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 6 tools. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 73 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 7 tools. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -8995,6 +8995,158 @@
         "destructiveHint": false,
         "idempotentHint": true,
         "openWorldHint": false
+      }
+    },
+    {
+      "name": "fair-value",
+      "title": "Look up one market\u2019s estimated fair price",
+      "description": "Name one Kalshi or Polymarket prediction market by title, ticker or URL. Returns the existing thesis model\u2019s estimated YES fair price, the market YES price it was compared against and timestamps. Free anonymous access. No wallet or payment is required. POST /api/fair-value. Human example: https://weverlabs.com/fair-value/.",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "market": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 300,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "market"
+        ],
+        "additionalProperties": false
+      },
+      "outputSchema": {
+        "type": "object",
+        "properties": {
+          "market": {
+            "type": "object",
+            "properties": {
+              "venue": {
+                "enum": [
+                  "Kalshi",
+                  "Polymarket"
+                ]
+              },
+              "ticker": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "\\S"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "url": {
+                "type": "string",
+                "minLength": 9,
+                "maxLength": 2000,
+                "pattern": "^https://"
+              },
+              "outcome": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 200,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "venue",
+              "ticker",
+              "title",
+              "url",
+              "outcome"
+            ],
+            "additionalProperties": false
+          },
+          "fair_price": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          },
+          "label": {
+            "const": "estimate"
+          },
+          "estimate_basis": {
+            "const": "engine_estimated_yes_probability"
+          },
+          "compared_against": {
+            "type": "object",
+            "properties": {
+              "price": {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1
+              },
+              "basis": {
+                "const": "engine_implied_probability"
+              },
+              "observed_at": {
+                "type": "string",
+                "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 1000,
+                "pattern": "\\S"
+              }
+            },
+            "required": [
+              "price",
+              "basis",
+              "observed_at",
+              "source"
+            ],
+            "additionalProperties": false
+          },
+          "estimated_at": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+          },
+          "retrieved_at": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}\\.\\d{3}Z$"
+          },
+          "model": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 120,
+            "pattern": "\\S"
+          }
+        },
+        "required": [
+          "market",
+          "fair_price",
+          "label",
+          "estimate_basis",
+          "compared_against",
+          "estimated_at",
+          "retrieved_at",
+          "model"
+        ],
+        "additionalProperties": false
+      },
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      },
+      "securitySchemes": [
+        {
+          "type": "noauth"
+        }
+      ],
+      "_meta": {
+        "securitySchemes": [
+          {
+            "type": "noauth"
+          }
+        ]
       }
     }
   ]

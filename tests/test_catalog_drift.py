@@ -17,9 +17,9 @@ drift = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(drift)
 
 
-def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutique_coupon=False):
+def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutique_coupon=False, fair_value=False):
     """Keep categories distinct while allowing a fully aligned live count change."""
-    priced = total - 10 - int(edge_alert) - int(boutique_coupon) if priced is None else priced
+    priced = total - 10 - int(edge_alert) - int(boutique_coupon) - int(fair_value) if priced is None else priced
     tools = [{
         'name': f'wever_product-{index}', 'description': f'Tool {index}',
         'inputSchema': {'type': 'object', 'properties': {
@@ -37,6 +37,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutiq
         unpriced_names.append('edge-alert')
     if boutique_coupon:
         unpriced_names.append('boutique-coupon')
+    if fair_value:
+        unpriced_names.append('fair-value')
     for tool, name in zip(tools[priced:], unpriced_names):
         tool['name'] = name
     free_tools = [{**copy.deepcopy(tools[index]), 'name': f'wever_free-{index}'}
@@ -125,6 +127,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutiq
         site['/llms.txt'] = site['/llms.txt'].replace('4 agent purchase tools, 0 demo labels', '4 agent purchase tools, 1 free Edge Alert tool, 0 demo labels')
     if boutique_coupon:
         site['/llms.txt'] = site['/llms.txt'].replace('2 free boutique catalog reads, ', '2 free boutique catalog reads, 1 free boutique coupon tool, ')
+    if fair_value:
+        site['/llms.txt'] = site['/llms.txt'].replace('0 demo labels', '1 free fair-value lookup and 0 demo labels')
     return registry, site, tools, free_tools
 
 
@@ -147,6 +151,20 @@ def replace_at(value, path, replacement):
 
 
 class CatalogAuditTests(unittest.TestCase):
+    def test_fair_value_and_seven_free_tools_preserve_distinct_categories(self):
+        registry, site, tools, free_tools = fixture(73, priced=60, free=7,
+            edge_alert=True, boutique_coupon=True, fair_value=True)
+        result = drift.audit(registry, site, tools, free_tools)
+        self.assertEqual((result['main_tools'], result['priced_tools'], result['free_tools']), (73, 60, 7))
+        self.assertIn('llms.txt:free fair-value lookup[0]', result['surfaces'])
+        baseline = site['/llms.txt']
+        for text in (baseline.replace('1 free fair-value lookup', '2 free fair-value lookup'),
+                     baseline.replace('1 free fair-value lookup and ', '')):
+            with self.subTest(text=text):
+                site['/llms.txt'] = text
+                with self.assertRaises(drift.DriftError):
+                    drift.audit(registry, site, tools, free_tools)
+
     def test_free_edge_alert_has_its_own_category_and_keeps_priced_count(self):
         registry, site, tools, free_tools = fixture(71, priced=60, edge_alert=True)
         result = drift.audit(registry, site, tools, free_tools)

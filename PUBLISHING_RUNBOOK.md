@@ -9,11 +9,21 @@ This runbook prepares Wever Labs for the Official MCP Registry. PulseMCP ingests
 The current server is `io.github.CodeWever/wever-labs-products` at
 `https://weverlabs.com/mcp`. Use the MCP POST initialize check in
 [VERIFY_CHECKLIST.md](VERIFY_CHECKLIST.md) to confirm the live version matches
-`server.json` and `package.json`. A bare GET is not the MCP connectivity test.
+`_meta["io.modelcontextprotocol.registry/publisher-provided"].hostedServerVersion`
+in both server descriptors. The registry package version is checked separately. A bare GET is not the MCP connectivity test.
 
 `server.json` uses the official 2025-12-11 schema and a description of at most
 100 characters. The longer public description is in README.md. Validate against
 that schema before committing any descriptor change.
+
+Published registry metadata is immutable. For the current metadata refresh,
+`server.json`, the DNS example, `lhm.plugin.json` and `package.json` use
+`0.8.1-registry.1`; the hosted server still reports `0.8.0`. The metadata-only
+revision sorts after the already published `0.8.0` listing and leaves the runtime
+and endpoint unchanged. Run `npm test` and `npm run check:catalog:published` to
+check catalog alignment and both version contracts. Follow the official
+[registry versioning guidance](https://modelcontextprotocol.io/registry/versioning)
+for later metadata revisions.
 
 This is a remote-only publication with no `packages` array. `package.json` is
 fallback metadata only, not a requirement to publish an npm package.
