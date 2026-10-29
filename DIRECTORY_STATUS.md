@@ -2,9 +2,9 @@
 
 ## Current repository metadata
 
-Verified against production on October 5, 2026:
+Verified against production on October 28, 2026:
 
-- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 29 production tools.
+- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 70 production tools.
 - Free endpoint: https://weverlabs.com/mcp-free, 6 tools, no auth.
 - Standard paid calls: 0.10 USDC on Base mainnet via x402, with 10 free calls per wallet per rolling 30 days shared across paid endpoints. Tool-specific prices remain in the live contracts.
 - Documentation: https://weverlabs.com.

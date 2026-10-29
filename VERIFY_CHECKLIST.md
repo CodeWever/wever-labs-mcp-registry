@@ -22,7 +22,7 @@ Search matches substrings. Inspect `servers[].server` and require an exact name 
 {
   "name": "io.github.CodeWever/wever-labs-products",
   "title": "Wever Labs Agent Products",
-  "description": "59 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
+  "description": "70 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
   "version": "0.8.0",
   "websiteUrl": "https://weverlabs.com",
   "repository": {
@@ -89,12 +89,12 @@ curl --fail-with-body --silent --show-error \
   | python3 -m json.tool
 ```
 
-- [ ] `result.tools` lists 59 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
+- [ ] `result.tools` lists 70 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
 - [ ] The production catalog includes `wever_atlas-compare` and `wever_atlas-rights-gap`, with their current input schemas and read-only annotations.
 - [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 6 tools without authentication, wallet, or payment.
 - [ ] Record the metadata verification date and live initialize/list results without credentials. Record Official MCP Registry publication evidence separately if publication is performed.
 
-Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name/version against `server.json` and the 59/6 tool counts without calling tools or submitting payments.
+Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name/version against `server.json` and the 70/6 tool counts without calling tools or submitting payments.
 
 ## Publication boundaries
 
