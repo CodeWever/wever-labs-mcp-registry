@@ -239,6 +239,8 @@ def check_site(site, tools, checks):
             name for name in names if name.startswith('wever_boutique-')} - read_names,
         'agent purchase tools': {name for name in names if name.startswith('wever_purchase-')},
     }
+    if 'edge-alert' in names:
+        groups['free Edge Alert tool'] = {'edge-alert'}
     require(sum(map(len, groups.values())) == len(set().union(*groups.values())),
             'llms.txt: overlapping tool categories')
     checks.equal(sorted(set().union(*groups.values())), sorted(names), 'llms.txt:category_coverage')
