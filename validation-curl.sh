@@ -25,14 +25,15 @@ if sys.argv[1] == "https://weverlabs.com/mcp":
     with open("server.json") as source:
         manifest = json.load(source)
     assert result["serverInfo"]["name"] == manifest["name"], result["serverInfo"]
-    assert result["serverInfo"]["version"] == manifest["version"], result["serverInfo"]
+    from scripts.check_registry_versions import read_manifests, validate_metadata_versions
+    validate_metadata_versions(read_manifests(), result["serverInfo"])
 print(json.dumps(result["serverInfo"], indent=2))
 ' "$endpoint"
 
   mcp_post "$endpoint" '{"jsonrpc":"2.0","method":"notifications/initialized"}' > /dev/null
-  expected_count=72
+  expected_count=73
   if [[ "$endpoint" == 'https://weverlabs.com/mcp-free' ]]; then
-    expected_count=6
+    expected_count=7
   fi
 
   echo "Checking advertised tools: $endpoint"
