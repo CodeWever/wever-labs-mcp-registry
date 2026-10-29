@@ -4,7 +4,7 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **70 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **71 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
@@ -19,7 +19,7 @@ The separate free tier at **https://weverlabs.com/mcp-free** exposes **7 tools w
 | Version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Production tools | 70 |
+| Production tools | 71 |
 | Free endpoint | https://weverlabs.com/mcp-free (7 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
