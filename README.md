@@ -10,7 +10,7 @@ Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wa
 
 The free `edge-alert` tool is included on the main endpoint. Call it with `{}` for current pregame NBA full-game winner prediction-market alerts at an estimated edge of 3 percentage points or more. Each call reads public Polymarket and Kalshi data, returns market, side, market price, estimated fair price, estimated edge and timestamp, and explicitly returns `no_alerts` when no eligible market clears the threshold. It requires no wallet, account or x402 payment. Human page: **https://weverlabs.com/edge-alerts/**.
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **7 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **8 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
 
@@ -25,7 +25,7 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
 | Production tools | 73 |
-| Free endpoint | https://weverlabs.com/mcp-free (7 tools, no auth) |
+| Free endpoint | https://weverlabs.com/mcp-free (8 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
@@ -45,6 +45,10 @@ After installation, enable the Wever Labs MCP server and ask Cursor to show its 
 
 See [CURSOR_MARKETPLACE.md](CURSOR_MARKETPLACE.md) for David's submission steps and a pre-submission Cursor connection check. Plugin version `1.0.0` identifies the Cursor package independently of the hosted server version.
 
+## Date Safe
+
+`wever_datesafe-scan` on **https://weverlabs.com/mcp-free** checks supplied photos and/or conversation text. It is free and anonymous, with no wallet or x402 charge. Findings are evidence-based indicators, never verdicts about a person. Reports include reviewed image-reuse matches, five conversation patterns, detectable image metadata, check limits and human next steps. Photo matches establish neither identity nor intent. See [Date Safe](https://weverlabs.com/date-safe/) for inputs and [the documented seed and review gate](https://github.com/CodeWever/wever-commerce-proof-build-week-2026/blob/main/docs/date-safe-registry.md).
+
 ## Connect
 
 Use the production endpoint in a client that supports remote Streamable HTTP MCP servers:
@@ -59,7 +63,7 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the seven anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the eight anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
