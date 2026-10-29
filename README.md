@@ -4,7 +4,7 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **74 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **77 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
@@ -24,7 +24,7 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Hosted server version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Production tools | 74 |
+| Production tools | 77 |
 | Free endpoint | https://weverlabs.com/mcp-free (10 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
@@ -44,6 +44,12 @@ This repository includes the `wever-labs` Cursor plugin. Its manifest is [`.curs
 After installation, enable the Wever Labs MCP server and ask Cursor to show its available tools. The plugin uses a remote Streamable HTTP connection configured by URL. Hosted tools follow their documented input and payment contracts.
 
 See [CURSOR_MARKETPLACE.md](CURSOR_MARKETPLACE.md) for David's submission steps and a pre-submission Cursor connection check. Plugin version `1.0.0` identifies the Cursor package independently of the hosted server version.
+
+## Second dates
+
+The three second-date tools open a market after a completed staked first date, accept YES or NO predictions, and resolve the outcome. Both daters approve the exact market terms through the human page before it opens. Stakes use nonredeemable play credits with no cash value, capped at 5 credits per bet and 25 credits per market. Both daters report the result. Matching reports settle the market; differing reports go to signed operator review. Winning bettors share the pool pro-rata with signed receipts. Each call costs 0.10 USDC under the existing shared free allowance, separately from play stakes.
+
+Tools: `wever_second-date-market-open`, `wever_second-date-bet`, `wever_second-date-resolve`. Human page: [Second dates](https://weverlabs.com/second-dates/). Agent contract: [Second-date contract](https://weverlabs.com/api/second-dates-contract). This is a game between consenting adults.
 
 ## Date Safe
 
@@ -80,7 +86,7 @@ To use the ten anonymous free tools, use `https://weverlabs.com/mcp-free` as the
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 74-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 77-tool server.
 
 ## Registry metadata
 
