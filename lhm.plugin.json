@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 74 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 10 tools. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 77 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 10 tools. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -9173,6 +9173,219 @@
         "destructiveHint": false,
         "idempotentHint": true,
         "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_second-date-market-open",
+      "title": "Open a second-date market",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "date_id": {
+            "type": "string",
+            "pattern": "^(dt|sdtest)_[a-f0-9]{64}$"
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+          },
+          "closes_at": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 4102444800
+          }
+        },
+        "required": [
+          "date_id",
+          "request_id"
+        ]
+      },
+      "description": "Create a market linked to your completed staked first date. Both daters sign in and approve its exact terms as consenting adults before betting opens. POST /api/second-date-market-open. API access costs 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls per rolling 30 days. This access fee is separate from play-credit stakes. Each wallet begins with 25 free play credits. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Human consent and reports use https://weverlabs.com/second-dates/. Betting closes at the deadline or first human report. Missing reports return stakes seven days after the close. Keep request_id and exact arguments for retry; use a new request_id for current status. Read /api/second-dates-contract for schemas and public receipt verification key.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_second-date-bet",
+      "title": "Place a play-credit prediction",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "market_id": {
+            "type": "string",
+            "pattern": "^sd_[a-f0-9]{64}$"
+          },
+          "side": {
+            "enum": [
+              "YES",
+              "NO"
+            ]
+          },
+          "amount_credits": {
+            "type": "string",
+            "pattern": "^(0|[1-9][0-9]*)(\\.[0-9]{1,6})?$",
+            "maxLength": 16
+          },
+          "request_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+          }
+        },
+        "required": [
+          "market_id",
+          "side",
+          "amount_credits",
+          "request_id"
+        ]
+      },
+      "description": "Place a YES or NO stake using free nonredeemable play credits with no cash value. Anyone with the market ID and a signed wallet may participate. Hard caps: 5 credits per bet and 25 credits per market. POST /api/second-date-bet. API access costs 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls per rolling 30 days. This access fee is separate from play-credit stakes. Each wallet begins with 25 free play credits. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Human consent and reports use https://weverlabs.com/second-dates/. Betting closes at the deadline or first human report. Missing reports return stakes seven days after the close. Keep request_id and exact arguments for retry; use a new request_id for current status. Read /api/second-dates-contract for schemas and public receipt verification key.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_second-date-resolve",
+      "title": "Resolve a second-date market",
+      "inputSchema": {
+        "type": "object",
+        "oneOf": [
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "market_id": {
+                "type": "string",
+                "pattern": "^sd_[a-f0-9]{64}$"
+              },
+              "action": {
+                "enum": [
+                  "status",
+                  "resolve"
+                ]
+              },
+              "request_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "market_id",
+              "action",
+              "request_id"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "market_id": {
+                "type": "string",
+                "pattern": "^sd_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "decision"
+              },
+              "decision": {
+                "type": "object",
+                "additionalProperties": false,
+                "properties": {
+                  "dispute_id": {
+                    "type": "string",
+                    "pattern": "^sdd_[a-f0-9]{64}$"
+                  },
+                  "action": {
+                    "const": "resolve"
+                  },
+                  "outcome": {
+                    "enum": [
+                      "YES",
+                      "NO"
+                    ]
+                  },
+                  "reason_sha256": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "idempotency_key": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+                  },
+                  "operator_authorization": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 8192
+                  }
+                },
+                "required": [
+                  "dispute_id",
+                  "action",
+                  "outcome",
+                  "reason_sha256",
+                  "idempotency_key",
+                  "operator_authorization"
+                ]
+              },
+              "request_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "market_id",
+              "action",
+              "decision",
+              "request_id"
+            ]
+          },
+          {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "market_id": {
+                "type": "string",
+                "pattern": "^sd_[a-f0-9]{64}$"
+              },
+              "action": {
+                "const": "verify_receipt"
+              },
+              "receipt_id": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "signed_token": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 49152
+              },
+              "request_id": {
+                "type": "string",
+                "pattern": "^[A-Za-z0-9._:-]{8,128}$"
+              }
+            },
+            "required": [
+              "market_id",
+              "action",
+              "receipt_id",
+              "signed_token",
+              "request_id"
+            ]
+          }
+        ]
+      },
+      "description": "Read current status, resolve matching human reports, submit an operator-signed decision for conflicting reports, or verify a signed receipt. Both YES reports select YES; both NO reports select NO. Winners share the play-credit pool pro-rata. POST /api/second-date-resolve. API access costs 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls per rolling 30 days. This access fee is separate from play-credit stakes. Each wallet begins with 25 free play credits. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Human consent and reports use https://weverlabs.com/second-dates/. Betting closes at the deadline or first human report. Missing reports return stakes seven days after the close. Keep request_id and exact arguments for retry; use a new request_id for current status. Read /api/second-dates-contract for schemas and public receipt verification key.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
       }
     }
   ]
