@@ -8,7 +8,9 @@ Wever Labs exposes **70 production tools** at **https://weverlabs.com/mcp** usin
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **7 tools with no authentication, wallet, or payment required**.
+
+`cheapest-ticket` reads public Gametime prices and compares exact NFL and NBA games with TickPick. It returns the event, lowest listed price among the working sources, check time and buy link. SeatGeek needs a server Client ID for its API; Ticketmaster Discovery needs a Consumer Key for event matches and buy links. Humans complete purchases through the returned link.
 
 | Publication field | Value |
 | --- | --- |
@@ -18,7 +20,7 @@ The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools w
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
 | Production tools | 70 |
-| Free endpoint | https://weverlabs.com/mcp-free (6 tools, no auth) |
+| Free endpoint | https://weverlabs.com/mcp-free (7 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
@@ -52,11 +54,11 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the six anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the seven anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 70-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 71-tool server.
 
 ## Registry metadata
 
