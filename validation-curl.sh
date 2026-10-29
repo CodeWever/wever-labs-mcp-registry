@@ -31,9 +31,9 @@ print(json.dumps(result["serverInfo"], indent=2))
 ' "$endpoint"
 
   mcp_post "$endpoint" '{"jsonrpc":"2.0","method":"notifications/initialized"}' > /dev/null
-  expected_count=73
+  expected_count=74
   if [[ "$endpoint" == 'https://weverlabs.com/mcp-free' ]]; then
-    expected_count=8
+    expected_count=9
   fi
 
   echo "Checking advertised tools: $endpoint"

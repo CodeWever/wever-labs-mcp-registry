@@ -22,8 +22,8 @@ Search matches substrings. Inspect `servers[].server` and require an exact name 
 {
   "name": "io.github.CodeWever/wever-labs-products",
   "title": "Wever Labs Agent Products",
-  "description": "73 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
-  "version": "0.8.1-registry.1",
+  "description": "74 production tools for agent work, commerce and verification; Base USDC x402 and shared free tier.",
+  "version": "0.8.2-registry.1",
   "_meta": {
     "io.modelcontextprotocol.registry/publisher-provided": { "hostedServerVersion": "0.8.0" }
   },
@@ -48,7 +48,7 @@ For the exact version, independently query:
 
 ```bash
 curl --fail-with-body --silent --show-error \
-  'https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CodeWever%2Fwever-labs-products/versions/0.8.1-registry.1' \
+  'https://registry.modelcontextprotocol.io/v0.1/servers/io.github.CodeWever%2Fwever-labs-products/versions/0.8.2-registry.1' \
   | python3 -m json.tool
 ```
 
@@ -70,7 +70,7 @@ curl --fail-with-body --silent --show-error \
 - [ ] HTTP 200 and a JSON-RPC `result`, without `error`.
 - [ ] `result.serverInfo.name` equals `io.github.CodeWever/wever-labs-products`.
 - [ ] `result.serverInfo.version` equals publisher metadata `hostedServerVersion` in both server descriptors (currently `0.8.0`).
-- [ ] Both server descriptors, `lhm.plugin.json` and `package.json` use registry metadata version `0.8.1-registry.1`.
+- [ ] Both server descriptors, `lhm.plugin.json` and `package.json` use registry metadata version `0.8.2-registry.1`.
 - [ ] `result.capabilities.tools` is present.
 
 A bare GET can return 405 on this POST-based endpoint. Use successful MCP initialization as the connectivity check. The current endpoint is stateless and returns JSON; if it later negotiates sessions or SSE responses, use an MCP client that handles the advertised transport.
@@ -93,12 +93,12 @@ curl --fail-with-body --silent --show-error \
   | python3 -m json.tool
 ```
 
-- [ ] `result.tools` lists 73 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
+- [ ] `result.tools` lists 74 production tools. Discovery verifies the advertised catalog, not successful execution of every backend.
 - [ ] The production catalog includes `wever_atlas-compare` and `wever_atlas-rights-gap`, with their current input schemas and read-only annotations.
-- [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 8 tools without authentication, wallet, or payment.
+- [ ] The separate `https://weverlabs.com/mcp-free` entrance initializes and lists 9 tools without authentication, wallet, or payment.
 - [ ] Record the metadata verification date and live initialize/list results without credentials. Record Official MCP Registry publication evidence separately if publication is performed.
 
-Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name and hosted version against `server.json` and the 73/8 tool counts without calling tools or submitting payments.
+Run `bash validation-curl.sh` for the read-only production and free MCP checks. It verifies the production name and hosted version against `server.json` and the 74/9 tool counts without calling tools or submitting payments.
 
 ## Publication boundaries
 
