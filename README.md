@@ -8,6 +8,8 @@ Wever Labs exposes **72 production tools** at **https://weverlabs.com/mcp** usin
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
+The free `edge-alert` tool is included on the main endpoint. Call it with `{}` for current pregame NBA full-game winner prediction-market alerts at an estimated edge of 3 percentage points or more. Each call reads public Polymarket and Kalshi data, returns market, side, market price, estimated fair price, estimated edge and timestamp, and explicitly returns `no_alerts` when no eligible market clears the threshold. It requires no wallet, account or x402 payment. Human page: **https://weverlabs.com/edge-alerts/**.
+
 The separate free tier at **https://weverlabs.com/mcp-free** exposes **6 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).

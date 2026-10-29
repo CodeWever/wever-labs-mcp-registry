@@ -30,7 +30,7 @@ print(json.dumps(result["serverInfo"], indent=2))
 ' "$endpoint"
 
   mcp_post "$endpoint" '{"jsonrpc":"2.0","method":"notifications/initialized"}' > /dev/null
-  expected_count=59
+  expected_count=70
   if [[ "$endpoint" == 'https://weverlabs.com/mcp-free' ]]; then
     expected_count=6
   fi
