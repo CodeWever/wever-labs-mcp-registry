@@ -33,7 +33,7 @@ print(json.dumps(result["serverInfo"], indent=2))
   mcp_post "$endpoint" '{"jsonrpc":"2.0","method":"notifications/initialized"}' > /dev/null
   expected_count=74
   if [[ "$endpoint" == 'https://weverlabs.com/mcp-free' ]]; then
-    expected_count=9
+    expected_count=10
   fi
 
   echo "Checking advertised tools: $endpoint"
@@ -47,6 +47,9 @@ assert len(tools) == int(sys.argv[1]), f"Expected {sys.argv[1]} tools, found {le
 if sys.argv[2] == "https://weverlabs.com/mcp":
     expected = {"wever_atlas-compare", "wever_atlas-rights-gap", "edge-alert", "boutique-coupon"}
     assert expected <= {tool["name"] for tool in tools}, "Atlas rights, Edge Alert or boutique coupon tools missing"
+else:
+    trust = next(tool for tool in tools if tool["name"] == "wever_agent-trust-check")
+    assert trust.get("securitySchemes") == [{"type": "noauth"}], "Agent trust check must remain anonymous"
 print(f"Verified {len(tools)} advertised tools")
 ' "$expected_count" "$endpoint"
 done

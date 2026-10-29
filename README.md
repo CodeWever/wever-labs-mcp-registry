@@ -10,7 +10,7 @@ Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wa
 
 The free `edge-alert` tool is included on the main endpoint. Call it with `{}` for current pregame NBA full-game winner prediction-market alerts at an estimated edge of 3 percentage points or more. Each call reads public Polymarket and Kalshi data, returns market, side, market price, estimated fair price, estimated edge and timestamp, and explicitly returns `no_alerts` when no eligible market clears the threshold. It requires no wallet, account or x402 payment. Human page: **https://weverlabs.com/edge-alerts/**.
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **9 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **10 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
 
@@ -25,7 +25,7 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
 | Production tools | 74 |
-| Free endpoint | https://weverlabs.com/mcp-free (9 tools, no auth) |
+| Free endpoint | https://weverlabs.com/mcp-free (10 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
@@ -57,6 +57,11 @@ What this proves: identity was verified via Wever sign-in on the issuance date. 
 
 `wever_single-credential-check` at **https://weverlabs.com/mcp-free** takes `credential_id` and returns `valid`, `revoked` or `expired` with the scope summary. Unknown IDs return `not_found`. Anyone can check anonymously, with no wallet or charge. Holders can revoke their credential, and a report flow records evidence for Wever operator revocation. See [Verified single](https://weverlabs.com/verified-single/), [Matchmaking](https://weverlabs.com/matchmaking/) and [Date Safe](https://weverlabs.com/date-safe/).
 
+## Agent trust check
+
+`wever_agent-trust-check` on **https://weverlabs.com/mcp-free** accepts an `agent_identifier`: a Wever agent ID, mailbox or registered name. Its plain-language report covers directory registration, recorded authority, signed receipts and the listed operator using Wever's own records. Every fact names its source, and missing facts say "not on file." Reports contain facts with sources, without scores or verdicts. The tool is free and anonymous, with no wallet or x402 charge. See [Agent trust check](https://weverlabs.com/trust-check/) to run a lookup or read the MCP example.
+
+
 ## Connect
 
 Use the production endpoint in a client that supports remote Streamable HTTP MCP servers:
@@ -71,7 +76,7 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the nine anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the ten anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
