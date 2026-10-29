@@ -12,7 +12,7 @@ The free `edge-alert` tool is included on the main endpoint. Call it with `{}` f
 
 The free `fair-value` tool on **https://weverlabs.com/mcp** takes one prediction-market name, Kalshi or Polymarket ticker, or URL. Game names support team aliases and reversed order. It returns `needs_match` with dated outcome choices when selection is needed, or `no_match` when no open full-game winner market is returned for the teams. An exact selection returns the existing thesis model's estimated YES fair price, its original comparison and timestamps. Matched Kalshi, Polymarket and Novig quotes appear separately when available, labelled by source and observation time. Access is anonymous, with no wallet or payment. Human lookup: [weverlabs.com/fair-value/](https://weverlabs.com/fair-value/).
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **10 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **12 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
 
@@ -27,7 +27,7 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
 | Production tools | 77 |
-| Free endpoint | https://weverlabs.com/mcp-free (10 tools, no auth) |
+| Free endpoint | https://weverlabs.com/mcp-free (12 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
@@ -84,7 +84,7 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the ten anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the twelve anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
@@ -99,3 +99,12 @@ This server is remote-only. `server.json` has no `packages` array. `package.json
 David performs Official MCP Registry login and publication using [PUBLISHING_RUNBOOK.md](PUBLISHING_RUNBOOK.md). After publication, follow [VERIFY_CHECKLIST.md](VERIFY_CHECKLIST.md). A GitHub push updates this repository's public metadata for downstream scanners; it does not publish an Official MCP Registry listing or confirm a directory refresh.
 
 No secrets, keys, credentials or private implementation code belong in this repository.
+
+## Real Self book reflections
+
+Two tools on **https://weverlabs.com/mcp-free** adapt David H. Wever's supplied full manuscripts. These are self-help reflection tools, not therapy or diagnosis. Both are free and anonymous, with no account, wallet or x402 payment. Wever processes inputs and results in memory and retains neither.
+
+- `wever_child-behind-behavior` takes a recent `moment` and `age_band`, returning two or three possible readings with needs, feelings and an age-aware lens, one parent question and one grounding note. It uses behavior as signal, supported capacity, limits and repair. [Human page](https://weverlabs.com/child-behind-the-behavior/).
+- `wever_neurodivergent-self` takes a recurring `pattern` and `area` of work, sensory, social or executive_function. It returns difference-not-deficit reframes and three gentle experiments. Neurodivergence is kept distinct from protective adaptations around shame, overload and misunderstanding. [Human page](https://weverlabs.com/neurodivergent-self/).
+
+Human reflections run locally in the browser. Each page encourages qualified professional support where appropriate and links the four existing companions for that book. [Schemas and frameworks](https://weverlabs.com/real-self-tools.json).
