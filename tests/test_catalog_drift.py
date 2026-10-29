@@ -17,9 +17,9 @@ drift = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(drift)
 
 
-def fixture(total=57, products=29, priced=None, free=6, edge_alert=False):
+def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutique_coupon=False):
     """Keep categories distinct while allowing a fully aligned live count change."""
-    priced = total - 10 - int(edge_alert) if priced is None else priced
+    priced = total - 10 - int(edge_alert) - int(boutique_coupon) if priced is None else priced
     tools = [{
         'name': f'wever_product-{index}', 'description': f'Tool {index}',
         'inputSchema': {'type': 'object', 'properties': {
@@ -35,6 +35,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False):
     ]
     if edge_alert:
         unpriced_names.append('edge-alert')
+    if boutique_coupon:
+        unpriced_names.append('boutique-coupon')
     for tool, name in zip(tools[priced:], unpriced_names):
         tool['name'] = name
     free_tools = [{**copy.deepcopy(tools[index]), 'name': f'wever_free-{index}'}
@@ -121,6 +123,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False):
     }
     if edge_alert:
         site['/llms.txt'] = site['/llms.txt'].replace('4 agent purchase tools, 0 demo labels', '4 agent purchase tools, 1 free Edge Alert tool, 0 demo labels')
+    if boutique_coupon:
+        site['/llms.txt'] = site['/llms.txt'].replace('2 free boutique catalog reads, ', '2 free boutique catalog reads, 1 free boutique coupon tool, ')
     return registry, site, tools, free_tools
 
 
@@ -152,6 +156,25 @@ class CatalogAuditTests(unittest.TestCase):
         site['/llms.txt'] = site['/llms.txt'].replace('1 free Edge Alert tool', '2 free Edge Alert tool')
         with self.assertRaises(drift.DriftError):
             drift.audit(registry, site, tools, free_tools)
+
+    def test_free_coupon_and_edge_alert_have_distinct_categories_and_keep_pricing(self):
+        registry, site, tools, free_tools = fixture(72, priced=60, edge_alert=True, boutique_coupon=True)
+        result = drift.audit(registry, site, tools, free_tools)
+        self.assertEqual((result['main_tools'], result['priced_tools'], result['free_tools']), (72, 60, 6))
+        self.assertIn('llms.txt:free boutique coupon tool[0]', result['surfaces'])
+        self.assertIn('llms.txt:free Edge Alert tool[0]', result['surfaces'])
+        baseline = site['/llms.txt']
+        mutations = [
+            baseline.replace('1 free boutique coupon tool', '2 free boutique coupon tool'),
+            baseline.replace('1 free boutique coupon tool, ', ''),
+            baseline.replace('1 free boutique coupon tool', '2 free boutique coupon tool').replace(
+                '1 free Edge Alert tool', '0 free Edge Alert tool'),
+        ]
+        for text in mutations:
+            with self.subTest(text=text):
+                site['/llms.txt'] = text
+                with self.assertRaises(drift.DriftError):
+                    drift.audit(registry, site, tools, free_tools)
 
     def setUp(self):
         self.registry, self.site, self.tools, self.free_tools = fixture()

@@ -30,7 +30,7 @@ print(json.dumps(result["serverInfo"], indent=2))
 ' "$endpoint"
 
   mcp_post "$endpoint" '{"jsonrpc":"2.0","method":"notifications/initialized"}' > /dev/null
-  expected_count=71
+  expected_count=72
   if [[ "$endpoint" == 'https://weverlabs.com/mcp-free' ]]; then
     expected_count=6
   fi
@@ -44,8 +44,8 @@ assert "error" not in response, response
 tools = response["result"]["tools"]
 assert len(tools) == int(sys.argv[1]), f"Expected {sys.argv[1]} tools, found {len(tools)}"
 if sys.argv[2] == "https://weverlabs.com/mcp":
-    expected = {"wever_atlas-compare", "wever_atlas-rights-gap", "edge-alert"}
-    assert expected <= {tool["name"] for tool in tools}, "Atlas rights or Edge Alert tools missing"
+    expected = {"wever_atlas-compare", "wever_atlas-rights-gap", "edge-alert", "boutique-coupon"}
+    assert expected <= {tool["name"] for tool in tools}, "Atlas rights, Edge Alert or boutique coupon tools missing"
 print(f"Verified {len(tools)} advertised tools")
 ' "$expected_count" "$endpoint"
 done
