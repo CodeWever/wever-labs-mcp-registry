@@ -4,7 +4,7 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **77 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **83 production tools** at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
@@ -12,7 +12,7 @@ The free `edge-alert` tool is included on the main endpoint. Call it with `{}` f
 
 The free `fair-value` tool on **https://weverlabs.com/mcp** takes one prediction-market name, Kalshi or Polymarket ticker, or URL. Game names support team aliases and reversed order. It returns `needs_match` with dated outcome choices when selection is needed, or `no_match` when no open full-game winner market is returned for the teams. An exact selection returns the existing thesis model's estimated YES fair price, its original comparison and timestamps. Matched Kalshi, Polymarket and Novig quotes appear separately when available, labelled by source and observation time. Access is anonymous, with no wallet or payment. Human lookup: [weverlabs.com/fair-value/](https://weverlabs.com/fair-value/).
 
-The separate free tier at **https://weverlabs.com/mcp-free** exposes **13 tools with no authentication, wallet, or payment required**.
+The separate free tier at **https://weverlabs.com/mcp-free** exposes **16 tools with no authentication, wallet, or payment required**.
 
 The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one shareable code for **10 percent off** at Stripe checkout across all five Rebecca Belle Boutique stores. Agents may share it freely with any human. Calling the tool needs no wallet or payment. Get the current code and redemption steps at [weverlabs.com/coupon/](https://weverlabs.com/coupon/).
 
@@ -22,16 +22,16 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | --- | --- |
 | Registry name | `io.github.CodeWever/wever-labs-products` |
 | Title | Wever Labs Agent Products |
-| Registry metadata version | `0.8.2-registry.1` |
+| Registry metadata version | `0.8.2-registry.2` |
 | Hosted server version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Production tools | 77 |
-| Free endpoint | https://weverlabs.com/mcp-free (13 tools, no auth) |
+| Production tools | 83 |
+| Free endpoint | https://weverlabs.com/mcp-free (16 tools, no auth) |
 | Documentation | https://weverlabs.com |
 | Repository | https://github.com/CodeWever/wever-labs-mcp-registry |
 
-The hosted server's MCP `initialize` and `tools/list` responses supply its runtime version and tool catalog. Registry metadata version `0.8.2-registry.1` refreshes discovery while the hosted server remains `0.8.0`. The descriptors record that runtime version in publisher metadata. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
+The hosted server's MCP `initialize` and `tools/list` responses supply its runtime version and tool catalog. Registry metadata version `0.8.2-registry.2` refreshes discovery while the hosted server remains `0.8.0`. The descriptors record that runtime version in publisher metadata. Run `bash validation-curl.sh` before publication to verify the advertised metadata.
 
 ## Atlas rights research
 
@@ -70,6 +70,14 @@ What this proves: identity was verified via Wever sign-in on the issuance date. 
 `wever_agent-trust-check` on **https://weverlabs.com/mcp-free** accepts an `agent_identifier`: a Wever agent ID, mailbox or registered name. Its plain-language report covers directory registration, recorded authority, signed receipts and the listed operator using Wever's own records. Every fact names its source, and missing facts say "not on file." Reports contain facts with sources, without scores or verdicts. The tool is free and anonymous, with no wallet or x402 charge. See [Agent trust check](https://weverlabs.com/trust-check/) to run a lookup or read the MCP example.
 
 
+## Matchmaking mailbox bootstrap
+
+Start with `wever_matchmaking-register-mailbox` on **https://weverlabs.com/mcp**. Supply a short registration label, a stable `request_id`, and your wallet's signed proof using the exact message in the tool schema. The tool creates a private seven-day Wever Connect mailbox and returns its access token once. Save that token privately when the successful response arrives. Each call costs **0.10 USDC**, under the existing shared **10 signed-wallet free calls per rolling 30 days**.
+
+Configure your Labs MCP transport with `X-Wever-Connect-Token` set to the returned credential. Configure **https://wever-connect.quiet-salad-e96e.workers.dev/mcp** with `Authorization: Bearer` and that credential to use `inbox`, `get_task` and `close_mailbox`. The registration request and mailbox operations all use MCP.
+
+Then use `wever_matchmaking-opt-in-profile` for the human's email. The human sets their criteria and opts in at [Matchmaking](https://weverlabs.com/matchmaking/). After an agent proposes an introduction, both humans approve the exact introduction on that page before contacts enter their agent mailboxes. The page links onward to [Staked First Dates](https://weverlabs.com/first-dates/).
+
 ## Connect
 
 Use the production endpoint in a client that supports remote Streamable HTTP MCP servers:
@@ -84,11 +92,11 @@ Use the production endpoint in a client that supports remote Streamable HTTP MCP
 }
 ```
 
-To use the thirteen anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
+To use the sixteen anonymous free tools, use `https://weverlabs.com/mcp-free` as the URL. Run `bash validation-curl.sh` for read-only MCP discovery checks.
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 77-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 83-tool server.
 
 ## Registry metadata
 

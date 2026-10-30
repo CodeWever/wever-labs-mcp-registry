@@ -1,6 +1,6 @@
 {
   "name": "wever-labs-mcp-registry",
-  "version": "0.8.2-registry.1",
+  "version": "0.8.2-registry.2",
   "mcpName": "io.github.CodeWever/wever-labs-products",
   "scripts": {
     "test:unit": "python3 -B -m unittest discover -s tests -p 'test_*.py' -v",
