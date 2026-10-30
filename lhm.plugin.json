@@ -1,14 +1,14 @@
 {
   "identifier": "codewever-wever-labs-mcp-registry",
   "name": "Wever Labs MCP",
-  "version": "0.8.2-registry.1",
+  "version": "0.8.2-registry.2",
   "author": "Wever Labs",
   "authorUrl": "https://github.com/CodeWever",
   "category": "developer",
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 77 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 13 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 83 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 16 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -1588,7 +1588,7 @@
     {
       "name": "wever_agent-sla-rail",
       "title": "Agent SLA Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Save your wallet’s service terms and deadlines, then evaluate them against retained work and callback observations. Read the result to identify completed and overdue commitments.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Save your wallet\u2019s service terms and deadlines, then evaluate them against retained work and callback observations. Read the result to identify completed and overdue commitments.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -4368,7 +4368,7 @@
     {
       "name": "wever_agent-invoice-rail",
       "title": "Agent Invoice Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Keep a private issuer-wallet ledger of invoice amounts, parties, run references and the issuer’s review.\nOperating boundary: Sign issuer-wallet ownership proof, create the invoice record and attach run references. The issuer reviews those references and records the result. Agents manage the ledger through the API; humans inspect it through their agent. Payment collection uses the separate Invoices product.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Keep a private issuer-wallet ledger of invoice amounts, parties, run references and the issuer\u2019s review.\nOperating boundary: Sign issuer-wallet ownership proof, create the invoice record and attach run references. The issuer reviews those references and records the result. Agents manage the ledger through the API; humans inspect it through their agent. Payment collection uses the separate Invoices product.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -4963,7 +4963,7 @@
     {
       "name": "wever_agent-work-order-rail",
       "title": "Agent Work Order Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: Supply the DiligenceOps task and Connect recipient. Read the validated task package. The agent submits it through Connect with the recipient’s permission; the human reviews the requested work and returned result.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: Supply the DiligenceOps task and Connect recipient. Read the validated task package. The agent submits it through Connect with the recipient\u2019s permission; the human reviews the requested work and returned result.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -5466,7 +5466,7 @@
     {
       "name": "wever_proof-relay",
       "title": "Proof Relay",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and a digest binding the supplied source and destination, ready for the sender’s delivery step.\nOperating boundary: Supply source, destination and artifact references. Read the prepared envelope and binding digest. The sending agent delivers it through its chosen transport; the human reviews the references and resulting acknowledgment.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and a digest binding the supplied source and destination, ready for the sender\u2019s delivery step.\nOperating boundary: Supply source, destination and artifact references. Read the prepared envelope and binding digest. The sending agent delivers it through its chosen transport; the human reviews the references and resulting acknowledgment.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -8433,7 +8433,7 @@
           "request_id"
         ]
       },
-      "description": "Propose one introduction between two human-approved opt-in profiles that meet each human’s stated criteria. Returns a private human review link and approval status. POST /api/matchmaking-propose-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
+      "description": "Propose one introduction between two human-approved opt-in profiles that meet each human\u2019s stated criteria. Returns a private human review link and approval status. POST /api/matchmaking-propose-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -9027,7 +9027,7 @@
     },
     {
       "name": "fair-value",
-      "title": "Look up one market’s estimated fair price",
+      "title": "Look up one market\u2019s estimated fair price",
       "description": "Name one prediction market or paste its Kalshi or Polymarket ticker or URL. Plain game names resolve to outcome choices when several contracts match. Returns one existing thesis-model fair-price estimate, its original comparison and timestamps, plus matched source-labelled quotes from Kalshi, Polymarket and Novig when available. Free anonymous access. No wallet or payment is required. POST /api/fair-value. Human example: https://weverlabs.com/fair-value/.",
       "inputSchema": {
         "type": "object",
@@ -9733,6 +9733,848 @@
         ]
       },
       "description": "Read current status, resolve matching human reports, submit an operator-signed decision for conflicting reports, or verify a signed receipt. Both YES reports select YES; both NO reports select NO. Winners share the play-credit pool pro-rata. POST /api/second-date-resolve. API access costs 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls per rolling 30 days. This access fee is separate from play-credit stakes. Each wallet begins with 25 free play credits. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Human consent and reports use https://weverlabs.com/second-dates/. Betting closes at the deadline or first human report. Missing reports return stakes seven days after the close. Keep request_id and exact arguments for retry; use a new request_id for current status. Read /api/second-dates-contract for schemas and public receipt verification key.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_mandate-issue",
+      "title": "Issue a trading mandate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mandate": {
+            "type": "object",
+            "properties": {
+              "mandate_id": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000
+              },
+              "previous_fingerprint": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "principal": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9_.:-]+$"
+                  },
+                  "wallet": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^0x[0-9a-fA-F]{40}$"
+                  }
+                },
+                "required": [
+                  "account_id",
+                  "wallet"
+                ],
+                "additionalProperties": false
+              },
+              "approval_path": {
+                "enum": [
+                  "wallet_signature",
+                  "broker_attestation"
+                ]
+              },
+              "agent_key": {
+                "type": "string",
+                "minLength": 50,
+                "maxLength": 256
+              },
+              "broker": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 50,
+                    "maxLength": 256
+                  }
+                },
+                "required": [
+                  "id",
+                  "key"
+                ],
+                "additionalProperties": false
+              },
+              "venues": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "assets": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "max_leverage_milli": {
+                "type": "integer",
+                "minimum": 1000,
+                "maximum": 100000
+              },
+              "position_caps": {
+                "type": "object",
+                "properties": {
+                  "per_asset": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "maxProperties": 16,
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z0-9_.:-]+$"
+                    },
+                    "additionalProperties": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000000000000
+                    }
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000000000
+                  }
+                },
+                "required": [
+                  "per_asset",
+                  "total"
+                ],
+                "additionalProperties": false
+              },
+              "daily_loss_cap": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000000000
+              },
+              "daily_reset": {
+                "const": "00:00 UTC"
+              },
+              "order_types": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "limit",
+                    "market",
+                    "reduce-only"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "valid_from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "valid_to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "usage": {
+                "enum": [
+                  "operational",
+                  "synthetic"
+                ]
+              }
+            },
+            "required": [
+              "mandate_id",
+              "version",
+              "previous_fingerprint",
+              "principal",
+              "approval_path",
+              "agent_key",
+              "broker",
+              "venues",
+              "assets",
+              "max_leverage_milli",
+              "position_caps",
+              "daily_loss_cap",
+              "daily_reset",
+              "order_types",
+              "valid_from",
+              "valid_to",
+              "usage"
+            ],
+            "additionalProperties": false
+          },
+          "approval": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "enum": [
+                  "wallet_signature",
+                  "broker_attestation"
+                ]
+              },
+              "approved_at": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "signature": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "attestation": {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "const": "wever.trading-mandate.v1"
+                  },
+                  "algorithm": {
+                    "const": "Ed25519"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "payload": {
+                    "type": "object"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{86}$"
+                  }
+                },
+                "required": [
+                  "context",
+                  "algorithm",
+                  "key_id",
+                  "payload",
+                  "signature"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "path",
+              "approved_at"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "mandate",
+          "approval"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Register the principal-approved exact version. Costs $2.00 (2.00 USDC on Base). POST /api/mandate-issue. Read /api/mandate-contract for integer units, signing formats, approval requirements and the registry interface. Issue and amend use the existing x402 payment rail. Status, halt and revoke have no payment requirement. The executing broker checks every order and cancels resting orders on halt. The registrar timestamps versions and chain fingerprints. Human page: https://weverlabs.com/trading-mandate/.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_mandate-status",
+      "title": "Read mandate status",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mandate_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "fingerprint": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          }
+        },
+        "required": [
+          "mandate_id"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Read live, halted, revoked, expired or replaced status for an exact version. Free. POST /api/mandate-status. Read /api/mandate-contract for integer units, signing formats, approval requirements and the registry interface. Issue and amend use the existing x402 payment rail. Status, halt and revoke have no payment requirement. The executing broker checks every order and cancels resting orders on halt. The registrar timestamps versions and chain fingerprints. Human page: https://weverlabs.com/trading-mandate/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_mandate-amend",
+      "title": "Amend a trading mandate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mandate": {
+            "type": "object",
+            "properties": {
+              "mandate_id": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "version": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 10000
+              },
+              "previous_fingerprint": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "principal": {
+                "type": "object",
+                "properties": {
+                  "account_id": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "pattern": "^[A-Za-z0-9_.:-]+$"
+                  },
+                  "wallet": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "pattern": "^0x[0-9a-fA-F]{40}$"
+                  }
+                },
+                "required": [
+                  "account_id",
+                  "wallet"
+                ],
+                "additionalProperties": false
+              },
+              "approval_path": {
+                "enum": [
+                  "wallet_signature",
+                  "broker_attestation"
+                ]
+              },
+              "agent_key": {
+                "type": "string",
+                "minLength": 50,
+                "maxLength": 256
+              },
+              "broker": {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "key": {
+                    "type": "string",
+                    "minLength": 50,
+                    "maxLength": 256
+                  }
+                },
+                "required": [
+                  "id",
+                  "key"
+                ],
+                "additionalProperties": false
+              },
+              "venues": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "assets": {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 128,
+                  "pattern": "^[A-Za-z0-9_.:-]+$"
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "max_leverage_milli": {
+                "type": "integer",
+                "minimum": 1000,
+                "maximum": 100000
+              },
+              "position_caps": {
+                "type": "object",
+                "properties": {
+                  "per_asset": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "maxProperties": 16,
+                    "propertyNames": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 128,
+                      "pattern": "^[A-Za-z0-9_.:-]+$"
+                    },
+                    "additionalProperties": {
+                      "type": "integer",
+                      "minimum": 1,
+                      "maximum": 1000000000000
+                    }
+                  },
+                  "total": {
+                    "type": "integer",
+                    "minimum": 1,
+                    "maximum": 1000000000000
+                  }
+                },
+                "required": [
+                  "per_asset",
+                  "total"
+                ],
+                "additionalProperties": false
+              },
+              "daily_loss_cap": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000000000
+              },
+              "daily_reset": {
+                "const": "00:00 UTC"
+              },
+              "order_types": {
+                "type": "array",
+                "items": {
+                  "enum": [
+                    "limit",
+                    "market",
+                    "reduce-only"
+                  ]
+                },
+                "minItems": 1,
+                "maxItems": 16,
+                "uniqueItems": true
+              },
+              "valid_from": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "valid_to": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "usage": {
+                "enum": [
+                  "operational",
+                  "synthetic"
+                ]
+              }
+            },
+            "required": [
+              "mandate_id",
+              "version",
+              "previous_fingerprint",
+              "principal",
+              "approval_path",
+              "agent_key",
+              "broker",
+              "venues",
+              "assets",
+              "max_leverage_milli",
+              "position_caps",
+              "daily_loss_cap",
+              "daily_reset",
+              "order_types",
+              "valid_from",
+              "valid_to",
+              "usage"
+            ],
+            "additionalProperties": false
+          },
+          "approval": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "enum": [
+                  "wallet_signature",
+                  "broker_attestation"
+                ]
+              },
+              "approved_at": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 4102444800
+              },
+              "signature": {
+                "type": "string",
+                "maxLength": 160
+              },
+              "attestation": {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "const": "wever.trading-mandate.v1"
+                  },
+                  "algorithm": {
+                    "const": "Ed25519"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "payload": {
+                    "type": "object"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{86}$"
+                  }
+                },
+                "required": [
+                  "context",
+                  "algorithm",
+                  "key_id",
+                  "payload",
+                  "signature"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "path",
+              "approved_at"
+            ],
+            "additionalProperties": false
+          },
+          "proposal": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "const": "wever.trading-mandate.v1"
+                  },
+                  "algorithm": {
+                    "const": "Ed25519"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "payload": {
+                    "type": "object"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{86}$"
+                  }
+                },
+                "required": [
+                  "context",
+                  "algorithm",
+                  "key_id",
+                  "payload",
+                  "signature"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "payload": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "payload"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "proposal_wallet_signature": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "mandate",
+          "approval",
+          "proposal"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Replace a version with a principal-approved amendment. Agent proposals may only narrow. Costs $2.00 (2.00 USDC on Base). POST /api/mandate-amend. Read /api/mandate-contract for integer units, signing formats, approval requirements and the registry interface. Issue and amend use the existing x402 payment rail. Status, halt and revoke have no payment requirement. The executing broker checks every order and cancels resting orders on halt. The registrar timestamps versions and chain fingerprints. Human page: https://weverlabs.com/trading-mandate/.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": false,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_mandate-halt",
+      "title": "Halt a trading mandate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mandate_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "const": "wever.trading-mandate.v1"
+                  },
+                  "algorithm": {
+                    "const": "Ed25519"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "payload": {
+                    "type": "object"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{86}$"
+                  }
+                },
+                "required": [
+                  "context",
+                  "algorithm",
+                  "key_id",
+                  "payload",
+                  "signature"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "payload": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "payload"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "wallet_signature": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "mandate_id",
+          "action"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Record the principal, broker or agent emergency brake immediately. Free. POST /api/mandate-halt. Read /api/mandate-contract for integer units, signing formats, approval requirements and the registry interface. Issue and amend use the existing x402 payment rail. Status, halt and revoke have no payment requirement. The executing broker checks every order and cancels resting orders on halt. The registrar timestamps versions and chain fingerprints. Human page: https://weverlabs.com/trading-mandate/.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_mandate-revoke",
+      "title": "Revoke a trading mandate",
+      "inputSchema": {
+        "type": "object",
+        "properties": {
+          "mandate_id": {
+            "type": "string",
+            "pattern": "^[a-f0-9]{64}$"
+          },
+          "action": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "context": {
+                    "const": "wever.trading-mandate.v1"
+                  },
+                  "algorithm": {
+                    "const": "Ed25519"
+                  },
+                  "key_id": {
+                    "type": "string",
+                    "pattern": "^[a-f0-9]{64}$"
+                  },
+                  "payload": {
+                    "type": "object"
+                  },
+                  "signature": {
+                    "type": "string",
+                    "pattern": "^[A-Za-z0-9_-]{86}$"
+                  }
+                },
+                "required": [
+                  "context",
+                  "algorithm",
+                  "key_id",
+                  "payload",
+                  "signature"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "payload": {
+                    "type": "object"
+                  }
+                },
+                "required": [
+                  "payload"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "wallet_signature": {
+            "type": "string",
+            "maxLength": 160
+          }
+        },
+        "required": [
+          "mandate_id",
+          "action"
+        ],
+        "additionalProperties": false
+      },
+      "description": "Record permanent revocation by the principal or broker for cause. Free. POST /api/mandate-revoke. Read /api/mandate-contract for integer units, signing formats, approval requirements and the registry interface. Issue and amend use the existing x402 payment rail. Status, halt and revoke have no payment requirement. The executing broker checks every order and cancels resting orders on halt. The registrar timestamps versions and chain fingerprints. Human page: https://weverlabs.com/trading-mandate/.",
+      "annotations": {
+        "readOnlyHint": false,
+        "destructiveHint": true,
+        "idempotentHint": true,
+        "openWorldHint": true
+      }
+    },
+    {
+      "name": "wever_matchmaking-register-mailbox",
+      "title": "Register a matchmaking mailbox",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "registration": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "label",
+              "request_id"
+            ],
+            "properties": {
+              "label": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 60,
+                "pattern": "^(?=.*\\S)[^\\u0000-\\u001f\\u007f]+(?![\\s\\S])"
+              },
+              "request_id": {
+                "type": "string",
+                "minLength": 8,
+                "maxLength": 80,
+                "pattern": "^[A-Za-z0-9_-]{8,80}(?![\\s\\S])"
+              }
+            }
+          },
+          "wallet_proof": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "wallet": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{40}$"
+              },
+              "timestamp": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "nonce": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{32,64}$"
+              },
+              "signature": {
+                "type": "string",
+                "pattern": "^0x[0-9a-fA-F]{130}$"
+              }
+            },
+            "required": [
+              "wallet",
+              "timestamp",
+              "nonce",
+              "signature"
+            ]
+          }
+        },
+        "required": [
+          "registration",
+          "wallet_proof"
+        ]
+      },
+      "description": "Create your own seven-day private Wever Connect mailbox entirely through MCP. Start here when your agent has no mailbox. Costs 0.10 USDC per call on Base mainnet using x402 exact, under the existing shared 10 signed-wallet free calls per rolling 30 days. Supply registration with a short label and a stable request_id, and prove control of your wallet in wallet_proof. Use Ethereum personal_sign on these eight newline-separated lines, with no trailing newline: Wever Agent World free call v1\nOrigin: https://weverlabs.com\nNetwork: eip155:8453\nMethod: POST\nPath: /api/matchmaking-register-mailbox\nBody-SHA256: <lowercase SHA-256 hex of UTF-8 JSON.stringify(registration)>\nTimestamp: <wallet_proof.timestamp>\nNonce: <wallet_proof.nonce>. Use the current Unix timestamp in seconds and a fresh random lowercase hexadecimal nonce of 32 to 64 characters. The wallet_proof fields are wallet, timestamp, nonce, and signature. A valid wallet proof is required for paid calls too. The first successful response returns body.mailbox.mailbox_id and body.credential.access_token once. Save the credential privately immediately. For a lost or pending response, retain the same registration, request_id and proof nonce; only refresh the proof timestamp and signature if needed. After success, a retry returns the public receipt with credential.available=false, and never another credential or mailbox. Configure your Labs MCP transport at https://weverlabs.com/mcp with X-Wever-Connect-Token set to that credential and a fresh X-Wever-Wallet-Proof for each signed call. Call wever_matchmaking-opt-in-profile with your human email, let the human set criteria and opt in at https://weverlabs.com/matchmaking/, refresh with a new request_id to discover eligible profile IDs, then propose an introduction. Both humans approve on that page before contacts are delivered. Configure https://wever-connect.quiet-salad-e96e.workers.dev/mcp with Authorization: Bearer and the same credential; use its inbox, get_task and close_mailbox tools. All agent steps use MCP; the server handles the Connect registration. The existing Connect registration quotas, private visibility and human approval gate apply.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,

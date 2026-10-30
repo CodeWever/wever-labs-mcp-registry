@@ -245,6 +245,9 @@ def check_site(site, tools, checks):
         groups['free boutique coupon tool'] = {'boutique-coupon'}
     if 'fair-value' in names:
         groups['free fair-value lookup'] = {'fair-value'}
+    mandate_controls = set(names) & {'wever_mandate-status', 'wever_mandate-halt', 'wever_mandate-revoke'}
+    if mandate_controls:
+        groups['free mandate controls'] = mandate_controls
     require(sum(map(len, groups.values())) == len(set().union(*groups.values())),
             'llms.txt: overlapping tool categories')
     checks.equal(sorted(set().union(*groups.values())), sorted(names), 'llms.txt:category_coverage')

@@ -17,9 +17,9 @@ drift = importlib.util.module_from_spec(SPEC)
 SPEC.loader.exec_module(drift)
 
 
-def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutique_coupon=False, fair_value=False):
+def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutique_coupon=False, fair_value=False, mandate_controls=False):
     """Keep categories distinct while allowing a fully aligned live count change."""
-    priced = total - 10 - int(edge_alert) - int(boutique_coupon) - int(fair_value) if priced is None else priced
+    priced = total - 10 - int(edge_alert) - int(boutique_coupon) - int(fair_value) - 3 * int(mandate_controls) if priced is None else priced
     tools = [{
         'name': f'wever_product-{index}', 'description': f'Tool {index}',
         'inputSchema': {'type': 'object', 'properties': {
@@ -39,6 +39,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutiq
         unpriced_names.append('boutique-coupon')
     if fair_value:
         unpriced_names.append('fair-value')
+    if mandate_controls:
+        unpriced_names.extend(['wever_mandate-status', 'wever_mandate-halt', 'wever_mandate-revoke'])
     for tool, name in zip(tools[priced:], unpriced_names):
         tool['name'] = name
     free_tools = [{**copy.deepcopy(tools[index]), 'name': f'wever_free-{index}'}
@@ -129,6 +131,8 @@ def fixture(total=57, products=29, priced=None, free=6, edge_alert=False, boutiq
         site['/llms.txt'] = site['/llms.txt'].replace('2 free boutique catalog reads, ', '2 free boutique catalog reads, 1 free boutique coupon tool, ')
     if fair_value:
         site['/llms.txt'] = site['/llms.txt'].replace('0 demo labels', '1 free fair-value lookup and 0 demo labels')
+    if mandate_controls:
+        site['/llms.txt'] = site['/llms.txt'].replace('0 demo labels', '3 free mandate controls and 0 demo labels')
     return registry, site, tools, free_tools
 
 
@@ -151,6 +155,20 @@ def replace_at(value, path, replacement):
 
 
 class CatalogAuditTests(unittest.TestCase):
+    def test_three_free_mandate_controls_have_exact_category_and_counts(self):
+        registry, site, tools, free_tools = fixture(83, priced=67, free=16,
+            edge_alert=True, boutique_coupon=True, fair_value=True, mandate_controls=True)
+        result = drift.audit(registry, site, tools, free_tools)
+        self.assertEqual((result['main_tools'], result['priced_tools'], result['free_tools']), (83, 67, 16))
+        self.assertIn('llms.txt:free mandate controls[0]', result['surfaces'])
+        baseline = site['/llms.txt']
+        for text in (baseline.replace('3 free mandate controls', '2 free mandate controls'),
+                     baseline.replace('3 free mandate controls and ', '')):
+            with self.subTest(text=text):
+                site['/llms.txt'] = text
+                with self.assertRaises(drift.DriftError):
+                    drift.audit(registry, site, tools, free_tools)
+
     def test_fair_value_and_seven_free_tools_preserve_distinct_categories(self):
         registry, site, tools, free_tools = fixture(73, priced=60, free=7,
             edge_alert=True, boutique_coupon=True, fair_value=True)
