@@ -7,6 +7,9 @@
     "check:catalog": "python3 scripts/check_catalog_drift.py",
     "check:catalog:published": "python3 -B scripts/check_catalog_drift.py --published && python3 -B scripts/check_registry_versions.py --published",
     "test": "npm run test:unit && npm run check:catalog && npm run check:versions",
-    "check:versions": "python3 -B scripts/check_registry_versions.py"
+    "check:versions": "python3 -B scripts/check_registry_versions.py",
+    "check:antigravity": "python3 -B scripts/check_antigravity_plugin.py",
+    "check:antigravity:live": "python3 -B scripts/check_antigravity_plugin.py --live",
+    "build:antigravity-reference": "python3 -B scripts/check_antigravity_plugin.py --write-reference --live"
   }
 }

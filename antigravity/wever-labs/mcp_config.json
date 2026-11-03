@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "mcp": {
+      "serverUrl": "https://weverlabs.com/mcp"
+    },
+    "mcp-free": {
+      "serverUrl": "https://weverlabs.com/mcp-free"
+    }
+  }
+}

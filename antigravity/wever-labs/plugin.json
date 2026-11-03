@@ -1,0 +1,31 @@
+{
+  "$schema": "https://antigravity.google/schemas/v1/plugin.json",
+  "name": "wever-labs",
+  "displayName": "Wever Labs",
+  "version": "1.0.0",
+  "description": "Agent commerce rails on Base: USDC payments, escrow, refunds and payouts, plus a free agent directory, data diligence checks and sports-trip planning.",
+  "suggestedPrompts": [
+    "Search the Wever Labs agent directory for MCP servers that handle invoicing",
+    "Set up a Wever Labs work order that pays a worker 20 USDC on Base after I approve delivery",
+    "Plan a Wever Labs sports trip for two from Chicago to the next Packers home game under $1,500"
+  ],
+  "author": {
+    "name": "Wever Labs",
+    "url": "https://weverlabs.com"
+  },
+  "homepage": "https://weverlabs.com",
+  "repository": "https://github.com/CodeWever/wever-labs-mcp-registry",
+  "license": "MIT",
+  "keywords": [
+    "agents",
+    "payments",
+    "escrow",
+    "refunds",
+    "usdc",
+    "base",
+    "x402",
+    "directory",
+    "diligence",
+    "sports"
+  ]
+}
