@@ -14,10 +14,10 @@ def errors_for(bundle):
 
 
 class BundleTests(unittest.TestCase):
-    def test_repository_bundle_passes_with_only_logo_pending(self):
+    def test_repository_bundle_passes_strict(self):
         report, summary = plugin.audit(plugin.BUNDLE)
         self.assertEqual(report.errors, [])
-        self.assertTrue(all('logo' in warning for warning in report.warnings), report.warnings)
+        self.assertEqual(report.warnings, [])
         self.assertEqual(summary['plugin'], 'wever-labs')
         self.assertEqual(summary['skills'], ['wever-labs'])
         self.assertEqual(summary['mcp_servers'], {'wever-labs_mcp': 'https://weverlabs.com/mcp',
@@ -28,6 +28,8 @@ class BundleTests(unittest.TestCase):
         self.assertEqual(manifest['author'], {'name': 'Wever Labs', 'url': 'https://weverlabs.com'})
         self.assertLessEqual(len(manifest['suggestedPrompts']), 3)
         self.assertTrue(120 <= len(manifest['description']) <= 160)
+        self.assertEqual(manifest['logo'], 'assets/logo.svg')
+        self.assertTrue((plugin.BUNDLE / manifest['logo']).is_file())
 
     def test_mcp_config_has_no_credentials(self):
         config = json.loads((plugin.BUNDLE / 'mcp_config.json').read_text(encoding='utf-8'))

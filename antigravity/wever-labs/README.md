@@ -12,6 +12,7 @@ servers, and sports-trip planning.
 | MCP servers | `mcp_config.json` | Connects the hosted Wever Labs servers over remote Streamable HTTP |
 | Skill | `skills/wever-labs/SKILL.md` | Teaches the agent which Wever Labs tool fits each task. Run it with `/wever-labs` |
 | Tool reference | `skills/wever-labs/references/tools.md` | Every tool name, title and listed fee, generated from the live servers |
+| Logo | `assets/logo.svg` | The Wever Labs mark |
 
 ## The MCP servers
 

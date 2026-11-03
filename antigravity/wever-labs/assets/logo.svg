@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Wever Labs mark">
+  <defs>
+    <linearGradient id="weverEdge" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#6fe0ff"/>
+      <stop offset="1" stop-color="#b59cff"/>
+    </linearGradient>
+    <linearGradient id="weverSurface" x1="12" y1="10" x2="52" y2="56" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#151b29"/>
+      <stop offset="1" stop-color="#090c13"/>
+    </linearGradient>
+  </defs>
+  <rect x="4.5" y="4.5" width="55" height="55" rx="14.5" fill="url(#weverSurface)" stroke="url(#weverEdge)"/>
+  <path d="M15 21 L22.5 45 L32 24 L40.5 45 L49 21" fill="none" stroke="#f4f1e9" stroke-width="5.7" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="50" cy="14" r="2.5" fill="#d8ff78"/>
+</svg>
