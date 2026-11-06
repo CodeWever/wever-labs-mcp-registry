@@ -236,7 +236,7 @@ def check_current_registry(files, tools, free_count, priced_count, checks, label
 
 def check_declared_openapi(document, checks):
     # Pinned to the exact generated declaration document reviewed with this release.
-    # The application suite validates schemas and all 110 source declarations.
+    # The application suite validates schemas and all 118 source declarations.
     review = json.loads((Path(__file__).parent / 'openapi-review.json').read_text())
     checks.equal(sorted(document['paths']), review['paths'], 'openapi.json:declared_paths')
     encoded = json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
