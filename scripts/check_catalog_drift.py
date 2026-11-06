@@ -5,6 +5,7 @@ Run directly for local registry + public website verification. Add --published
 to also verify the registry files currently served by GitHub main.
 """
 import argparse
+import hashlib
 import json
 from pathlib import Path
 import re
@@ -22,6 +23,7 @@ SITE_PATHS = ('/agents.json', '/llms.txt', '/.well-known/mcp.json',
               '/.well-known/wever-labs-mcp.json', '/openapi.json',
               '/x402-index/index.json', '/api/agent-operating-products')
 MAX_BYTES = 2 * 1024 * 1024
+OPENAPI_MAX_BYTES = 4 * 1024 * 1024
 MAX_PAGES = 20
 MAX_TOOLS = 1000
 
@@ -69,8 +71,9 @@ def fetch_text(url, payload=None):
             if payload is not None:
                 require(response.headers.get_content_type() == 'application/json',
                         f'{url}: expected stateless JSON MCP response')
-            data = response.read(MAX_BYTES + 1)
-            require(len(data) <= MAX_BYTES, f'{url}: response exceeds {MAX_BYTES} bytes')
+            limit = OPENAPI_MAX_BYTES if url == ORIGIN + '/openapi.json' else MAX_BYTES
+            data = response.read(limit + 1)
+            require(len(data) <= limit, f'{url}: response exceeds {MAX_BYTES} bytes')
             return data.decode('utf-8')
     except (OSError, UnicodeError, urllib.error.URLError) as error:
         raise DriftError(f'{url}: discovery unavailable ({error})') from error
@@ -160,7 +163,9 @@ class Checks:
             self.equal(int(value), expected, f'{label}[{index}]')
 
 
-def check_registry(files, tools, free_count, checks, label='local'):
+def check_registry(files, tools, free_count, checks, label='local', priced_count=None):
+    if ' main tools' in files.get('README.md', ''):
+        return check_current_registry(files, tools, free_count, priced_count, checks, label)
     total = len(tools)
     for name in REGISTRY_FILES:
         require(name in files, f'{label}/{name}: missing file')
@@ -191,6 +196,53 @@ def check_registry(files, tools, free_count, checks, label='local'):
     # DIRECTORY_STATUS and CURSOR_MARKETPLACE are explicitly dated observations.
 
 
+def check_current_registry(files, tools, free_count, priced_count, checks, label):
+    total = len(tools)
+    require(isinstance(priced_count, int) and 0 < priced_count <= total, 'Production count unavailable')
+    for name in REGISTRY_FILES:
+        require(name in files, f'{label}/{name}: missing file')
+    for name in ('server.json', 'server.dns-auth.example.json', 'lhm.plugin.json'):
+        data = decode_json(files[name], f'{label}/{name}')
+        checks.counts(data['description'], r'(\d+) main tools', total, 1, f'{label}/{name}:main')
+        checks.counts(data['description'], r'(\d+) production tools', priced_count, 1, f'{label}/{name}:production')
+        if name == 'lhm.plugin.json':
+            checks.equal(data['cloudEndpoint'], MAIN, f'{label}/{name}:cloudEndpoint')
+            validate_tools(data['tools'], f'{label}/{name}:tools')
+            checks.equal(data['tools'], tools, f'{label}/{name}:tools')
+            checks.counts(data['description'], r'provides (\d+) tools', free_count, 1, f'{label}/{name}:free')
+    text = files['README.md']
+    for pattern, expected, count in [
+        (r'(\d+) main tools', total, 1), (r'(\d+) production tools', priced_count, 1),
+        (r'^\| Main tools \| (\d+) \|$', total, 1),
+        (r'^\| Production tools \| (\d+) \|$', priced_count, 1),
+        (r'^\| Free tools \| (\d+) \|$', free_count, 1),
+        (r'current (\d+)-tool server', total, 1),
+        (r'(\d+) tools with no authentication', free_count, 1),
+        (r'Main discovery remains \*\*(\d+) tools', total, 1),
+        (r'free endpoint remains \*\*(\d+) tools', free_count, 1),
+        (r'To use the (\d+) anonymous free tools', free_count, 1),
+    ]: checks.counts(text, pattern, expected, count, f'{label}/README.md:{pattern}')
+    for name, occurrences in [('REGISTRY_COPY_BLOCKS.md', 3), ('VERIFY_CHECKLIST.md', 2)]:
+        text = files[name]
+        checks.counts(text, r'(\d+) main(?: MCP)? tools', total, occurrences, f'{label}/{name}:main')
+        checks.counts(text, r'(\d+) production tools', priced_count, occurrences, f'{label}/{name}:production')
+    checks.counts(files['REGISTRY_COPY_BLOCKS.md'], r'has (\d+) tools', free_count, 1, f'{label}/copy:free')
+    text = files['VERIFY_CHECKLIST.md']
+    checks.counts(text, r'(\d+)/\d+ tool counts', total, 1, f'{label}/checklist:pair-main')
+    checks.counts(text, r'\d+/(\d+) tool counts', free_count, 1, f'{label}/checklist:pair-free')
+    checks.counts(text, r'lists (\d+) tools without', free_count, 1, f'{label}/checklist:free')
+    expected = re.findall(r'^\s*expected_count=(\d+)$', files['validation-curl.sh'], re.MULTILINE)
+    checks.equal([int(value) for value in expected], [total, free_count], f'{label}/validation-curl.sh:counts')
+
+def check_declared_openapi(document, checks):
+    # Pinned to the exact generated declaration document reviewed with this release.
+    # The application suite validates schemas and all 102 source declarations.
+    review = json.loads((Path(__file__).parent / 'openapi-review.json').read_text())
+    checks.equal(sorted(document['paths']), review['paths'], 'openapi.json:declared_paths')
+    encoded = json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
+    checks.equal(hashlib.sha256(encoded).hexdigest(), review['sha256'], 'openapi.json:exact_declarations')
+
+
 def one(items, predicate, label):
     matches = [item for item in items if predicate(item)]
     require(len(matches) == 1, f'{label}: expected exactly one main endpoint entry')
@@ -203,7 +255,9 @@ def check_site(site, tools, checks):
     products = site['/api/agent-operating-products']
     keys = [product['key'] for product in products['products']]
     require(keys and len(set(keys)) == len(keys), 'product catalog: empty or duplicate product keys')
-    require(all('wever_' + key in names for key in keys), 'product catalog: product missing from live tools')
+    product_tools = {'boutique-agent-purchase-api': {'wever_purchase-create-intent', 'wever_purchase-status', 'wever_purchase-execute', 'wever_purchase-dispute'}}
+    require(all(product_tools.get(key, {'wever_' + key}) <= set(names) for key in keys),
+            'product catalog: product missing from live tools')
     product_count = len(keys)
     checks.equal(products['count'], product_count, 'product catalog:count')
     agents = site['/agents.json']
@@ -211,7 +265,10 @@ def check_site(site, tools, checks):
     checks.equal(agents['machine_readable']['product_count'], product_count, 'agents.json:product_count')
     operating = agents['agent_operating_products_v1']
     checks.equal(operating['count'], product_count, 'agents.json:operating_count')
-    checks.equal([product['key'] for product in operating['products']], keys, 'agents.json:product_keys')
+    # The operating list contains the one-to-one adapters. The purchase product
+    # groups the four separately verified purchase tools above.
+    checks.equal([product['key'] for product in operating['products']],
+                 [key for key in keys if key != 'boutique-agent-purchase-api'], 'agents.json:product_keys')
     checks.counts(operating['scope'], r'Its (\d+) product identities', product_count, 1, 'agents.json:product_scope')
     paid = agents['current_paid_production_tools']
     paid_names = [tool['mcp_name'] for tool in paid['tools']]
@@ -269,23 +326,26 @@ def check_site(site, tools, checks):
     checks.counts(detailed['dailyBrief']['scope'], r'current (\d+)-tool MCP surface', total, 1, 'wever-labs-mcp.json:brief_main_count')
     checks.counts(detailed['dailyBrief']['scope'], r'catalog retains (\d+) products', product_count, 1, 'wever-labs-mcp.json:brief_products')
     openapi = site['/openapi.json']
-    discovery = openapi['x-wever-current-production-discovery']
-    checks.equal(discovery['tool_count'], total, 'openapi.json:main_count')
-    checks.equal(discovery['tools'], names, 'openapi.json:tool_names')
-    checks.equal(discovery['product_count'], product_count, 'openapi.json:product_count')
-    route = openapi['paths']['/mcp']['post']
-    checks.equal(route['x-mcp-tools'], names, 'openapi.json:route_tools')
-    checks.counts(route['summary'], r'(\d+)-tool Wever production MCP endpoint', total, 1, 'openapi.json:summary')
-    checks.counts(route['description'], r'this (\d+)-tool endpoint', total, 1, 'openapi.json:description')
-    product_route = openapi['paths']['/api/agent-operating-products']['get']
-    checks.counts(product_route['summary'], r'current (\d+)-product catalog', product_count, 1, 'openapi.json:product_summary')
-    checks.counts(product_route['description'], r'catalog contains (\d+) products', product_count, 1, 'openapi.json:product_description')
-    response = product_route['responses']['200']
-    checks.counts(response['description'], r'exactly (\d+) products', product_count, 1, 'openapi.json:product_response')
-    properties = response['content']['application/json']['schema']['properties']
-    checks.equal(properties['count']['const'], product_count, 'openapi.json:product_const')
-    for field in ('minItems', 'maxItems'):
-        checks.equal(properties['products'][field], product_count, f'openapi.json:products.{field}')
+    if openapi.get('openapi') == '3.1.0':
+        check_declared_openapi(openapi, checks)
+    else:
+        discovery = openapi['x-wever-current-production-discovery']
+        checks.equal(discovery['tool_count'], total, 'openapi.json:main_count')
+        checks.equal(discovery['tools'], names, 'openapi.json:tool_names')
+        checks.equal(discovery['product_count'], product_count, 'openapi.json:product_count')
+        route = openapi['paths']['/mcp']['post']
+        checks.equal(route['x-mcp-tools'], names, 'openapi.json:route_tools')
+        checks.counts(route['summary'], r'(\d+)-tool Wever production MCP endpoint', total, 1, 'openapi.json:summary')
+        checks.counts(route['description'], r'this (\d+)-tool endpoint', total, 1, 'openapi.json:description')
+        product_route = openapi['paths']['/api/agent-operating-products']['get']
+        checks.counts(product_route['summary'], r'current (\d+)-product catalog', product_count, 1, 'openapi.json:product_summary')
+        checks.counts(product_route['description'], r'catalog contains (\d+) products', product_count, 1, 'openapi.json:product_description')
+        response = product_route['responses']['200']
+        checks.counts(response['description'], r'exactly (\d+) products', product_count, 1, 'openapi.json:product_response')
+        properties = response['content']['application/json']['schema']['properties']
+        checks.equal(properties['count']['const'], product_count, 'openapi.json:product_const')
+        for field in ('minItems', 'maxItems'):
+            checks.equal(properties['products'][field], product_count, f'openapi.json:products.{field}')
     index = one(site['/x402-index/index.json']['endpoints'], lambda item: item.get('url') == MAIN, 'x402 index')
     checks.equal(index['tool_count'], total, 'x402 index:tool_count')
     return product_count, len(paid_names)
@@ -296,9 +356,10 @@ def audit(local, site, tools, free_tools, published=None):
         validate_tools(tools, 'live /mcp')
         validate_tools(free_tools, 'live /mcp-free')
         checks = Checks()
-        check_registry(local, tools, len(free_tools), checks)
+        priced = site['/agents.json']['current_paid_production_tools']['tool_count']
+        check_registry(local, tools, len(free_tools), checks, priced_count=priced)
         if published is not None:
-            check_registry(published, tools, len(free_tools), checks, 'published')
+            check_registry(published, tools, len(free_tools), checks, 'published', priced_count=priced)
         products, priced = check_site(site, tools, checks)
         return {'status': 'passed', 'main_tools': len(tools), 'free_tools': len(free_tools),
                 'products': products, 'priced_tools': priced, 'checks': len(checks.checked),
