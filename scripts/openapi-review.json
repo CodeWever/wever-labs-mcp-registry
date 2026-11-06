@@ -1,5 +1,5 @@
 {
-  "source_commit": "213333dc548e0214d3aa11c553eb682aa885f598",
+  "source_commit": "3f02b0b52085563a952fc96516e7f6ee9f457162",
   "paths": [
     "/api/accessibility-evidence-check",
     "/api/agent-allowance-console",
@@ -43,6 +43,7 @@
     "/api/directory-status",
     "/api/docs-freshness-check",
     "/api/dpa-evidence-check",
+    "/api/duplicate-order-check",
     "/api/endpoint-honesty-check",
     "/api/endpoint-reliability-check",
     "/api/environmental-evidence-check",
@@ -64,6 +65,9 @@
     "/api/invoice-check",
     "/api/invoice-payment-match",
     "/api/job-brief",
+    "/api/job-cost-brief",
+    "/api/job-handoff-pack",
+    "/api/job-receipt-pack",
     "/api/license-evidence-check",
     "/api/listing-check",
     "/api/mandate-draft",
@@ -75,9 +79,11 @@
     "/api/payment-instruction-check",
     "/api/payment-policy-check",
     "/api/payment-rail-check",
+    "/api/payment-recovery-check",
     "/api/payout-readiness-check",
     "/api/policy-brief",
     "/api/policy-fit-check",
+    "/api/policy-replay-check",
     "/api/pricing-evidence-check",
     "/api/pricing-tier-check",
     "/api/privacy-evidence-check",
@@ -85,6 +91,7 @@
     "/api/proof-relay",
     "/api/quote-compare",
     "/api/receipt-verify",
+    "/api/recommendation-disclosure-check",
     "/api/recovery-readiness-check",
     "/api/refund-eligibility-check",
     "/api/renewal-notice-check",
@@ -102,6 +109,7 @@
     "/api/subscription-audit",
     "/api/succession-brief",
     "/api/support-brief",
+    "/api/terms-change-check",
     "/api/terms-evidence-check",
     "/api/testimonial-evidence-check",
     "/api/thesis-compare",
@@ -112,5 +120,5 @@
     "/api/wallet-statement",
     "/api/warranty-check"
   ],
-  "sha256": "eb8d76293f3ebf652ac8cc48a4a6a49427bd60c6784b628fec16d764b2eef770"
+  "sha256": "bcbe62212a3d9163ee21123fbea5106fe8d8120bcd43e7b9675540627808151b"
 }

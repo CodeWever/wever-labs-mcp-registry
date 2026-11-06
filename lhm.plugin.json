@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 194 main tools, including 178 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 202 main tools, including 186 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -22668,6 +22668,1669 @@
         }
       },
       "description": "Agent Treasury: submit one period of transactions (amount, asset, counterparty, category where given, timestamp). The signed brief gives totals and shares by category, the top counterparties by spend, the largest single payments and how many transactions arrived uncategorized. Any period; the month-end close pack with receipts, refunds and exceptions is wever_expense-close-pack. Verdict fully_categorized or partly_uncategorized. POST /api/spend-category-brief. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_job-cost-brief",
+      "title": "Job cost brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "deliverable"
+        ],
+        "properties": {
+          "job_reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Job reference, such as JOB-42."
+          },
+          "deliverable": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "pattern": "\\S",
+            "description": "The stated output or deliverable of the job."
+          },
+          "output_count": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000000000,
+            "description": "How many finished outputs the job produced."
+          },
+          "output_unit": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "What one output is, such as \"report\" or \"image\"."
+          },
+          "payments_received": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Payments received for the job. Each with amount, asset, label, reference, job_reference and date."
+          },
+          "payments_made": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Payments made during the job. Each with amount, asset, label, reference, job_reference and date."
+          },
+          "compute_spend": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Compute or model spend for the job. Each with amount, asset, label, reference, job_reference and date."
+          },
+          "failed_runs": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "The cost of each failed run. Each with amount, asset, label, reference, job_reference and date."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for records that state none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "payments_received"
+            ]
+          },
+          {
+            "required": [
+              "payments_made"
+            ]
+          },
+          {
+            "required": [
+              "compute_spend"
+            ]
+          },
+          {
+            "required": [
+              "failed_runs"
+            ]
+          }
+        ]
+      },
+      "description": "Job Records: submit one job\u2019s records (payments received for the job, payments made during it, compute or model spend and failed-run costs, each with amount, asset and label) with the job\u2019s stated deliverable and, where you have it, the count of finished outputs. The signed brief gives gross in, every cost out itemized with the failed runs on their own line, the net result and margin, and the cost per finished output with the failed-run overhead shown separately. Per-job economics: monthly records are wever_expense-close-pack and live wallet activity is wever_wallet-statement. Verdict loss, break_even or profitable. POST /api/job-cost-brief. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_job-receipt-pack",
+      "title": "Job receipt pack",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "job_reference",
+          "payments"
+        ],
+        "properties": {
+          "job_reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "The job the pack is for."
+          },
+          "payments": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "direction",
+                "amount"
+              ],
+              "properties": {
+                "direction": {
+                  "enum": [
+                    "in",
+                    "out"
+                  ],
+                  "description": "in for money received, out for money paid."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Payment or transaction reference."
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The job this payment names."
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Payments in and out."
+          },
+          "receipts": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 1000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "number": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Receipt number."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "payment_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The payment the receipt is for."
+                },
+                "job_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The job this receipt names."
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Receipts."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for records that state none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit one job reference with every payment in and out (amount, asset, counterparty, payment reference, the job reference each names) and the receipts you hold. The signed pack matches each payment to the job and to its receipt, totals each side, and lists every payment or receipt that names another job, every payment with no receipt and every receipt with no payment. Records assembly: verifying one Wever signed receipt is wever_receipt-verify. Verdict mismatches_found, gaps_found or complete. POST /api/job-receipt-pack. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_policy-replay-check",
+      "title": "Policy replay check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rules",
+          "history"
+        ],
+        "properties": {
+          "rules": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 50,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Rule name."
+                },
+                "kind": {
+                  "enum": [
+                    "per_action_cap",
+                    "period_cap",
+                    "allow_list",
+                    "block_list",
+                    "approval_threshold"
+                  ]
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The cap or threshold."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "period": {
+                  "enum": [
+                    "day",
+                    "week",
+                    "month",
+                    "total"
+                  ],
+                  "description": "For period_cap."
+                },
+                "per": {
+                  "enum": [
+                    "counterparty",
+                    "category",
+                    "asset",
+                    "network",
+                    "service",
+                    "action"
+                  ],
+                  "description": "For period_cap: sum separately for each value of this field."
+                },
+                "field": {
+                  "enum": [
+                    "counterparty",
+                    "category",
+                    "asset",
+                    "network",
+                    "service",
+                    "action"
+                  ],
+                  "description": "For allow_list and block_list."
+                },
+                "values": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "For allow_list and block_list."
+                },
+                "applies_to": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "field",
+                    "values"
+                  ],
+                  "properties": {
+                    "field": {
+                      "enum": [
+                        "counterparty",
+                        "category",
+                        "asset",
+                        "network",
+                        "service",
+                        "action"
+                      ]
+                    },
+                    "values": {
+                      "type": "array",
+                      "minItems": 1,
+                      "maxItems": 200,
+                      "items": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S"
+                      }
+                    }
+                  },
+                  "description": "Limit the rule to records whose field takes one of these values."
+                }
+              }
+            },
+            "description": "The proposed rules, as structured rules."
+          },
+          "history": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Record ID."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "category": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "service": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "network": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "action": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Such as pay, subscribe or refund."
+                },
+                "timestamp": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "An ISO date-time or date."
+                }
+              }
+            },
+            "description": "Past job traces or payment records."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for records and rules that state none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit a proposed policy change as structured rules (per-action caps, period caps per day, week, month or in total, allow lists, block lists and approval thresholds, each optionally limited to some counterparties, categories or services) with a batch of past job traces or payment records. The signed report replays the rules over the history in time order and states, per rule, which past actions would have been blocked, which would have needed approval and which pass unchanged, with counts and every affected record named. Supplied history only: a live x402 challenge is wever_payment-policy-check. Verdict would_block, would_need_approval or no_change. POST /api/policy-replay-check. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_duplicate-order-check",
+      "title": "Duplicate order check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "checkout",
+          "orders"
+        ],
+        "properties": {
+          "checkout": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "merchant"
+            ],
+            "properties": {
+              "merchant": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "item": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "amount": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Asset or currency code, such as USDC or USD."
+              },
+              "timestamp": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When the checkout was attempted."
+              },
+              "order_reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Order reference, where known."
+              },
+              "quantity": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 1000000,
+                "description": "Quantity."
+              }
+            }
+          },
+          "orders": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "merchant": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "item": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "timestamp": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "order_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "status": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Such as completed, pending, failed, cancelled or refunded."
+                },
+                "quantity": {
+                  "type": "integer",
+                  "minimum": 1,
+                  "maximum": 1000000,
+                  "description": "Quantity."
+                },
+                "receipt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Receipt number."
+                }
+              }
+            },
+            "description": "Merchant order or receipt records."
+          },
+          "records_as_of": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S",
+            "description": "When the order records were exported. Records exported before the checkout cannot show its order."
+          },
+          "window_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10080,
+            "description": "How far apart a checkout and an order may be in time and still be one attempt. Defaults to 60."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for records that state none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit one timed-out or ambiguous checkout (merchant, item, amount, timestamp and the order reference where known) with the merchant order or receipt records you hold and, where you have it, when those records were exported. The signed report compares each record field by field and returns matching_order_found when a completed order already covers the checkout (a second order would duplicate it), no_matching_order when a fresh order is consistent with the records, or indeterminate when the records cannot settle it, with the matched fields itemized and the open points named. Records comparison only; the merchant is never contacted and no order is placed. POST /api/duplicate-order-check. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_payment-recovery-check",
+      "title": "Payment recovery check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "payment",
+          "account"
+        ],
+        "properties": {
+          "payment": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "amount",
+              "transaction_reference"
+            ],
+            "properties": {
+              "amount": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Asset or currency code, such as USDC or USD."
+              },
+              "service": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The service or seller paid."
+              },
+              "endpoint": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The endpoint called."
+              },
+              "transaction_reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Transaction hash or payment reference."
+              },
+              "timestamp": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When the payment settled."
+              },
+              "network": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "account": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4000,
+            "pattern": "\\S",
+            "description": "Your account of the lost or missing result."
+          },
+          "responses": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "timestamp": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "endpoint": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "status": {
+                  "anyOf": [
+                    {
+                      "type": "integer",
+                      "minimum": 100,
+                      "maximum": 599
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "HTTP status or a status word such as timeout."
+                },
+                "payment_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The payment reference the response names."
+                },
+                "result_reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "A result, report or order reference the response names."
+                },
+                "body_excerpt": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S",
+                  "description": "An excerpt of the response body."
+                }
+              }
+            },
+            "description": "Service response records."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for the payment when it states none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit one payment proof or settled-payment record (amount, service or endpoint, transaction reference, timestamp) with your account of the lost or missing result and any service response records you hold. The signed report ties each response to the payment by its reference or by endpoint and time, says whether the records show the result delivered, not delivered or unresolved, and names the safe next step they support: re_request_same_reference, present_proof_to_seller or treat_as_unresolved. The report never pays again and the seller is never contacted. Verdict delivered, not_delivered or unresolved. POST /api/payment-recovery-check. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_terms-change-check",
+      "title": "Terms change check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "original",
+          "current",
+          "comparison_date"
+        ],
+        "properties": {
+          "original": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 262144,
+                "pattern": "\\S",
+                "description": "The version in force at purchase or signing."
+              },
+              "effective_date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "current": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 262144,
+                "pattern": "\\S",
+                "description": "The current version."
+              },
+              "effective_date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "comparison_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "not": {
+              "pattern": "[\\r\\n\u2028\u2029]"
+            },
+            "description": "The date of the comparison, as YYYY-MM-DD."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit two versions of the same terms, policy or agreement text (the version in force at purchase or signing and the current version, each with its effective date where stated) and the comparison date. The signed report splits both into sections, aligns them and lists every changed, added and removed section with a plain buyer-impact label: price or fee, refund or cancellation, liability or dispute, term or renewal, or removed, with a single changed figure named before and after. Two-version comparison: one document\u2019s evidence is wever_terms-evidence-check and contract redlining is wever_contract-diff-check. Verdict buyer_impact_changes, other_changes_only or no_changes. POST /api/terms-change-check. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_recommendation-disclosure-check",
+      "title": "Recommendation disclosure check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "recommendation",
+          "commercial_terms",
+          "placement"
+        ],
+        "properties": {
+          "recommendation": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 65536,
+                "pattern": "\\S",
+                "description": "The recommendation as it will appear."
+              },
+              "product": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "seller": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "commercial_terms": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 5,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "kind"
+              ],
+              "properties": {
+                "kind": {
+                  "enum": [
+                    "affiliate_commission",
+                    "paid_placement",
+                    "sponsorship",
+                    "none"
+                  ]
+                },
+                "rate": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 20,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "Commission rate as a percentage."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "A flat commission, fee or payment."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "party": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Who pays."
+                }
+              }
+            },
+            "description": "The commercial terms behind the recommendation."
+          },
+          "placement": {
+            "enum": [
+              "chat_reply",
+              "email",
+              "web_page",
+              "social_post",
+              "video",
+              "listing",
+              "newsletter",
+              "other"
+            ],
+            "description": "Where the recommendation will appear."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit one recommendation (a product or service suggestion with its text) with its commercial terms as they stand (affiliate commission with its rate or amount, paid placement, sponsorship, or none) and where it will appear. The signed report states whether the commercial interest is disclosed in the recommendation itself, whether the disclosure names the right kind and matches the supplied rate or amount, whether it comes before the recommendation, and the exact disclosure line the terms call for when it is missing or understated. Disclosure only; the merit of the recommendation is outside the report. Verdict not_disclosed, understated, disclosed or nothing_to_disclose. POST /api/recommendation-disclosure-check. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_job-handoff-pack",
+      "title": "Job handoff pack",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "job"
+        ],
+        "properties": {
+          "job": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Job reference, such as JOB-42."
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "objective": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "What the job is for."
+              }
+            },
+            "minProperties": 1,
+            "description": "The job being handed off."
+          },
+          "work_product": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Where the current draft or work product is."
+              },
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S"
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "updated_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            },
+            "minProperties": 1,
+            "description": "The current draft or work product."
+          },
+          "completed_steps": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "step"
+              ],
+              "properties": {
+                "step": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "completed_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "result": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Steps already done."
+          },
+          "open_questions": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "question"
+              ],
+              "properties": {
+                "question": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                },
+                "owner": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Who can answer it."
+                },
+                "blocking": {
+                  "type": "boolean",
+                  "description": "Whether work stops until it is answered."
+                }
+              }
+            },
+            "description": "Questions still open."
+          },
+          "artifacts": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Path, URL or record ID."
+                },
+                "description": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Files or records produced."
+          },
+          "decisions": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "decision"
+              ],
+              "properties": {
+                "decision": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                },
+                "reason": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                },
+                "decided_by": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "decided_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Decisions already made."
+          },
+          "remaining": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "step"
+              ],
+              "properties": {
+                "step": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "depends_on": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "priority": {
+                  "enum": [
+                    "high",
+                    "normal",
+                    "low"
+                  ]
+                },
+                "owner": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "notes": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "What remains, as steps."
+          },
+          "deadline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S"
+          },
+          "budget_remaining": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000000000000
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            ]
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset or currency code, such as USDC or USD."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Job Records: submit one half-finished job\u2019s state: the job and its objective, the current draft or work product reference, completed steps, open questions, files or records produced, decisions already made and what remains. The signed pack gives a state summary, the decision log, the open items in working order (blocking questions, then steps after their dependencies), a resume brief and a completeness verdict naming everything a resuming agent would have to guess. Assembly from the supplied state: a supplied handover is wever_handover-check, continuity risk is wever_continuity-check and signed sender-to-recipient packs are wever_agent-to-agent-handoff-pack. Verdict not_resumable, resumable_with_gaps or resumable. POST /api/job-handoff-pack. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
