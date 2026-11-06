@@ -4,7 +4,7 @@
 
 Public publication metadata for the hosted Wever Labs MCP server.
 
-Wever Labs exposes **186 main tools**, including **170 production tools**, at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
+Wever Labs exposes **194 main tools**, including **178 production tools**, at **https://weverlabs.com/mcp** using Streamable HTTP. Tools cover bounded agent work, delegated authority, commerce, receipts and verification, handoffs, and operations. Atlas tools include `wever_atlas-asset-passport`, `wever_atlas-asset-search`, `wever_atlas-compare` and `wever_atlas-rights-gap`. Documentation: **https://weverlabs.com**.
 
 Standard paid calls cost **0.10 USDC per call on Base mainnet via x402**. The wallet free allowance is **10 free calls per wallet per rolling 30 days**, shared across paid endpoints, not a separate allowance for each tool. Check the [live product catalog](https://weverlabs.com/api/agent-operating-products) and each tool's contract for operation-specific prices and payment requirements. Tool access does not grant payment authority or credentials; preparation and read-only operations retain their stated bounds.
 
@@ -26,8 +26,8 @@ The free `boutique-coupon` tool on **https://weverlabs.com/mcp** returns one sha
 | Hosted server version | `0.8.0` |
 | Transport | Streamable HTTP |
 | Remote endpoint | https://weverlabs.com/mcp |
-| Main tools | 186 |
-| Production tools | 170 |
+| Main tools | 194 |
+| Production tools | 178 |
 | Free tools | 30 |
 | Free endpoint | https://weverlabs.com/mcp-free (30 tools, no auth) |
 | Documentation | https://weverlabs.com |
@@ -98,7 +98,7 @@ To use the 30 anonymous free tools, use `https://weverlabs.com/mcp-free` as the 
 
 ## Legacy endpoint
 
-`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 186-tool server.
+`https://weverlabs.com/api/mcp` is the legacy Labs API endpoint. It serves the four free Labs computations plus a service-catalog discovery tool. Use the production endpoint above for the current 194-tool server.
 
 ## Registry metadata
 
@@ -125,7 +125,7 @@ All three human pages explain the book in David's voice, show how the responses 
 
 ## Sports trip booking readiness
 
-The four sports tools remain `wever_sports-plan-trip`, `wever_sports-book-leg`, `wever_sports-trip-status` and `wever_sports-cancel-leg`, each **0.10 USDC** under the shared free allowance. Main discovery remains **186 tools** and the separate free endpoint remains **30 tools**.
+The four sports tools remain `wever_sports-plan-trip`, `wever_sports-book-leg`, `wever_sports-trip-status` and `wever_sports-cancel-leg`, each **0.10 USDC** under the shared free allowance. Main discovery remains **194 tools** and the separate free endpoint remains **30 tools**.
 
 Trip planning reuses Gametime and TickPick public ticket listings, matched to event name, date, venue and city. Listing minima stay separate from exact agent-supplied quotes. Humans approve each exact quote at [Sports trips](https://weverlabs.com/sports-trips/). Current execution records quote selection and withdrawal with signed receipts. Provider sandbox booking awaits provider account and API access. Status identifies quote-only operation and directs provider reservation cancellation to the provider. Read the [live contract](https://weverlabs.com/api/sports-trips-contract) and [provider research and David steps](https://github.com/CodeWever/wever-commerce-proof-build-week-2026/blob/main/docs/sports-trips-v2-provider-research.md).
 

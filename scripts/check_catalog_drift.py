@@ -23,7 +23,7 @@ SITE_PATHS = ('/agents.json', '/llms.txt', '/.well-known/mcp.json',
               '/.well-known/wever-labs-mcp.json', '/openapi.json',
               '/x402-index/index.json', '/api/agent-operating-products')
 MAX_BYTES = 2 * 1024 * 1024
-OPENAPI_MAX_BYTES = 4 * 1024 * 1024
+OPENAPI_MAX_BYTES = 5 * 1024 * 1024
 MAX_PAGES = 20
 MAX_TOOLS = 1000
 
@@ -236,7 +236,7 @@ def check_current_registry(files, tools, free_count, priced_count, checks, label
 
 def check_declared_openapi(document, checks):
     # Pinned to the exact generated declaration document reviewed with this release.
-    # The application suite validates schemas and all 102 source declarations.
+    # The application suite validates schemas and all 110 source declarations.
     review = json.loads((Path(__file__).parent / 'openapi-review.json').read_text())
     checks.equal(sorted(document['paths']), review['paths'], 'openapi.json:declared_paths')
     encoded = json.dumps(document, sort_keys=True, separators=(',', ':'), ensure_ascii=False).encode()
