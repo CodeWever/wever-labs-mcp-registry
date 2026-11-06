@@ -2,9 +2,9 @@
 
 ## Current repository metadata
 
-Catalog metadata for the Commerce Assurance release, November 6, 2026:
+Catalog metadata for the Agent Treasury release, November 6, 2026:
 
-- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 186 main tools, including 170 production tools.
+- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 194 main tools, including 178 production tools.
 - Registry metadata version: `0.8.2-registry.2`, with hosted server version `0.8.0` recorded separately.
 - Edge Alert: `edge-alert` on the main endpoint, free on every call with no wallet or account.
 - Boutique coupon: `boutique-coupon` on the main endpoint, free on every call with no wallet or account.

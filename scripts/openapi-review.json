@@ -1,5 +1,5 @@
 {
-  "source_commit": "94cc8715bc24ae98db6d6d3568f2bce94e02088e",
+  "source_commit": "213333dc548e0214d3aa11c553eb682aa885f598",
   "paths": [
     "/api/accessibility-evidence-check",
     "/api/agent-allowance-console",
@@ -23,6 +23,7 @@
     "/api/audit-evidence-check",
     "/api/bazaar-declaration-check",
     "/api/benchmark-evidence-check",
+    "/api/budget-forecast-brief",
     "/api/certification-evidence-check",
     "/api/changelog-check",
     "/api/claim-evidence-check",
@@ -47,15 +48,18 @@
     "/api/environmental-evidence-check",
     "/api/escrow-brief",
     "/api/escrow-quote",
+    "/api/exchange-quote-check",
     "/api/expense-close-pack",
     "/api/export-evidence-check",
     "/api/fair-value-brief",
     "/api/fee-evidence-check",
+    "/api/fee-reconciliation-check",
     "/api/guarantee-evidence-check",
     "/api/handover-check",
     "/api/incident-evidence-check",
     "/api/incident-plan-check",
     "/api/insurance-evidence-check",
+    "/api/invoice-aging-brief",
     "/api/invoice-brief",
     "/api/invoice-check",
     "/api/invoice-payment-match",
@@ -70,6 +74,7 @@
     "/api/nda-evidence-check",
     "/api/payment-instruction-check",
     "/api/payment-policy-check",
+    "/api/payment-rail-check",
     "/api/payout-readiness-check",
     "/api/policy-brief",
     "/api/policy-fit-check",
@@ -89,6 +94,8 @@
     "/api/shipping-check",
     "/api/sla-credit-check",
     "/api/sla-evidence-check",
+    "/api/spend-category-brief",
+    "/api/spending-anomaly-check",
     "/api/spending-policy-check",
     "/api/status-evidence-check",
     "/api/subprocessor-evidence-check",
@@ -99,10 +106,11 @@
     "/api/testimonial-evidence-check",
     "/api/thesis-compare",
     "/api/translation-evidence-check",
+    "/api/treasury-policy-check",
     "/api/unified-agent-checkout",
     "/api/wallet-activity-brief",
     "/api/wallet-statement",
     "/api/warranty-check"
   ],
-  "sha256": "f9582b538884dbbb6c3e5a7ffb475bc460ccf0eed9831e4751e6a9c3f0c1cc5b"
+  "sha256": "eb8d76293f3ebf652ac8cc48a4a6a49427bd60c6784b628fec16d764b2eef770"
 }

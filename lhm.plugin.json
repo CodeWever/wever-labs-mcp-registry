@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 186 main tools, including 170 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 194 main tools, including 178 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -1588,7 +1588,7 @@
     {
       "name": "wever_agent-sla-rail",
       "title": "Agent SLA Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Save your wallet’s service terms and deadlines, then evaluate them against retained work and callback observations. Read the result to identify completed and overdue commitments.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Record wallet-scoped SLA terms and evaluate deadlines against retained completed-work or callback observations.\nOperating boundary: Save your wallet\u2019s service terms and deadlines, then evaluate them against retained work and callback observations. Read the result to identify completed and overdue commitments.\nPOST /api/agent-sla-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. Wallet-authenticated bounded operations service with durable records. See /api/operations-contract for exact schemas, verified scope and unavailable capabilities.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -4368,7 +4368,7 @@
     {
       "name": "wever_agent-invoice-rail",
       "title": "Agent Invoice Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Keep a private issuer-wallet ledger of invoice amounts, parties, run references and the issuer’s review.\nOperating boundary: Sign issuer-wallet ownership proof, create the invoice record and attach run references. The issuer reviews those references and records the result. Agents manage the ledger through the API; humans inspect it through their agent. Payment collection uses the separate Invoices product.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Keep a private issuer-wallet ledger of invoice amounts, parties, run references and the issuer\u2019s review.\nOperating boundary: Sign issuer-wallet ownership proof, create the invoice record and attach run references. The issuer reviews those references and records the result. Agents manage the ledger through the API; humans inspect it through their agent. Payment collection uses the separate Invoices product.\nPOST /api/agent-invoice-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current money service follows its published inspection, policy evaluation or private invoice contract. Payment is an API access fee and grants no spending authority.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -4963,7 +4963,7 @@
     {
       "name": "wever_agent-work-order-rail",
       "title": "Agent Work Order Rail",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: Supply the DiligenceOps task and Connect recipient. Read the validated task package. The agent submits it through Connect with the recipient’s permission; the human reviews the requested work and returned result.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Free computation: /api/mcp or /api/service-resolver. Read the backend 402 body for x402 terms. Prepare a validated DiligenceOps task for a specific Connect recipient. Submission, recipient permission and execution remain separate steps.\nOperating boundary: Supply the DiligenceOps task and Connect recipient. Read the validated task package. The agent submits it through Connect with the recipient\u2019s permission; the human reviews the requested work and returned result.\nPOST /api/agent-work-order-rail. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "properties": {
@@ -5466,7 +5466,7 @@
     {
       "name": "wever_proof-relay",
       "title": "Proof Relay",
-      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and a digest binding the supplied source and destination, ready for the sender’s delivery step.\nOperating boundary: Supply source, destination and artifact references. Read the prepared envelope and binding digest. The sending agent delivers it through its chosen transport; the human reviews the references and resulting acknowledgment.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
+      "description": "Paid URL: 0.10 USDC per call on Base; 10 signed-wallet free calls shared over rolling 30 days. Read the backend 402 body for x402 terms. Prepare a reference envelope and a digest binding the supplied source and destination, ready for the sender\u2019s delivery step.\nOperating boundary: Supply source, destination and artifact references. Read the prepared envelope and binding digest. The sending agent delivers it through its chosen transport; the human reviews the references and resulting acknowledgment.\nPOST /api/proof-relay. Existing product credentials, signed mandates, and single-use action grants remain required where applicable. This adapter grants no authority and never supplies server credentials. This current operation is a bounded computation on caller-supplied data.",
       "inputSchema": {
         "type": "object",
         "additionalProperties": false,
@@ -8496,7 +8496,7 @@
           "request_id"
         ]
       },
-      "description": "Propose one introduction between two human-approved opt-in profiles that meet each human’s stated criteria. Returns a private human review link and approval status. POST /api/matchmaking-propose-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
+      "description": "Propose one introduction between two human-approved opt-in profiles that meet each human\u2019s stated criteria. Returns a private human review link and approval status. POST /api/matchmaking-propose-intro. Paid URL: 0.10 USDC per call on Base mainnet using x402 exact, under the shared 10 signed-wallet free calls per rolling 30 days. X-Wever-Wallet-Proof binds the exact JSON arguments and API path. Send your existing mailbox credential in X-Wever-Connect-Token. Both humans approve in plain language at https://weverlabs.com/matchmaking/ before contact details enter either mailbox. Matching uses only the humans' stated criteria. Read /api/matchmaking-contract for setup, delivery and recovery. Stakes use the existing /first-dates/ flow.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -9090,7 +9090,7 @@
     },
     {
       "name": "fair-value",
-      "title": "Look up one market’s estimated fair price",
+      "title": "Look up one market\u2019s estimated fair price",
       "description": "Name one prediction market or paste its Kalshi or Polymarket ticker or URL. Plain game names resolve to outcome choices when several contracts match. Returns one existing thesis-model fair-price estimate, its original comparison and timestamps, plus matched source-labelled quotes from Kalshi, Polymarket and Novig when available. Free anonymous access. No wallet or payment is required. POST /api/fair-value. Human example: https://weverlabs.com/fair-value/.",
       "inputSchema": {
         "type": "object",
@@ -11259,7 +11259,7 @@
           }
         }
       },
-      "description": "Wever Watch: list the calling wallet’s watches with state (pending_activation, active, fired, expired or cancelled), checks run, last observation and fire count. Optional state filter. POST /api/watch-list. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/watch-contract. Human page: https://weverlabs.com/watch/.",
+      "description": "Wever Watch: list the calling wallet\u2019s watches with state (pending_activation, active, fired, expired or cancelled), checks run, last observation and fire count. Optional state filter. POST /api/watch-list. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/watch-contract. Human page: https://weverlabs.com/watch/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -11420,7 +11420,7 @@
           }
         }
       },
-      "description": "DiligenceOps: verify a Wever signed receipt against Wever’s published Ed25519 keys and state what it proves, or exactly why it fails. Accepts the compact token or the receipt object, plus the optional report it came with. Covers data evidence, Wever Watch, DiligenceOps, receipt passport, handoff pack and scheduled observation receipts. Runs ordered checks (format, algorithm, family, key id, encoding, signature, type, issuer, receipt fields, report digest) and names the first that fails. POST /api/receipt-verify. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-contract. Human page: https://weverlabs.com/diligence/.",
+      "description": "DiligenceOps: verify a Wever signed receipt against Wever\u2019s published Ed25519 keys and state what it proves, or exactly why it fails. Accepts the compact token or the receipt object, plus the optional report it came with. Covers data evidence, Wever Watch, DiligenceOps, receipt passport, handoff pack and scheduled observation receipts. Runs ordered checks (format, algorithm, family, key id, encoding, signature, type, issuer, receipt fields, report digest) and names the first that fails. POST /api/receipt-verify. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-contract. Human page: https://weverlabs.com/diligence/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -12018,7 +12018,7 @@
           }
         }
       },
-      "description": "Wever Briefs: plain-language summary of a Base address’s recent USDC flows from public on-chain Transfer logs. Inputs: address and optional window_days (default 30, maximum 90). Returns totals in and out, net flow, the largest transfers, the counterparty address count with the top counterparties by volume, and the exact time window covered. Counterparties appear as on-chain addresses. POST /api/wallet-activity-brief. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns one brief with an Ed25519 signed receipt. Contract: /api/briefs-contract. Human page: https://weverlabs.com/briefs/.",
+      "description": "Wever Briefs: plain-language summary of a Base address\u2019s recent USDC flows from public on-chain Transfer logs. Inputs: address and optional window_days (default 30, maximum 90). Returns totals in and out, net flow, the largest transfers, the counterparty address count with the top counterparties by volume, and the exact time window covered. Counterparties appear as on-chain addresses. POST /api/wallet-activity-brief. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns one brief with an Ed25519 signed receipt. Contract: /api/briefs-contract. Human page: https://weverlabs.com/briefs/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -12049,11 +12049,11 @@
             "minLength": 2,
             "maxLength": 300,
             "pattern": "\\S",
-            "description": "One market: a Kalshi market ticker, a Polymarket market slug, or that market’s URL on the named platform."
+            "description": "One market: a Kalshi market ticker, a Polymarket market slug, or that market\u2019s URL on the named platform."
           }
         }
       },
-      "description": "Wever Briefs: the deep brief behind the free fair-value lookup for one prediction market. Inputs: platform (kalshi or polymarket) and market (ticker, slug or market URL). Returns the estimated fair price, every input used (engine estimate, compared price, Kalshi, Polymarket and Novig quotes where available, and a direct venue read), the spread in points against each quoted price and a reasoning summary, with the engine’s own reasoning when it produced this exact estimate. One market per call. POST /api/fair-value-brief. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns one brief with an Ed25519 signed receipt. Contract: /api/briefs-contract. Human page: https://weverlabs.com/briefs/.",
+      "description": "Wever Briefs: the deep brief behind the free fair-value lookup for one prediction market. Inputs: platform (kalshi or polymarket) and market (ticker, slug or market URL). Returns the estimated fair price, every input used (engine estimate, compared price, Kalshi, Polymarket and Novig quotes where available, and a direct venue read), the spread in points against each quoted price and a reasoning summary, with the engine\u2019s own reasoning when it produced this exact estimate. One market per call. POST /api/fair-value-brief. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns one brief with an Ed25519 signed receipt. Contract: /api/briefs-contract. Human page: https://weverlabs.com/briefs/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -12117,7 +12117,7 @@
               },
               {
                 "type": "string",
-                "pattern": "^\\s*[-+]?[$€£]?\\s*(?:\\d{1,3}(?:,\\d{3})+|\\d+)?(?:\\.\\d+)?\\s*$",
+                "pattern": "^\\s*[-+]?[$\u20ac\u00a3]?\\s*(?:\\d{1,3}(?:,\\d{3})+|\\d+)?(?:\\.\\d+)?\\s*$",
                 "maxLength": 40
               }
             ]
@@ -12182,7 +12182,7 @@
           }
         }
       },
-      "description": "Wever Checks: submit a product listing (title, description, price, currency, image_urls and attribute fields) and get a signed report on missing fields, image presence and reachability for the URLs supplied (one header read each), and price sanity against the listing’s own stated attributes: msrp or original price, cost or floor, quantity and prices quoted in the text. It checks the listing as submitted. POST /api/listing-check. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/checks-contract. Human page: https://weverlabs.com/checks/.",
+      "description": "Wever Checks: submit a product listing (title, description, price, currency, image_urls and attribute fields) and get a signed report on missing fields, image presence and reachability for the URLs supplied (one header read each), and price sanity against the listing\u2019s own stated attributes: msrp or original price, cost or floor, quantity and prices quoted in the text. It checks the listing as submitted. POST /api/listing-check. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/checks-contract. Human page: https://weverlabs.com/checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -12336,11 +12336,11 @@
             "minLength": 2,
             "maxLength": 300,
             "pattern": "\\S",
-            "description": "One market: a topic such as “Jaguars Ravens” or “76ers Pistons”, a Kalshi ticker (kalshi:TICKER), or a Kalshi or Polymarket market URL."
+            "description": "One market: a topic such as \u201cJaguars Ravens\u201d or \u201c76ers Pistons\u201d, a Kalshi ticker (kalshi:TICKER), or a Kalshi or Polymarket market URL."
           }
         }
       },
-      "description": "Thesis and mandate: compare one market across Kalshi, Polymarket and Novig. Input market: a topic such as Jaguars Ravens, a Kalshi ticker or a Kalshi or Polymarket market URL. For each outcome, returns each venue’s bid, ask and midpoint where it quotes, the thesis fair value weighted across quoted venues, the midpoint spread between every pair of venues and each venue’s gap to fair value, in points on a $1 payout basis. A venue that does not carry the market, or lists it without a usable quote, is named with the reason. Several matching games return candidates without charge. POST /api/thesis-compare. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/thesis-mandate-contract. Human page: https://weverlabs.com/thesis-mandate/.",
+      "description": "Thesis and mandate: compare one market across Kalshi, Polymarket and Novig. Input market: a topic such as Jaguars Ravens, a Kalshi ticker or a Kalshi or Polymarket market URL. For each outcome, returns each venue\u2019s bid, ask and midpoint where it quotes, the thesis fair value weighted across quoted venues, the midpoint spread between every pair of venues and each venue\u2019s gap to fair value, in points on a $1 payout basis. A venue that does not carry the market, or lists it without a usable quote, is named with the reason. Several matching games return candidates without charge. POST /api/thesis-compare. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/thesis-mandate-contract. Human page: https://weverlabs.com/thesis-mandate/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -12384,7 +12384,7 @@
           "per_transaction_cap_usdc": {
             "type": "string",
             "pattern": "^(?:0|[1-9][0-9]{0,6})(?:\\.[0-9]{1,6})?$",
-            "description": "Largest single transaction. Treasury: per_transaction_cap. Trading: each asset’s position cap unless position_caps_usdc is supplied."
+            "description": "Largest single transaction. Treasury: per_transaction_cap. Trading: each asset\u2019s position cap unless position_caps_usdc is supplied."
           },
           "daily_cap_usdc": {
             "type": "string",
@@ -13049,7 +13049,7 @@
                 }
               }
             ],
-            "description": "The job’s acceptance criteria as a list, or as text with one criterion per line or sentence."
+            "description": "The job\u2019s acceptance criteria as a list, or as text with one criterion per line or sentence."
           },
           "deliverable": {
             "type": "object",
@@ -13145,7 +13145,7 @@
           }
         }
       },
-      "description": "DiligenceOps: submit a job’s acceptance criteria and the delivered work’s text, metadata or both, with optional supporting evidence. The signed checklist marks each criterion addressed, missing or not met, measuring counts, sizes, durations and file formats where the delivery states them, and lists claims in the deliverable (figures, certainty, superlatives) that the supplied material does not support. POST /api/deliverable-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-checks-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a job\u2019s acceptance criteria and the delivered work\u2019s text, metadata or both, with optional supporting evidence. The signed checklist marks each criterion addressed, missing or not met, measuring counts, sizes, durations and file formats where the delivery states them, and lists claims in the deliverable (figures, certainty, superlatives) that the supplied material does not support. POST /api/deliverable-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-checks-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -13238,7 +13238,7 @@
                   "not_as_described",
                   "wrong_item"
                 ],
-                "description": "The item’s condition or the problem with it."
+                "description": "The item\u2019s condition or the problem with it."
               },
               "final_sale": {
                 "type": "boolean",
@@ -13257,7 +13257,7 @@
             "minLength": 1,
             "maxLength": 262144,
             "pattern": "\\S",
-            "description": "The merchant’s refund or return policy text, up to 256 KB."
+            "description": "The merchant\u2019s refund or return policy text, up to 256 KB."
           },
           "claim": {
             "type": "object",
@@ -13290,7 +13290,7 @@
           }
         }
       },
-      "description": "DiligenceOps: submit a purchase record (amount, currency, purchase and delivery dates, item, condition, final sale) and the merchant’s refund policy text, with an optional request date and the evidence on hand. The signed report says whether a refund claim fits the policy as written, shows the deadline arithmetic step by step, and lists item conditions, exclusions, fees, the remedy and the evidence the policy expects attached. POST /api/refund-eligibility-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-checks-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a purchase record (amount, currency, purchase and delivery dates, item, condition, final sale) and the merchant\u2019s refund policy text, with an optional request date and the evidence on hand. The signed report says whether a refund claim fits the policy as written, shows the deadline arithmetic step by step, and lists item conditions, exclusions, fees, the remedy and the evidence the policy expects attached. POST /api/refund-eligibility-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/diligence-checks-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -13519,7 +13519,7 @@
             "minLength": 12,
             "maxLength": 2048,
             "pattern": "^https://",
-            "description": "Public HTTPS URL that receives each run’s signed report as a JSON POST."
+            "description": "Public HTTPS URL that receives each run\u2019s signed report as a JSON POST."
           },
           "expires_at": {
             "type": "string",
@@ -13541,7 +13541,7 @@
           }
         }
       },
-      "description": "Standing jobs: register a recurring job for the paying wallet. Name one read-only Wever tool from the schedulable list (checks, briefs, lookups and watch evaluations such as wever_refund-eligibility-check, wever_market-data-check or wever_watch-status), its input (string values may use {{run_at}} and {{run_date}}), a cadence (hourly, daily, weekly, or interval with interval_seconds from 900 to 604800), an optional start_at, a callback_url and an expires_at up to 30 days ahead, with optional max_runs. The tool validates the input before billing. Returns the job id and the exact schedule accepted: anchor, interval, expiry, planned runs and the first run times. Each run POSTs a signed run report carrying the tool’s own signed report to callback_url. A tool that moves money, places an order or changes state is refused with tool_not_schedulable. One call covers every run until the job ends. POST /api/schedule-create. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
+      "description": "Standing jobs: register a recurring job for the paying wallet. Name one read-only Wever tool from the schedulable list (checks, briefs, lookups and watch evaluations such as wever_refund-eligibility-check, wever_market-data-check or wever_watch-status), its input (string values may use {{run_at}} and {{run_date}}), a cadence (hourly, daily, weekly, or interval with interval_seconds from 900 to 604800), an optional start_at, a callback_url and an expires_at up to 30 days ahead, with optional max_runs. The tool validates the input before billing. Returns the job id and the exact schedule accepted: anchor, interval, expiry, planned runs and the first run times. Each run POSTs a signed run report carrying the tool\u2019s own signed report to callback_url. A tool that moves money, places an order or changes state is refused with tool_not_schedulable. One call covers every run until the job ends. POST /api/schedule-create. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -13569,7 +13569,7 @@
           }
         }
       },
-      "description": "Standing jobs: list the calling wallet’s standing jobs with state (pending_activation, active, completed, expired or cancelled), runs completed and failed, last result and next run, plus the wallet’s digests and routing rules. Optional state filter. POST /api/schedule-list. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
+      "description": "Standing jobs: list the calling wallet\u2019s standing jobs with state (pending_activation, active, completed, expired or cancelled), runs completed and failed, last result and next run, plus the wallet\u2019s digests and routing rules. Optional state filter. POST /api/schedule-list. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -13703,7 +13703,7 @@
           }
         }
       },
-      "description": "Standing jobs: register a digest for the paying wallet with a cadence (hourly, daily, weekly or interval), an optional start_at, a callback_url and an expires_at up to 30 days ahead. Each window collects the wallet’s Wever Watch fires and standing-job results recorded while it was open (sources: watch_fires, job_results or both) and posts one signed digest report to callback_url. Windows with nothing to report are posted only with include_empty: true. One call covers every window until the digest ends. POST /api/digest-create. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
+      "description": "Standing jobs: register a digest for the paying wallet with a cadence (hourly, daily, weekly or interval), an optional start_at, a callback_url and an expires_at up to 30 days ahead. Each window collects the wallet\u2019s Wever Watch fires and standing-job results recorded while it was open (sources: watch_fires, job_results or both) and posts one signed digest report to callback_url. Windows with nothing to report are posted only with include_empty: true. One call covers every window until the digest ends. POST /api/digest-create. Standing jobs check and report: they run read-and-report Wever tools only and never move money, place orders or change state. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Every call carries X-Wever-Wallet-Proof bound to the exact JSON arguments and the tool route; a paid call adds Payment-Signature from the same wallet. Returns a report with an Ed25519 signed receipt. Contract: /api/standing-jobs-contract. Human page: https://weverlabs.com/standing-jobs/.",
       "annotations": {
         "readOnlyHint": false,
         "destructiveHint": false,
@@ -14332,7 +14332,7 @@
           }
         }
       },
-      "description": "Atlas evidence: submit an issuer name as the Tokenization Atlas dataset spells it, for example Paxos Trust Company, NA. The signed brief lists that issuer’s assets with their taxonomy stages and the six rights fields per asset (issuer involvement, custody and backing, distributions, voting, legal status, redemption), counting disclosed against not disclosed per field and in total. An unknown name returns issuer_not_found with the dataset issuer names that contain it. POST /api/atlas-issuer-brief. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
+      "description": "Atlas evidence: submit an issuer name as the Tokenization Atlas dataset spells it, for example Paxos Trust Company, NA. The signed brief lists that issuer\u2019s assets with their taxonomy stages and the six rights fields per asset (issuer involvement, custody and backing, distributions, voting, legal status, redemption), counting disclosed against not disclosed per field and in total. An unknown name returns issuer_not_found with the dataset issuer names that contain it. POST /api/atlas-issuer-brief. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -14359,7 +14359,7 @@
           }
         }
       },
-      "description": "Atlas evidence: submit an asset id or ticker. The signed report follows each of the six rights fields across the published dataset versions the server reads, the public API’s current version and the earlier version bundled with the server, naming the version stamps where a field moved between disclosed and not disclosed or its value, detail or sources changed. An asset present only in the current version returns current_version_only with its current state. POST /api/atlas-rights-history. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
+      "description": "Atlas evidence: submit an asset id or ticker. The signed report follows each of the six rights fields across the published dataset versions the server reads, the public API\u2019s current version and the earlier version bundled with the server, naming the version stamps where a field moved between disclosed and not disclosed or its value, detail or sources changed. An asset present only in the current version returns current_version_only with its current state. POST /api/atlas-rights-history. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -14413,7 +14413,7 @@
           }
         }
       },
-      "description": "Atlas evidence: submit an asset id or ticker. The signed report gives the latest NAV figure on record for the asset with its unit, reading time, publisher and URL as the dataset carries them, the catalog NAV beside it, and its age at the dataset’s own market timestamp from the dataset version. POST /api/atlas-nav-evidence. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
+      "description": "Atlas evidence: submit an asset id or ticker. The signed report gives the latest NAV figure on record for the asset with its unit, reading time, publisher and URL as the dataset carries them, the catalog NAV beside it, and its age at the dataset\u2019s own market timestamp from the dataset version. POST /api/atlas-nav-evidence. Reads the published Tokenization Atlas dataset at https://atlas.weverlabs.com/api/assets once per call, with no dataset writes and no issuer contact. Every report names the dataset version it read, and a field or history the dataset does not hold is reported as not in the published dataset. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/atlas-evidence-contract. Human page: https://atlas.weverlabs.com/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -16075,7 +16075,7 @@
           }
         }
       },
-      "description": "DiligenceOps: submit a pricing page’s tier descriptions, as text or as tiers with price, limits and features, and the plan terms. The signed report reads each tier’s price, limits and features from sections or tier columns and lists the prices, limits (another figure, or a cap on an unlimited one) and features (excluded, a paid add-on, or named for another tier) that differ between the page and the terms, with quotes. POST /api/pricing-tier-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-vendor-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a pricing page\u2019s tier descriptions, as text or as tiers with price, limits and features, and the plan terms. The signed report reads each tier\u2019s price, limits and features from sections or tier columns and lists the prices, limits (another figure, or a cap on an unlimited one) and features (excluded, a paid add-on, or named for another tier) that differ between the page and the terms, with quotes. POST /api/pricing-tier-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-vendor-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -16290,7 +16290,7 @@
           }
         }
       },
-      "description": "DiligenceOps: submit one escrow agreement excerpt. The signed brief states the parties with their escrow roles, the amount held, the release conditions, how and when funds are released (joint instruction, approval, automatic release, milestones), the return of funds, the dispute path, the agent’s fee and dated deadlines, each quoted, plus what the excerpt leaves unstated. POST /api/escrow-brief. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-vendor-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit one escrow agreement excerpt. The signed brief states the parties with their escrow roles, the amount held, the release conditions, how and when funds are released (joint instruction, approval, automatic release, milestones), the return of funds, the dispute path, the agent\u2019s fee and dated deadlines, each quoted, plus what the excerpt leaves unstated. POST /api/escrow-brief. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-vendor-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -16986,7 +16986,7 @@
         ],
         "description": "Send the text, the fields or both."
       },
-      "description": "Agent preflight: check an operator’s continuity arrangements before you rely on the operator. Input text, fields (key_custody, successor, standing_jobs, subscriptions, escrowed_work, records_export) or both. The signed report marks each area covered, partial or not covered, with quotes, and names the gaps plainly: a single point of failure in key custody, no successor, no plan for standing jobs, subscriptions or escrowed work, and no export path for records. POST /api/continuity-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
+      "description": "Agent preflight: check an operator\u2019s continuity arrangements before you rely on the operator. Input text, fields (key_custody, successor, standing_jobs, subscriptions, escrowed_work, records_export) or both. The signed report marks each area covered, partial or not covered, with quotes, and names the gaps plainly: a single point of failure in key custody, no successor, no plan for standing jobs, subscriptions or escrowed work, and no export path for records. POST /api/continuity-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -17347,7 +17347,7 @@
         ],
         "description": "Send the text, the fields or both."
       },
-      "description": "Agent preflight round 2: a short brief of an operator’s succession arrangements. Input text, fields (successor, trigger, key_transfer, account_transfer, timeline, receives) or both. The signed brief restates the arrangement in order: who takes over, what sets it off, how the keys and the accounts pass, on what timeline and what the successor receives, in the arrangement’s own words, and names each gap plainly: no successor named, no trigger defined, no transfer path for keys or accounts, no timeline, or nothing said about what the successor receives. POST /api/succession-brief. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
+      "description": "Agent preflight round 2: a short brief of an operator\u2019s succession arrangements. Input text, fields (successor, trigger, key_transfer, account_transfer, timeline, receives) or both. The signed brief restates the arrangement in order: who takes over, what sets it off, how the keys and the accounts pass, on what timeline and what the successor receives, in the arrangement\u2019s own words, and names each gap plainly: no successor named, no trigger defined, no transfer path for keys or accounts, no timeline, or nothing said about what the successor receives. POST /api/succession-brief. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -17731,7 +17731,7 @@
           }
         }
       },
-      "description": "Agent records round 2: check that an x402 endpoint charges what it advertises. Input url (HTTPS), price in whole units, asset (a token address, or USDC on Base and Base Sepolia), network (CAIP-2 or an x402 version 1 name), optional pay_to, optional asset_decimals and optional label. Wever reads the endpoint’s live 402 challenge with one unpaid GET through the endpoint reliability guards (public HTTPS addresses only, 5 seconds, a response size cap, no credentials) and never pays it. The signed report says whether the live amount, asset, network and recipient match the advertised terms and names each mismatch with both values. Availability and latency stay with wever_endpoint-reliability-check. POST /api/endpoint-honesty-check. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-records-contract. Human page: https://weverlabs.com/reliability/.",
+      "description": "Agent records round 2: check that an x402 endpoint charges what it advertises. Input url (HTTPS), price in whole units, asset (a token address, or USDC on Base and Base Sepolia), network (CAIP-2 or an x402 version 1 name), optional pay_to, optional asset_decimals and optional label. Wever reads the endpoint\u2019s live 402 challenge with one unpaid GET through the endpoint reliability guards (public HTTPS addresses only, 5 seconds, a response size cap, no credentials) and never pays it. The signed report says whether the live amount, asset, network and recipient match the advertised terms and names each mismatch with both values. Availability and latency stay with wever_endpoint-reliability-check. POST /api/endpoint-honesty-check. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-records-contract. Human page: https://weverlabs.com/reliability/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -18302,7 +18302,7 @@
         ],
         "description": "Send the text, the fields or both."
       },
-      "description": "Agent preflight round 3: read the terms of a service your agent is about to start paying for, from the paying side, before it commits. Input text, fields (price, price_changes, auto_renewal, liability_cap, indemnity, termination, data_use) or both, and an optional exposure (the amount the service can move or charge). The signed report restates each term plainly and flags the one-sided and missing ones: a price that can change with no notice, renewal with no way to cancel, a liability cap below the amount the service can move, liability excluded, one-way indemnity, no termination path for you, termination at will by the provider and broad data use. To verify what a counterparty’s published terms say, use wever_terms-evidence-check. POST /api/service-terms-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
+      "description": "Agent preflight round 3: read the terms of a service your agent is about to start paying for, from the paying side, before it commits. Input text, fields (price, price_changes, auto_renewal, liability_cap, indemnity, termination, data_use) or both, and an optional exposure (the amount the service can move or charge). The signed report restates each term plainly and flags the one-sided and missing ones: a price that can change with no notice, renewal with no way to cancel, a liability cap below the amount the service can move, liability excluded, one-way indemnity, no termination path for you, termination at will by the provider and broad data use. To verify what a counterparty\u2019s published terms say, use wever_terms-evidence-check. POST /api/service-terms-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -18413,7 +18413,7 @@
         ],
         "description": "Send the text, the fields or both."
       },
-      "description": "Agent preflight round 3: check your own incident response plan before you depend on it. Input text, fields (detection, severity_levels, notification_windows, roles, customer_communication, postmortem, payment_incidents) or both. The signed report marks each area covered, partial or not covered, with quotes, the severity levels and notification windows it reads, and names each gap plainly: no detection path, no notification window, no named owner, no customer communication, no postmortem practice and no path for an incident that involves payments. To check a vendor’s past incident record against its claims, use wever_incident-evidence-check. POST /api/incident-plan-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
+      "description": "Agent preflight round 3: check your own incident response plan before you depend on it. Input text, fields (detection, severity_levels, notification_windows, roles, customer_communication, postmortem, payment_incidents) or both. The signed report marks each area covered, partial or not covered, with quotes, the severity levels and notification windows it reads, and names each gap plainly: no detection path, no notification window, no named owner, no customer communication, no postmortem practice and no path for an incident that involves payments. To check a vendor\u2019s past incident record against its claims, use wever_incident-evidence-check. POST /api/incident-plan-check. Reads only the material in the call: no page fetch, no registry or chain lookup, no counterparty contact, and no payment signed, submitted or moved. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-preflight-contract. Human page: https://weverlabs.com/preflight/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -18681,7 +18681,7 @@
         ],
         "description": "Send the evidence, the fields or both."
       },
-      "description": "DiligenceOps: submit a counterparty’s insurance certificate or policy excerpt, as text, fields (insurer, coverages with type, limits and dates, effective and expiry dates, certificate holder, additional insured) or both, with optional requirements (coverages with minimum limits, the work start and end dates, certificate holder, additional insured). The signed report states what the evidence establishes, coverage by coverage with its limits and dates, and what it does not: a required coverage type absent, a limit below the requirement, a policy expired or ending inside the work window, a certificate holder or additional insured that does not match, and a certificate that confers no rights. POST /api/insurance-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a counterparty\u2019s insurance certificate or policy excerpt, as text, fields (insurer, coverages with type, limits and dates, effective and expiry dates, certificate holder, additional insured) or both, with optional requirements (coverages with minimum limits, the work start and end dates, certificate holder, additional insured). The signed report states what the evidence establishes, coverage by coverage with its limits and dates, and what it does not: a required coverage type absent, a limit below the requirement, a policy expired or ending inside the work window, a certificate holder or additional insured that does not match, and a certificate that confers no rights. POST /api/insurance-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -18851,7 +18851,7 @@
         ],
         "description": "Send the report, the fields or both."
       },
-      "description": "DiligenceOps: submit a counterparty’s audit or attestation report excerpt (SOC 2, SOC 1, ISO 27001, PCI DSS or similar), as text, fields (standard, report_type, auditor, period_start, period_end, as_of, opinion, exceptions, qualifications, scope) or both, with optional context (engagement_starts, and the summary the vendor gave you). The signed report states what the report covers, the standard and type, the auditor, the period or single date, the opinion, the exceptions and the scope, and names its limits plainly: a point-in-time report presented as period coverage, exceptions left out of the summary, a period that ended before the engagement starts, a qualified opinion, carved-out subservice organizations and controls left to the user entity. POST /api/audit-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a counterparty\u2019s audit or attestation report excerpt (SOC 2, SOC 1, ISO 27001, PCI DSS or similar), as text, fields (standard, report_type, auditor, period_start, period_end, as_of, opinion, exceptions, qualifications, scope) or both, with optional context (engagement_starts, and the summary the vendor gave you). The signed report states what the report covers, the standard and type, the auditor, the period or single date, the opinion, the exceptions and the scope, and names its limits plainly: a point-in-time report presented as period coverage, exceptions left out of the summary, a period that ended before the engagement starts, a qualified opinion, carved-out subservice organizations and controls left to the user entity. POST /api/audit-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -18955,7 +18955,7 @@
         ],
         "description": "Send the agreement, the fields or both."
       },
-      "description": "DiligenceOps: submit a counterparty’s data processing agreement or its key clauses, as text, fields (roles, purpose_limits, subprocessors, breach_notification, transfers, deletion_return) or both. The signed report marks the roles of the parties, purpose limits, sub-processor terms, the breach notification window, the transfer mechanism and deletion or return on termination present, missing, ambiguous or one-sided, with quotes: processing for the processor’s own purposes, sub-processors added at its discretion with no right to object, a breach window longer than 72 hours, transfers anywhere with no mechanism and copies kept after termination. POST /api/dpa-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "DiligenceOps: submit a counterparty\u2019s data processing agreement or its key clauses, as text, fields (roles, purpose_limits, subprocessors, breach_notification, transfers, deletion_return) or both. The signed report marks the roles of the parties, purpose limits, sub-processor terms, the breach notification window, the transfer mechanism and deletion or return on termination present, missing, ambiguous or one-sided, with quotes: processing for the processor\u2019s own purposes, sub-processors added at its discretion with no right to object, a breach window longer than 72 hours, transfers anywhere with no mechanism and copies kept after termination. POST /api/dpa-evidence-check. Reads only the material in the call: no page fetch, no account access, no merchant contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. The report matches words, figures, dates and named items between the submitted texts; it does not interpret meaning beyond that matching. Contract: /api/diligence-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -20572,7 +20572,7 @@
                   "type": "string",
                   "pattern": "^[A-Za-z][A-Za-z0-9_]{0,63}$",
                   "not": {
-                    "pattern": "[\\r\\n  ]"
+                    "pattern": "[\\r\\n\u2028\u2029]"
                   }
                 },
                 "additionalProperties": {
@@ -20821,7 +20821,7 @@
           }
         }
       },
-      "description": "Commerce Assurance: submit two to six vendor proposals as fields (price, billing, setup fee, term, service levels, security, data terms, liability, renewal, support) or text, with optional priorities and budget. The signed brief normalizes the comparison across price (annualized, first year and over the term), term, service levels, security and data terms, liability, renewal and support, names each vendor’s evidence gaps, and closes with a recommendation, its rationale and the conditions that would change it. Verdict recommended or not_comparable. POST /api/procurement-decision-brief. Reads only the material in the call: no page fetch, no account access, no counterparty contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/commerce-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "description": "Commerce Assurance: submit two to six vendor proposals as fields (price, billing, setup fee, term, service levels, security, data terms, liability, renewal, support) or text, with optional priorities and budget. The signed brief normalizes the comparison across price (annualized, first year and over the term), term, service levels, security and data terms, liability, renewal and support, names each vendor\u2019s evidence gaps, and closes with a recommendation, its rationale and the conditions that would change it. Verdict recommended or not_comparable. POST /api/procurement-decision-brief. Reads only the material in the call: no page fetch, no account access, no counterparty contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/commerce-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
@@ -20843,7 +20843,7 @@
             "type": "string",
             "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
             "not": {
-              "pattern": "[\\r\\n  ]"
+              "pattern": "[\\r\\n\u2028\u2029]"
             },
             "description": "Today as YYYY-MM-DD."
           },
@@ -20941,6 +20941,1733 @@
         "description": "Send current_date with the agreement, the fields or both."
       },
       "description": "Commerce Assurance: submit agreement text, renewal fields or both, with the current date. The signed report states the renewal type, the current term rolled forward through automatic renewals, the notice period and the notice deadline computed from the dates, price-change terms and the termination window, with ambiguous or missing renewal language flagged. Verdict notice_window_open, notice_deadline_passed, no_automatic_renewal or renewal_terms_unclear. Other document deadlines are wever_deadline-check. POST /api/renewal-notice-check. Reads only the material in the call: no page fetch, no account access, no counterparty contact and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/commerce-assurance-contract. Human page: https://weverlabs.com/diligence-checks/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_spending-anomaly-check",
+      "title": "Spending anomaly check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "transactions"
+        ],
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Transaction ID."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "A number, or text such as \"1,250.00 USDC\"."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "category": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "An ISO date-time or date."
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "The transactions to check."
+          },
+          "rules": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "per_transaction_cap": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "The most any one transaction may be."
+              },
+              "counterparty_caps": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "counterparty",
+                    "cap",
+                    "period"
+                  ],
+                  "properties": {
+                    "counterparty": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    },
+                    "cap": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000000000000
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    },
+                    "period": {
+                      "enum": [
+                        "day",
+                        "week",
+                        "month",
+                        "total"
+                      ]
+                    }
+                  }
+                },
+                "description": "Spend caps per counterparty per period."
+              },
+              "category_caps": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "category",
+                    "cap",
+                    "period"
+                  ],
+                  "properties": {
+                    "category": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    },
+                    "cap": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000000000000
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    },
+                    "period": {
+                      "enum": [
+                        "day",
+                        "week",
+                        "month",
+                        "total"
+                      ]
+                    }
+                  }
+                },
+                "description": "Spend caps per category per period."
+              },
+              "allowed_counterparties": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 200,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "description": "The only counterparties spend may go to."
+              },
+              "allowed_categories": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "description": "The only categories spend may fall in."
+              }
+            },
+            "minProperties": 1,
+            "description": "Your stated budget rules."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for transactions and caps that state none."
+          },
+          "duplicate_window_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10080,
+            "description": "How close two payments to one counterparty for one amount must be to look duplicated. Defaults to 60."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit a list of transactions (amount, asset, counterparty, timestamp, category where given) with your stated budget rules: a per-transaction cap, per-counterparty or per-category caps per day, week, month or in total, and allowed counterparties or categories. The signed report flags every transaction that breaks a stated rule, every duplicate-looking payment (one counterparty, one amount, close timestamps) and every amount that is an outlier against the supplied set itself, each flag naming the rule or pattern and the transactions involved. Verdict rules_broken, patterns_found, rules_unconfirmed or no_flags. Live wallet activity is wever_wallet-statement. POST /api/spending-anomaly-check. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_budget-forecast-brief",
+      "title": "Budget forecast brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "as_of",
+          "balance",
+          "horizon_days"
+        ],
+        "properties": {
+          "as_of": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "not": {
+              "pattern": "[\\r\\n\u2028\u2029]"
+            },
+            "description": "The date of the balance, as YYYY-MM-DD. The forecast starts the next day."
+          },
+          "balance": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000000000000
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            ],
+            "description": "The current balance."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset or currency of the balance, such as USDC."
+          },
+          "reserve_floor": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000000000000
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            ],
+            "description": "The balance the forecast should stay at or above. Defaults to 0."
+          },
+          "commitments": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount",
+                "cadence",
+                "next_due"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "cadence": {
+                  "enum": [
+                    "daily",
+                    "weekly",
+                    "biweekly",
+                    "monthly",
+                    "quarterly",
+                    "annual",
+                    "once"
+                  ]
+                },
+                "next_due": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "Next due date."
+                },
+                "ends": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "Last date the commitment runs."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                }
+              }
+            },
+            "description": "Recurring commitments."
+          },
+          "recent_spend": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 60,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "start",
+                "end",
+                "amount"
+              ],
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "end": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "Spend in the period beyond the listed commitments."
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Recent spend totals by period."
+          },
+          "horizon_days": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 730,
+            "description": "Days to forecast."
+          },
+          "period": {
+            "enum": [
+              "week",
+              "month"
+            ],
+            "description": "How outflows are grouped. Defaults to week up to 90 days and month beyond."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit a current balance with its date, recurring commitments (amount, cadence, next due date), recent spend totals by period, an optional reserve floor and a forecast horizon in days. The signed brief projects outflows by week or month, gives the date the balance first falls below the reserve floor (or the balance at the horizon end when it stays above it) and lists every assumption plainly. Arithmetic on the supplied figures only: no market data and no price forecast. Verdict floor_crossed or floor_held. POST /api/budget-forecast-brief. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_payment-rail-check",
+      "title": "Payment rail check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "rails",
+          "requirement"
+        ],
+        "properties": {
+          "rails": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 10,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "networks": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 30,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "currencies": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 30,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "destination_types": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S",
+                    "description": "Such as wallet, bank or card."
+                  }
+                },
+                "fee": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [],
+                  "properties": {
+                    "percent": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20,
+                          "pattern": "\\S"
+                        }
+                      ],
+                      "description": "Percentage of the amount."
+                    },
+                    "flat": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000000000000
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    },
+                    "min": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000000000000
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    },
+                    "max": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 1000000000000000
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 100,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    },
+                    "currency": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    },
+                    "text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 4000,
+                      "pattern": "\\S",
+                      "description": "The fee as stated."
+                    }
+                  },
+                  "minProperties": 1,
+                  "description": "The fee shape."
+                },
+                "min_amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "max_amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "settlement": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Settlement time as stated, such as \"instant\", \"2 hours\" or \"1-3 business days\"."
+                },
+                "limits": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 20,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "kind"
+                    ],
+                    "properties": {
+                      "kind": {
+                        "enum": [
+                          "per_transaction",
+                          "daily",
+                          "weekly",
+                          "monthly",
+                          "other"
+                        ]
+                      },
+                      "amount": {
+                        "anyOf": [
+                          {
+                            "type": "number",
+                            "minimum": 0,
+                            "maximum": 1000000000000000
+                          },
+                          {
+                            "type": "string",
+                            "minLength": 1,
+                            "maxLength": 100,
+                            "pattern": "\\S"
+                          }
+                        ]
+                      },
+                      "currency": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S"
+                      },
+                      "text": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4000,
+                        "pattern": "\\S"
+                      }
+                    }
+                  },
+                  "description": "Any other stated limits."
+                },
+                "notes": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Two or more rail options."
+          },
+          "requirement": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "properties": {
+              "amount": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "currency": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "destination_type": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "network": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "deadline": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "The date or date-time the payment must settle by."
+              }
+            }
+          },
+          "as_of": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S",
+            "description": "When the payment would start, as a date or date-time."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit two or more payment rail options (name, networks or currencies, fee shape, minimum and maximum amounts, settlement time and any stated limits) and one payment requirement (amount, currency, destination type, network, deadline). The signed report returns fits, fits_with_caveats or does_not_fit for each rail with the deciding facts itemized, computes each fee from its stated shape and names the best-fitting rail. Supplied options only. Verdict rail_fits, fits_with_caveats or no_rail_fits. POST /api/payment-rail-check. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_exchange-quote-check",
+      "title": "Exchange quote check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "quotes"
+        ],
+        "properties": {
+          "quotes": {
+            "type": "array",
+            "minItems": 2,
+            "maxItems": 20,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "from_asset",
+                "to_asset",
+                "amount_in",
+                "amount_out"
+              ],
+              "properties": {
+                "provider": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "from_asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "to_asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "amount_in": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "amount_out": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The amount the quote delivers, after its fee."
+                },
+                "rate": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The stated rate before fees, in to_asset per from_asset."
+                },
+                "fee": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The stated fee."
+                },
+                "fee_asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset of the fee. Defaults to from_asset."
+                },
+                "fee_percent": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 20,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The stated fee as a percentage."
+                },
+                "expires_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "Quote expiry."
+                }
+              }
+            },
+            "description": "Two or more quotes."
+          },
+          "as_of": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S",
+            "description": "The time to hold quote expiry against. Defaults to the time of the check."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit two or more conversion quotes (from and to assets, amounts in and out, any stated rate, fee and fee percentage, and expiry). The signed report computes each effective rate, ranks the quotes, gives the spread between the best and each other quote as a percentage, and flags any quote whose stated fee does not reconcile with its amounts and rate, and any expired quote. Supplied quotes only; live market pricing is wever_market-data-check and wever_fair-value-brief. Verdict ranked, fee_mismatch_found or not_comparable. POST /api/exchange-quote-check. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_treasury-policy-check",
+      "title": "Treasury policy check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "balances",
+          "policy"
+        ],
+        "properties": {
+          "balances": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "asset",
+                "amount"
+              ],
+              "properties": {
+                "wallet": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Wallet label."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "chain": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "usd_value": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "USD value, where you have it."
+                },
+                "address": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Balances by wallet, asset and chain."
+          },
+          "policy": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "asset_caps": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "asset",
+                    "max_percent"
+                  ],
+                  "properties": {
+                    "asset": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S",
+                      "description": "Asset or currency code, such as USDC or USD."
+                    },
+                    "max_percent": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "description": "Concentration caps per asset."
+              },
+              "chain_caps": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "chain",
+                    "max_percent"
+                  ],
+                  "properties": {
+                    "chain": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    },
+                    "max_percent": {
+                      "anyOf": [
+                        {
+                          "type": "number",
+                          "minimum": 0,
+                          "maximum": 100
+                        },
+                        {
+                          "type": "string",
+                          "minLength": 1,
+                          "maxLength": 20,
+                          "pattern": "\\S"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "description": "Concentration caps per chain."
+              },
+              "max_asset_percent": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "A cap for every asset."
+              },
+              "max_chain_percent": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "A cap for every chain."
+              },
+              "min_reserve": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "asset"
+                ],
+                "properties": {
+                  "asset": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S",
+                    "description": "Asset or currency code, such as USDC or USD."
+                  },
+                  "amount": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 1000000000000000
+                      },
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "pattern": "\\S"
+                      }
+                    ]
+                  },
+                  "percent": {
+                    "anyOf": [
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 100
+                      },
+                      {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 20,
+                        "pattern": "\\S"
+                      }
+                    ]
+                  }
+                },
+                "anyOf": [
+                  {
+                    "required": [
+                      "amount"
+                    ]
+                  },
+                  {
+                    "required": [
+                      "percent"
+                    ]
+                  }
+                ],
+                "description": "A minimum reserve in a named asset, as an amount or a share."
+              },
+              "avoid_assets": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              },
+              "avoid_chains": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 50,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "minProperties": 1,
+            "description": "Your stated treasury policy."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit balances (wallet label, asset, chain, amount, and a USD value where you have it) with your stated treasury policy: concentration caps per asset or per chain as percentages, a minimum reserve in a named asset, and assets or chains to avoid. The signed report returns a verdict per rule with the computed shares and names every breach. Wallet labels and addresses are read as written and for format only. Verdict compliant, breaches_found or not_computable. POST /api/treasury-policy-check. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_invoice-aging-brief",
+      "title": "Invoice aging brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "current_date",
+          "invoices"
+        ],
+        "properties": {
+          "current_date": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "not": {
+              "pattern": "[\\r\\n\u2028\u2029]"
+            },
+            "description": "Today as YYYY-MM-DD."
+          },
+          "invoices": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount",
+                "due_date"
+              ],
+              "properties": {
+                "number": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "Open amount."
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "issue_date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "due_date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Open invoices."
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Currency for invoices that state none."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit open invoices (counterparty, amount, currency, issue date, due date) with the current date. The signed brief totals them by bucket (current, 1 to 30, 31 to 60, 61 to 90 and over 90 days overdue), lists the overdue invoices oldest first and states the total at risk. Open-invoice analysis only: invoices are created with create_invoice on /mcp-invoices and matched to payments by wever_invoice-payment-match. Verdict all_current, overdue or overdue_over_90. POST /api/invoice-aging-brief. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_fee-reconciliation-check",
+      "title": "Fee reconciliation check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fees",
+          "schedule"
+        ],
+        "properties": {
+          "fees": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 1000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount",
+                "fee_label",
+                "transaction_amount"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "date": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "party": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Payer or payee."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The fee charged."
+                },
+                "fee_label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "transaction_amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "The amount the fee was charged on."
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Fees charged."
+          },
+          "schedule": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "fee_label"
+              ],
+              "properties": {
+                "fee_label": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "percent": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 100
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 20,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "flat": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ]
+                },
+                "min": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "Minimum fee."
+                },
+                "cap": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "Maximum fee."
+                },
+                "party": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Payer or payee the entry applies to."
+                },
+                "currency": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              },
+              "anyOf": [
+                {
+                  "required": [
+                    "percent"
+                  ]
+                },
+                {
+                  "required": [
+                    "flat"
+                  ]
+                }
+              ]
+            },
+            "description": "The fee schedule."
+          },
+          "currency": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Currency for rows that state none."
+          },
+          "decimals": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 18,
+            "description": "Decimal places expected fees round to. Defaults to 2."
+          },
+          "tolerance": {
+            "anyOf": [
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1000000000000000
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            ],
+            "description": "Difference still read as a match. Defaults to 0."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit the fees you were charged (date, payer or payee, amount, fee label and the transaction amount each was charged on) with the stated fee schedule (percentage rates, flat fees, minimums and caps). The signed report recomputes each expected fee and itemizes overcharges, undercharges and fees with no matching schedule entry, with totals. Public fee claims are wever_fee-evidence-check. Verdict reconciled or discrepancies_found. POST /api/fee-reconciliation-check. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_spend-category-brief",
+      "title": "Spend category brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "transactions"
+        ],
+        "properties": {
+          "transactions": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 2000,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "amount"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Transaction ID."
+                },
+                "amount": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "minimum": 0,
+                      "maximum": 1000000000000000
+                    },
+                    {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 100,
+                      "pattern": "\\S"
+                    }
+                  ],
+                  "description": "A number, or text such as \"1,250.00 USDC\"."
+                },
+                "asset": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Asset or currency code, such as USDC or USD."
+                },
+                "counterparty": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "category": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "timestamp": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "An ISO date-time or date."
+                },
+                "reference": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "Transactions for one period."
+          },
+          "period": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "start": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "end": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "name": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Such as \"October 2026\"."
+              }
+            },
+            "minProperties": 1,
+            "description": "Optional period bounds."
+          },
+          "asset": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "Asset for transactions that state none."
+          },
+          "top": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50,
+            "description": "Rows in the top counterparty and largest payment lists. Defaults to 5."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Treasury: submit one period of transactions (amount, asset, counterparty, category where given, timestamp). The signed brief gives totals and shares by category, the top counterparties by spend, the largest single payments and how many transactions arrived uncategorized. Any period; the month-end close pack with receipts, refunds and exceptions is wever_expense-close-pack. Verdict fully_categorized or partly_uncategorized. POST /api/spend-category-brief. Reads only the material in the call: no wallet, chain, market, bank or counterparty lookup, and no money movement. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-treasury-contract. Human page: https://weverlabs.com/agent-treasury/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
