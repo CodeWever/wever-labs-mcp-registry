@@ -2,9 +2,9 @@
 
 ## Current repository metadata
 
-Catalog metadata for the Job Records release, November 6, 2026:
+Catalog metadata for the Agent Operations release, November 6, 2026:
 
-- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 202 main tools, including 186 production tools.
+- MCP endpoint: https://weverlabs.com/mcp, version `0.8.0`, 210 main tools, including 194 production tools.
 - Registry metadata version: `0.8.2-registry.2`, with hosted server version `0.8.0` recorded separately.
 - Edge Alert: `edge-alert` on the main endpoint, free on every call with no wallet or account.
 - Boutique coupon: `boutique-coupon` on the main endpoint, free on every call with no wallet or account.
