@@ -1,0 +1,40 @@
+name: Catalog drift
+
+on:
+  pull_request:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: catalog-drift-${{ github.event_name }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  catalog-drift:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Set up Python
+        uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
+        with:
+          python-version: '3.14'
+
+      - name: Run regression tests
+        run: python -B -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Check candidate catalog against live discovery
+        if: ${{ github.event_name == 'pull_request' }}
+        run: python scripts/check_catalog_drift.py
+
+      - name: Check published catalog against live discovery
+        if: ${{ github.event_name == 'schedule' || github.event_name == 'workflow_dispatch' }}
+        run: python scripts/check_catalog_drift.py --published
