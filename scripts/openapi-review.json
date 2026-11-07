@@ -1,8 +1,9 @@
 {
-  "source_commit": "3f02b0b52085563a952fc96516e7f6ee9f457162",
+  "source_commit": "8ade0b298f27cbb12e72ce218116890f7a4b227c",
   "paths": [
     "/api/accessibility-evidence-check",
     "/api/agent-allowance-console",
+    "/api/agent-attention-brief",
     "/api/agent-card-check",
     "/api/agent-daily-operator-brief",
     "/api/agent-identity-check",
@@ -10,8 +11,10 @@
     "/api/agent-work-order-exchange",
     "/api/agent-work-order-rail",
     "/api/ai-disclosure-check",
+    "/api/answer-freshness-check",
     "/api/api-change-check",
     "/api/approval-chain-check",
+    "/api/approval-version-check",
     "/api/atlas-asset-search",
     "/api/atlas-issuer-brief",
     "/api/atlas-market-brief",
@@ -26,7 +29,9 @@
     "/api/budget-forecast-brief",
     "/api/certification-evidence-check",
     "/api/changelog-check",
+    "/api/checkout-clarity-check",
     "/api/claim-evidence-check",
+    "/api/context-sharing-check",
     "/api/continuity-check",
     "/api/contract-brief",
     "/api/contract-diff-check",
@@ -76,10 +81,12 @@
     "/api/mcp-server-check",
     "/api/meeting-brief",
     "/api/nda-evidence-check",
+    "/api/paid-access-check",
     "/api/payment-instruction-check",
     "/api/payment-policy-check",
     "/api/payment-rail-check",
     "/api/payment-recovery-check",
+    "/api/payout-change-check",
     "/api/payout-readiness-check",
     "/api/policy-brief",
     "/api/policy-fit-check",
@@ -113,6 +120,7 @@
     "/api/terms-evidence-check",
     "/api/testimonial-evidence-check",
     "/api/thesis-compare",
+    "/api/trace-outcome-brief",
     "/api/translation-evidence-check",
     "/api/treasury-policy-check",
     "/api/unified-agent-checkout",
@@ -120,5 +128,5 @@
     "/api/wallet-statement",
     "/api/warranty-check"
   ],
-  "sha256": "bcbe62212a3d9163ee21123fbea5106fe8d8120bcd43e7b9675540627808151b"
+  "sha256": "543dc9e6b793e4b69c969abb5789a89c0d1b019077b02c5fac88dad9bb427d28"
 }

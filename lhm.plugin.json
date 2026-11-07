@@ -8,7 +8,7 @@
   "cloudEndpoint": "https://weverlabs.com/mcp",
   "homepage": "https://weverlabs.com",
   "icon": "https://weverlabs.com/icon-192.png",
-  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 202 main tools, including 186 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
+  "description": "Hosted remote MCP server for agent workflow and commerce infrastructure with 210 main tools, including 194 production tools. Atlas compares asset stages and rights and lists disclosure gaps with source evidence from its current dataset. Paid calls cost 0.10 USDC on Base mainnet via x402, with a shared allowance of 10 free calls per wallet per 30 days. An unauthenticated free endpoint at https://weverlabs.com/mcp-free provides 30 tools, including three anonymous self-help book reflections, not therapy or diagnosis. Documentation: https://weverlabs.com.",
   "tags": [
     "agents",
     "mcp",
@@ -24331,6 +24331,1741 @@
         }
       },
       "description": "Job Records: submit one half-finished job\u2019s state: the job and its objective, the current draft or work product reference, completed steps, open questions, files or records produced, decisions already made and what remains. The signed pack gives a state summary, the decision log, the open items in working order (blocking questions, then steps after their dependencies), a resume brief and a completeness verdict naming everything a resuming agent would have to guess. Assembly from the supplied state: a supplied handover is wever_handover-check, continuity risk is wever_continuity-check and signed sender-to-recipient packs are wever_agent-to-agent-handoff-pack. Verdict not_resumable, resumable_with_gaps or resumable. POST /api/job-handoff-pack. Reads only the material in the call: no network request, fetch, wallet or merchant lookup, order, payment or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/job-records-contract. Human page: https://weverlabs.com/job-records/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_checkout-clarity-check",
+      "title": "Checkout clarity check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [],
+        "properties": {
+          "merchant": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "The merchant or store name."
+          },
+          "product_page": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 131072,
+            "pattern": "\\S",
+            "description": "Product page text as pasted."
+          },
+          "checkout_summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 131072,
+            "pattern": "\\S",
+            "description": "Checkout or order summary text as pasted."
+          },
+          "shipping_text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 131072,
+            "pattern": "\\S",
+            "description": "Shipping or delivery text as pasted."
+          },
+          "returns_text": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 131072,
+            "pattern": "\\S",
+            "description": "Returns or refund policy text as pasted."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        },
+        "anyOf": [
+          {
+            "required": [
+              "product_page"
+            ]
+          },
+          {
+            "required": [
+              "checkout_summary"
+            ]
+          },
+          {
+            "required": [
+              "shipping_text"
+            ]
+          },
+          {
+            "required": [
+              "returns_text"
+            ]
+          }
+        ]
+      },
+      "description": "Agent Operations: submit merchant page or checkout material as pasted (product page text, checkout summary, shipping text, returns text). The signed report says whether an agent can determine, from that material alone, the final price with shipping and tax where stated, the stock or availability, the delivery estimate and the return policy, each marked determinable, ambiguous or absent with the deciding text quoted, plus the question to settle for each open point. Analysis of supplied text: live probing of an endpoint is wever_endpoint-reliability-check. Verdict terms_absent, terms_ambiguous or all_determinable. POST /api/checkout-clarity-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_approval-version-check",
+      "title": "Approval version check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "document_kind",
+          "approved",
+          "approval",
+          "current"
+        ],
+        "properties": {
+          "document_kind": {
+            "enum": [
+              "invoice",
+              "quote",
+              "agreement",
+              "order"
+            ],
+            "description": "What the document is."
+          },
+          "approved": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 262144,
+                "pattern": "\\S",
+                "description": "The full document text of this version."
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Document number, such as INV-0042."
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Version label."
+              },
+              "date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "Date of this version."
+              },
+              "total": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "The document total, where stated."
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Asset or currency code, such as USDC or USD."
+              },
+              "parties": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "description": "The named parties, where listed."
+              }
+            },
+            "description": "The version as originally approved."
+          },
+          "approval": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "approved_by"
+            ],
+            "properties": {
+              "approved_by": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Who approved it."
+              },
+              "approved_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When."
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The version the approval names."
+              },
+              "amount": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "The amount the approval names."
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Asset or currency code, such as USDC or USD."
+              },
+              "document_sha256": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$",
+                "not": {
+                  "pattern": "[\\r\\n\u2028\u2029]"
+                },
+                "description": "SHA-256 of the approved text, where the approval recorded one."
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The document reference the approval names."
+              },
+              "note": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "Conditions or notes in the approval record."
+              }
+            }
+          },
+          "current": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 262144,
+                "pattern": "\\S"
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "version": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "total": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "parties": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 20,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              }
+            },
+            "description": "The current version of the same document, with the same fields."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit one invoice, quote, agreement or order as originally approved, its approval record (who approved it and, where recorded, the version, amount, reference or SHA-256 it approved) and the current version of the same document. The signed report diffs the two sentence by sentence and returns whether the approval still covers the current version: unchanged, changed only in non-material ways (each listed), or materially changed in amount, parties, scope, dates or terms, with every material change itemized and re-approval required. Approval coverage: contract redlining is wever_contract-diff-check and invoice-to-payment matching is wever_invoice-payment-match. Verdict reapproval_required, non_material_changes or unchanged. POST /api/approval-version-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_trace-outcome-brief",
+      "title": "Trace outcome brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "steps",
+          "final_outcome"
+        ],
+        "properties": {
+          "job": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Job reference."
+              },
+              "objective": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "What the job was for."
+              }
+            },
+            "minProperties": 1,
+            "description": "The job the trace belongs to."
+          },
+          "steps": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Step ID."
+                },
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "required": {
+                  "type": "boolean",
+                  "description": "Whether the job needs this step. Defaults to true."
+                },
+                "status": {
+                  "enum": [
+                    "succeeded",
+                    "failed",
+                    "partial",
+                    "skipped",
+                    "not_run",
+                    "unknown"
+                  ],
+                  "description": "How the step ended, as recorded."
+                },
+                "fallback_for": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The ID of a step this one replaces when that step fails."
+                },
+                "calls": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 100,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "tool",
+                      "status"
+                    ],
+                    "properties": {
+                      "tool": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S",
+                        "description": "Tool or service called."
+                      },
+                      "status": {
+                        "enum": [
+                          "succeeded",
+                          "failed",
+                          "timed_out",
+                          "cancelled"
+                        ]
+                      },
+                      "error": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4000,
+                        "pattern": "\\S",
+                        "description": "The error recorded."
+                      },
+                      "at": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "pattern": "\\S",
+                        "description": "When."
+                      }
+                    }
+                  },
+                  "description": "Tool calls in the order made."
+                },
+                "failures": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 100,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "error"
+                    ],
+                    "properties": {
+                      "error": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4000,
+                        "pattern": "\\S",
+                        "description": "The failure recorded."
+                      },
+                      "tool": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S"
+                      },
+                      "at": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "pattern": "\\S"
+                      }
+                    }
+                  },
+                  "description": "Failures recorded outside a tool call."
+                },
+                "recoveries": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 100,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "action",
+                      "outcome"
+                    ],
+                    "properties": {
+                      "action": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S",
+                        "description": "Such as retry, fallback to cache or manual fix."
+                      },
+                      "outcome": {
+                        "enum": [
+                          "succeeded",
+                          "failed"
+                        ]
+                      },
+                      "tool": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 500,
+                        "pattern": "\\S"
+                      },
+                      "at": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "pattern": "\\S"
+                      }
+                    }
+                  },
+                  "description": "Recovery actions recorded."
+                }
+              }
+            },
+            "description": "The job steps in order."
+          },
+          "final_outcome": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "status"
+            ],
+            "properties": {
+              "status": {
+                "enum": [
+                  "succeeded",
+                  "partially_succeeded",
+                  "failed",
+                  "abandoned",
+                  "unknown"
+                ]
+              },
+              "summary": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "The outcome as recorded."
+              },
+              "at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit one job\u2019s execution trace: its steps with their tool calls, recorded failures and recoveries, which steps are required and which replace others, and the final outcome as recorded. The signed brief classifies every failure as recovered (the job absorbed it), worked around (a different path finished the step) or fatal to its step, ties the classification to the recorded outcome, and names every failure and outcome the trace leaves unexplained. Trace analysis: per-job money is wever_job-cost-brief. Verdict outcome_unexplained, fatal_failures, failures_absorbed or no_failures. POST /api/trace-outcome-brief. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_answer-freshness-check",
+      "title": "Answer freshness check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "answers",
+          "change"
+        ],
+        "properties": {
+          "answers": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "question",
+                "answer"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Answer ID."
+                },
+                "question": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                },
+                "answer": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S"
+                },
+                "answered_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "When the answer was given."
+                },
+                "basis": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S",
+                  "description": "The policy or source text the answer relied on, where recorded."
+                },
+                "source": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "The policy, page or section the answer cites."
+                }
+              }
+            },
+            "description": "Prior answers."
+          },
+          "change": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "description": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "The change as stated, such as \"The refund window is now 14 days, down from 30.\""
+              },
+              "source": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The policy or source that changed."
+              },
+              "effective_date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When the change applies."
+              },
+              "sections": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "old_text",
+                    "new_text"
+                  ],
+                  "properties": {
+                    "title": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S",
+                      "description": "Section title."
+                    },
+                    "old_text": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 262144,
+                      "pattern": "\\S",
+                      "description": "The section before the change."
+                    },
+                    "new_text": {
+                      "type": "string",
+                      "maxLength": 262144,
+                      "description": "The section after the change; empty when it was removed."
+                    }
+                  }
+                },
+                "description": "Old and new text of each changed section."
+              }
+            },
+            "anyOf": [
+              {
+                "required": [
+                  "description"
+                ]
+              },
+              {
+                "required": [
+                  "sections"
+                ]
+              }
+            ],
+            "description": "The policy or source change."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit prior agent answers (each question, the answer given, when, and its basis or source where recorded) with the policy or source change that supersedes part of their basis, as the old and new text of each changed section or a stated change description. The signed report flags every answer whose basis the change touches, quotes the superseded basis, and marks each flagged answer stale or unaffected with the reason. Supplied material only: comparing two full policy versions is wever_terms-change-check. Verdict stale_answers, touched_but_current or none_touched. POST /api/answer-freshness-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_context-sharing-check",
+      "title": "Context sharing check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "event",
+          "as_of"
+        ],
+        "properties": {
+          "event": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "context",
+              "participants",
+              "setting"
+            ],
+            "properties": {
+              "context": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "item"
+                  ],
+                  "properties": {
+                    "item": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S",
+                      "description": "What would be shared."
+                    },
+                    "category": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S",
+                      "description": "Such as health, finances, location, contact details or work."
+                    }
+                  }
+                },
+                "description": "The context that would be shared."
+              },
+              "participants": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": [
+                    "name"
+                  ],
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S"
+                    },
+                    "role": {
+                      "type": "string",
+                      "minLength": 1,
+                      "maxLength": 500,
+                      "pattern": "\\S",
+                      "description": "Such as colleague, vendor, family or an agent."
+                    }
+                  }
+                },
+                "description": "Who would receive it."
+              },
+              "setting": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Where it would be shared, such as a group chat, an email to a vendor or a public post."
+              },
+              "purpose": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Why it would be shared."
+              }
+            }
+          },
+          "rules": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 100,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "effect"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Rule name."
+                },
+                "effect": {
+                  "enum": [
+                    "refuse",
+                    "require_consent",
+                    "allow"
+                  ]
+                },
+                "categories": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "Kinds of context, such as health, finances, location or work."
+                },
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "Named context items."
+                },
+                "recipients": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "People, roles or agents."
+                },
+                "settings": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "Settings, such as a group chat or an email to a vendor."
+                },
+                "purposes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  },
+                  "description": "Purposes."
+                },
+                "text": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S",
+                  "description": "The rule as the owner stated it."
+                }
+              }
+            },
+            "description": "The owner\u2019s stated sharing rules, as structured rules."
+          },
+          "consents": {
+            "type": "array",
+            "minItems": 0,
+            "maxItems": 200,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [],
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Consent record ID."
+                },
+                "granted_by": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "granted_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "expires_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "revoked_at": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "categories": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "items": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "recipients": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "settings": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                },
+                "purposes": {
+                  "type": "array",
+                  "minItems": 1,
+                  "maxItems": 200,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 500,
+                    "pattern": "\\S"
+                  }
+                }
+              }
+            },
+            "description": "Prior consent records, each scoped like a rule."
+          },
+          "as_of": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "not": {
+              "pattern": "[\\r\\n\u2028\u2029]"
+            },
+            "description": "The date the event would happen, as YYYY-MM-DD."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit one proposed sharing event (the context items, who would receive them and in what setting and for what purpose), the owner\u2019s stated sharing rules as structured rules (refuse, require consent or allow, by category, item, recipient, setting and purpose) and any prior consent records, with the event date. The signed report says whether an existing consent covers the event, whether fresh consent is needed first and exactly what changed to need it (new participant, new setting, wider scope, new purpose, or an expired or revoked consent), or whether a stated rule refuses it. Consent logic on supplied records only. Verdict refused_by_rule, fresh_consent_required or covered. POST /api/context-sharing-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_agent-attention-brief",
+      "title": "Agent attention brief",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "agents",
+          "as_of"
+        ],
+        "properties": {
+          "agents": {
+            "type": "array",
+            "minItems": 1,
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "name",
+                "status"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Agent or job name."
+                },
+                "status": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S",
+                  "description": "Status as reported, such as running, blocked, failed or done."
+                },
+                "last_activity": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S",
+                  "description": "When it last did something."
+                },
+                "pending_question": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S",
+                  "description": "A question it is waiting on."
+                },
+                "blocker": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 4000,
+                  "pattern": "\\S",
+                  "description": "What it is blocked on."
+                },
+                "deadline": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 100,
+                  "pattern": "\\S"
+                },
+                "errors": {
+                  "type": "array",
+                  "minItems": 0,
+                  "maxItems": 50,
+                  "items": {
+                    "type": "object",
+                    "additionalProperties": false,
+                    "required": [
+                      "message"
+                    ],
+                    "properties": {
+                      "message": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 4000,
+                        "pattern": "\\S"
+                      },
+                      "at": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 100,
+                        "pattern": "\\S"
+                      }
+                    }
+                  },
+                  "description": "Recent errors."
+                }
+              }
+            },
+            "description": "The running agents or jobs."
+          },
+          "as_of": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100,
+            "pattern": "\\S",
+            "description": "The time of the status snapshot, as an ISO date-time."
+          },
+          "stall_after_minutes": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10080,
+            "description": "Minutes without activity after which a running agent reads as stalled. Defaults to 60."
+          },
+          "deadline_warning_hours": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 720,
+            "description": "Hours before a deadline at which it reads as at risk. Defaults to 24."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit a list of running agents or jobs as reported (name, status, last activity, pending question or blocker, deadline and recent errors where stated) with the time of the snapshot. The signed brief triages them in priority order: which need the human first and why (deadline passed, error loop, stopped with an error, blocked on an answer, deadline at risk), which look stalled, which run fine and which finished. Supplied status only: the agents are read from the list and never polled. Verdict human_needed, stalled_or_unclear or all_clear. POST /api/agent-attention-brief. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_payout-change-check",
+      "title": "Payout change check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "counterparty",
+          "original",
+          "approval",
+          "proposed"
+        ],
+        "properties": {
+          "counterparty": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 500,
+            "pattern": "\\S",
+            "description": "The party the payout serves."
+          },
+          "original": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "destination": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Wallet, account or payee paid."
+              },
+              "network": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "fee_rate": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "Percent."
+              },
+              "fixed_fee": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "fee_cap": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "Most fee per payout."
+              },
+              "payout_cap": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "Most per payout."
+              },
+              "scope": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                },
+                "description": "What the terms cover."
+              }
+            },
+            "minProperties": 1,
+            "description": "The configuration as agreed."
+          },
+          "agreement": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "destination_change": {
+                "enum": [
+                  "allowed",
+                  "notice",
+                  "counterparty_approval",
+                  "not_allowed"
+                ]
+              },
+              "fee_increase": {
+                "enum": [
+                  "allowed",
+                  "notice",
+                  "counterparty_approval",
+                  "not_allowed"
+                ]
+              },
+              "scope_change": {
+                "enum": [
+                  "allowed",
+                  "notice",
+                  "counterparty_approval",
+                  "not_allowed"
+                ]
+              },
+              "other_change": {
+                "enum": [
+                  "allowed",
+                  "notice",
+                  "counterparty_approval",
+                  "not_allowed"
+                ]
+              },
+              "notice_days": {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 3650,
+                "description": "Notice days for the notice rule."
+              },
+              "max_fee_rate": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "pattern": "\\S"
+                  }
+                ],
+                "description": "Highest fee rate allowed."
+              },
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 4000,
+                "pattern": "\\S",
+                "description": "The change clause."
+              }
+            },
+            "description": "The agreement\u2019s rule for each kind of change (destination_change for a new destination, network or asset; fee_increase; scope_change; other_change): allowed, notice, counterparty_approval or not_allowed."
+          },
+          "approval": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "approved_by"
+            ],
+            "properties": {
+              "approved_by": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "approved_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "proposed": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [],
+            "properties": {
+              "destination": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "network": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "fee_rate": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 100
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 20,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "fixed_fee": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "fee_cap": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "payout_cap": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "scope": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 100,
+                "items": {
+                  "type": "string",
+                  "minLength": 1,
+                  "maxLength": 500,
+                  "pattern": "\\S"
+                }
+              },
+              "effective_date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When it would apply."
+              },
+              "notice_given_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S",
+                "description": "When notice was given."
+              }
+            },
+            "minProperties": 1,
+            "description": "The proposed change, as original."
+          },
+          "consent": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "granted_by",
+              "covers"
+            ],
+            "properties": {
+              "granted_by": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "granted_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "covers": {
+                "type": "array",
+                "minItems": 1,
+                "maxItems": 8,
+                "items": {
+                  "enum": [
+                    "destination",
+                    "network",
+                    "asset",
+                    "fee_rate",
+                    "fixed_fee",
+                    "fee_cap",
+                    "payout_cap",
+                    "scope"
+                  ]
+                },
+                "description": "Fields it covers."
+              },
+              "reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "destination": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The destination it agrees to, where named."
+              }
+            }
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit one payout or fee configuration as originally agreed (destination, network, asset, fee rate, fixed fee, caps and scope) with its approval record and the agreement\u2019s change rules, a proposed change and any consent record for it. The signed report says whether the change can take effect under the original agreement, needs the counterparty\u2019s fresh approval first (naming what changed: new destination or payout route, higher fee, wider scope) or is outside the agreement entirely, change by change. Configuration-change governance: payout readiness for a single payment is wever_payout-readiness-check. Verdict outside_agreement, counterparty_approval_required or can_take_effect. POST /api/payout-change-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
+      "annotations": {
+        "readOnlyHint": true,
+        "destructiveHint": false,
+        "idempotentHint": false,
+        "openWorldHint": false
+      }
+    },
+    {
+      "name": "wever_paid-access-check",
+      "title": "Paid access check",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "purchase",
+          "terms"
+        ],
+        "properties": {
+          "purchase": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "item",
+              "purchased_at",
+              "payment_reference"
+            ],
+            "properties": {
+              "item": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "What was bought."
+              },
+              "price": {
+                "anyOf": [
+                  {
+                    "type": "number",
+                    "minimum": 0,
+                    "maximum": 1000000000000000
+                  },
+                  {
+                    "type": "string",
+                    "minLength": 1,
+                    "maxLength": 100,
+                    "pattern": "\\S"
+                  }
+                ]
+              },
+              "asset": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Asset or currency code, such as USDC or USD."
+              },
+              "purchased_at": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              },
+              "payment_reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "Transaction hash or payment reference."
+              },
+              "order_reference": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "seller": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "buyer": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The paying agent, account or wallet."
+              },
+              "on_behalf_of": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S",
+                "description": "The person the agent bought for."
+              }
+            }
+          },
+          "terms": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "text"
+            ],
+            "properties": {
+              "text": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 131072,
+                "pattern": "\\S",
+                "description": "The seller\u2019s access terms as supplied."
+              },
+              "title": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 500,
+                "pattern": "\\S"
+              },
+              "effective_date": {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 100,
+                "pattern": "\\S"
+              }
+            }
+          },
+          "as_of": {
+            "type": "string",
+            "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+            "not": {
+              "pattern": "[\\r\\n\u2028\u2029]"
+            },
+            "description": "The date to hold the access against, as YYYY-MM-DD."
+          },
+          "label": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "pattern": "\\S",
+            "description": "Optional name recorded in the report."
+          }
+        }
+      },
+      "description": "Agent Operations: submit one purchase record for paid content or access (what was bought, price, date, payment reference, the paying agent and the person it bought for) with the seller\u2019s access terms as supplied and, where useful, a date to hold the access against. The signed report states what the buyer holds: whether access continues after purchase and for how long, whether it extends to the buyer\u2019s human or only the paying agent where the terms say, the conditions on it, and the proof to keep to re-establish access later. Terms analysis on supplied records; the content is never retrieved and the seller never contacted. Verdict access_ended, terms_unclear, access_limited or access_continues. POST /api/paid-access-check. Reads only the material in the call: no network request, fetch, money movement, message, sharing, configuration change or external write. Paid URL: 0.10 USDC per call on Base via x402 exact, with the shared 10 signed-wallet free calls per rolling 30 days. Bind X-Wever-Wallet-Proof to the exact JSON arguments and the tool route. Returns a report with an Ed25519 signed receipt. Contract: /api/agent-operations-contract. Human page: https://weverlabs.com/agent-operations/.",
       "annotations": {
         "readOnlyHint": true,
         "destructiveHint": false,
