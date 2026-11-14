@@ -2,8 +2,8 @@
   "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
   "name": "io.github.CodeWever/wever-labs-products",
   "title": "Wever Labs Agent Products",
-  "description": "458 main tools, 442 production tools for agents; Base USDC x402 and shared free tier.",
-  "version": "0.8.2-registry.22",
+  "description": "466 main tools, 450 production tools for agents; Base USDC x402 and shared free tier.",
+  "version": "0.8.2-registry.23",
   "websiteUrl": "https://weverlabs.com",
   "repository": {
     "url": "https://github.com/CodeWever/wever-labs-mcp-registry",
